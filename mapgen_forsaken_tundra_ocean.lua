@@ -67,7 +67,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:forsaken_tundra_ocean' }
+    biomes = asuna.features.ocean.forsaken_tundra
 })
 
 --
@@ -87,7 +87,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:forsaken_tundra_ocean' },
+    biomes = asuna.features.ocean.forsaken_tundra,
     y_max = y_max,
     y_min = y_min,
     place_offset_y = -1,

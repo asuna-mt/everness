@@ -247,10 +247,26 @@ end
 -- Grasses
 
 register_coral_grass_decoration(-0.03, 0.09, 5)
-register_coral_grass_decoration(-0.015, 0.075, 4)
-register_coral_grass_decoration(0, 0.06, 3)
-register_coral_grass_decoration(0.015, 0.045, 2)
-register_coral_grass_decoration(0.03, 0.03, 1)
+--register_coral_grass_decoration(-0.015, 0.075, 4)
+--register_coral_grass_decoration(0, 0.06, 3)
+--register_coral_grass_decoration(0.015, 0.045, 2)
+--register_coral_grass_decoration(0.03, 0.03, 1)
+
+minetest.register_decoration({
+    deco_type = 'simple',
+    place_on = { 'everness:dirt_with_coral_grass' },
+    sidelen = 16,
+    fill_ratio = 0.6,
+    biomes = { 'everness_coral_forest' },
+    y_max = y_max,
+    y_min = y_min,
+    decoration = {
+        'everness:coral_grass_1',
+        'everness:coral_grass_2',
+        'everness:coral_grass_3',
+        'everness:coral_grass_4',
+    },
+})
 
 --
 -- On Generated

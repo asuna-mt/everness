@@ -53,7 +53,7 @@ Everness:register_decoration({
     num_spawn_by = 8,
     sidelen = 16,
     fill_ratio = 0.003,
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_deep_ocean_coral_1.mts',
@@ -68,7 +68,7 @@ Everness:register_decoration({
     num_spawn_by = 8,
     sidelen = 16,
     fill_ratio = 0.003,
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_deep_ocean_coral_2.mts',
@@ -83,7 +83,7 @@ Everness:register_decoration({
     num_spawn_by = 8,
     sidelen = 16,
     fill_ratio = 0.003,
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_deep_ocean_coral_3.mts',
@@ -97,7 +97,7 @@ Everness:register_decoration({
     place_offset_y = -1,
     sidelen = 4,
     fill_ratio = 0.002,
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'force_placement',
@@ -120,7 +120,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'force_placement',
@@ -143,7 +143,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'force_placement',
@@ -166,7 +166,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:crystal_forest_deep_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'force_placement',
@@ -188,7 +188,10 @@ local c_everness_crystal_forest_deep_ocean_coral_1 = minetest.get_content_id('ev
 local c_everness_crystal_forest_deep_ocean_coral_2 = minetest.get_content_id('everness:crystal_forest_deep_ocean_coral_2')
 local c_everness_crystal_forest_deep_ocean_coral_3 = minetest.get_content_id('everness:crystal_forest_deep_ocean_coral_3')
 -- Biome IDs
-local biome_id_everness_crystal_forest_deep_ocean = minetest.get_biome_id('everness:crystal_forest_deep_ocean')
+local biome_id_everness_crystal_forest_deep_ocean = {}
+for _,biome in ipairs(asuna.features.ocean.crystal_forest) do
+    table.insert(biome_id_everness_crystal_forest_deep_ocean,minetest.get_biome_id(biome))
+end
 
 local chance = 30
 local schem = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_deep_ocean_ruins.mts'
@@ -199,7 +202,12 @@ local size_z = math.round(size.z / 2)
 Everness:add_to_queue_on_generated({
     name = 'everness:crystal_forest_deep_ocean',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_crystal_forest_deep_ocean) ~= -1
+        for _,biome in ipairs(biome_id_everness_crystal_forest_deep_ocean) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         shared_args.schem_positions = {}

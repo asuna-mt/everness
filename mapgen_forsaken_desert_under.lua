@@ -46,7 +46,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 10,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -62,7 +62,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 0.2,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = {
@@ -82,7 +82,7 @@ Everness:register_decoration({
     place_on = { 'everness:forsaken_desert_sand' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -104,7 +104,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = 'everness:cactus_blue',
@@ -124,7 +124,7 @@ Everness:register_decoration({
     },
     sidelen = 16,
     fill_ratio = 0.005,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max - 250 > y_min and y_max - 250 or y_max,
     y_min = y_min,
     decoration = {
@@ -146,7 +146,7 @@ Everness:register_decoration({
     },
     sidelen = 16,
     fill_ratio = 0.005,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max,
     y_min = y_min,
     decoration = { 'everness:illumi_root' },
@@ -159,7 +159,7 @@ Everness:register_decoration({
     place_on = { 'everness:moss_block' },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     param2 = 8,
     decoration = {
         'everness:dense_vine_1',
@@ -185,7 +185,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:forsaken_desert_under' },
+    biomes = asuna.features.cave.forsaken_desert,
     y_max = y_max,
     y_min = y_min,
     decoration = 'everness:hollow_tree',
@@ -210,12 +210,20 @@ local c_forsaken_desert_chiseled_stone = minetest.get_content_id('everness:forsa
 local c_forsaken_desert_brick = minetest.get_content_id('everness:forsaken_desert_brick')
 local c_forsaken_desert_engraved_stone = minetest.get_content_id('everness:forsaken_desert_engraved_stone')
 
-local biome_id_everness_forsaken_desert_under = minetest.get_biome_id('everness:forsaken_desert_under')
+local biome_id_everness_forsaken_desert_under = {}
+for _,biome in ipairs(asuna.features.cave.forsaken_desert) do
+    table.insert(biome_id_everness_forsaken_desert_under,minetest.get_biome_id(biome))
+end
 
 Everness:add_to_queue_on_generated({
     name = 'everness:forsaken_desert_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_forsaken_desert_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_forsaken_desert_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         local sidelength = maxp.x - minp.x + 1

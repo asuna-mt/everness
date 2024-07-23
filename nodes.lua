@@ -2450,33 +2450,37 @@ Everness:register_node('everness:dry_ocean_dirt', {
     sounds = Everness.node_sound_dirt_defaults(),
 })
 
-Everness:register_node('everness:gravel', {
-    description = 'Everness ' .. S('Gravel'),
-    tiles = { 'everness_gravel.png' },
-    groups = {
-        -- MTG
-        crumbly = 2,
+if minetest.get_modpath("default") then
+    minetest.register_alias("everness:gravel","default:gravel")
+else
+    Everness:register_node('everness:gravel', {
+        description = 'Everness ' .. S('Gravel'),
+        tiles = { 'everness_gravel.png' },
+        groups = {
+            -- MTG
+            crumbly = 2,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            enderman_takable = 1,
+            building_block = 1,
+            material_sand = 1,
+            -- All
+            falling_node = 1,
+        },
         -- MCL
-        handy = 1,
-        shovely = 1,
-        enderman_takable = 1,
-        building_block = 1,
-        material_sand = 1,
-        -- All
-        falling_node = 1,
-    },
-    -- MCL
-    _mcl_blast_resistance = 0.6,
-    _mcl_hardness = 0.6,
-    sounds = Everness.node_sound_gravel_defaults(),
-    drop = {
-        max_items = 1,
-        items = {
-            -- { items = { 'default:flint' }, rarity = 16 },
-            { items = { 'everness:gravel' } }
+        _mcl_blast_resistance = 0.6,
+        _mcl_hardness = 0.6,
+        sounds = Everness.node_sound_gravel_defaults(),
+        drop = {
+            max_items = 1,
+            items = {
+                -- { items = { 'default:flint' }, rarity = 16 },
+                { items = { 'everness:gravel' } }
+            }
         }
-    }
-})
+    })
+end
 
 Everness:register_node('everness:flame_permanent', {
     description = S('Permanent Fire'),
@@ -2636,187 +2640,196 @@ Everness:register_node('everness:marker', {
 
 -- Everness default blocks
 
-Everness:register_node('everness:dirt_1', {
-    description = S('Dirt'),
-    short_description = S('Dirt'),
-    tiles = { 'everness_dirt.png' },
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-})
+if minetest.get_modpath("default") then
+    minetest.register_alias("everness:dirt_1","default:dirt")
+    minetest.register_alias("everness:dry_dirt","default:dry_dirt")
+    minetest.register_alias("everness:dry_dirt_with_dry_grass","default:dry_dirt_with_dry_grass")
+    minetest.register_alias("everness:dirt_with_grass_1","default:dirt_with_rainforest_litter")
+    minetest.register_alias("everness:dirt_with_grass_extras_1","default:dirt_with_rainforest_litter")
+    minetest.register_alias("everness:dirt_with_grass_extras_2","default:dirt_with_rainforest_litter")
+else
+    Everness:register_node('everness:dirt_1', {
+        description = S('Dirt'),
+        short_description = S('Dirt'),
+        tiles = { 'everness_dirt.png' },
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+    })
 
-Everness:register_node('everness:dry_dirt', {
-    description = S('Dry Dirt'),
-    short_description = S('Dry Dirt'),
-    tiles = { 'everness_dry_dirt.png' },
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-})
+    Everness:register_node('everness:dry_dirt', {
+        description = S('Dry Dirt'),
+        short_description = S('Dry Dirt'),
+        tiles = { 'everness_dry_dirt.png' },
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+    })
 
-Everness:register_node('everness:dry_dirt_with_dry_grass', {
-    description = S('Dirt with Dry Grass'),
-    short_description = S('Dirt with Dry Grass'),
-    tiles = {
-        'everness_dry_grass_top.png',
-        'everness_dry_dirt.png',
-        { name = 'everness_dry_dirt.png^everness_dry_grass_side.png', tileable_vertical = false }
-    },
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 2,
-        grass_block = 1,
-        grass_block_no_snow = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- Everness
-        everness_spreading_dirt_type = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.6,
-    _mcl_hardness = 0.6,
-    drop = 'everness:dry_dirt',
-    sounds = Everness.node_sound_grass_defaults(),
-})
+    Everness:register_node('everness:dry_dirt_with_dry_grass', {
+        description = S('Dirt with Dry Grass'),
+        short_description = S('Dirt with Dry Grass'),
+        tiles = {
+            'everness_dry_grass_top.png',
+            'everness_dry_dirt.png',
+            { name = 'everness_dry_dirt.png^everness_dry_grass_side.png', tileable_vertical = false }
+        },
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 2,
+            grass_block = 1,
+            grass_block_no_snow = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- Everness
+            everness_spreading_dirt_type = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.6,
+        _mcl_hardness = 0.6,
+        drop = 'everness:dry_dirt',
+        sounds = Everness.node_sound_grass_defaults(),
+    })
 
-Everness:register_node('everness:dirt_with_grass_1', {
-    description = S('Dirt with Grass'),
-    short_description = S('Dirt with Grass'),
-    tiles = {
-        'everness_grass_top.png',
-        'everness_dirt.png',
-        { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
-    },
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 2,
-        grass_block = 1,
-        grass_block_no_snow = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- Everness
-        everness_spreading_dirt_type = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.6,
-    _mcl_hardness = 0.6,
-    drop = 'everness:dirt_1',
-    sounds = Everness.node_sound_grass_defaults(),
-})
+    Everness:register_node('everness:dirt_with_grass_1', {
+        description = S('Dirt with Grass'),
+        short_description = S('Dirt with Grass'),
+        tiles = {
+            'everness_grass_top.png',
+            'everness_dirt.png',
+            { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
+        },
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 2,
+            grass_block = 1,
+            grass_block_no_snow = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- Everness
+            everness_spreading_dirt_type = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.6,
+        _mcl_hardness = 0.6,
+        drop = 'everness:dirt_1',
+        sounds = Everness.node_sound_grass_defaults(),
+    })
 
-Everness:register_node('everness:dirt_with_grass_extras_1', {
-    description = S('Dirt with Grass'),
-    short_description = S('Dirt with Grass'),
-    tiles = {
-        { name = 'everness_grass_top.png^everness_grass_extras_1.png', tileable_vertical = false },
-        'everness_dirt.png',
-        { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
-    },
-    use_texture_alpha = 'clip',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 2,
-        grass_block = 1,
-        grass_block_no_snow = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- Everness
-        everness_spreading_dirt_type = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.6,
-    _mcl_hardness = 0.6,
-    drop = 'everness:dirt_1',
-    sounds = Everness.node_sound_grass_defaults(),
-})
+    Everness:register_node('everness:dirt_with_grass_extras_1', {
+        description = S('Dirt with Grass'),
+        short_description = S('Dirt with Grass'),
+        tiles = {
+            { name = 'everness_grass_top.png^everness_grass_extras_1.png', tileable_vertical = false },
+            'everness_dirt.png',
+            { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
+        },
+        use_texture_alpha = 'clip',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 2,
+            grass_block = 1,
+            grass_block_no_snow = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- Everness
+            everness_spreading_dirt_type = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.6,
+        _mcl_hardness = 0.6,
+        drop = 'everness:dirt_1',
+        sounds = Everness.node_sound_grass_defaults(),
+    })
 
-Everness:register_node('everness:dirt_with_grass_extras_2', {
-    description = S('Dirt with Grass'),
-    short_description = S('Dirt with Grass'),
-    tiles = {
-        { name = 'everness_grass_top.png^everness_grass_extras_2.png', tileable_vertical = false },
-        'everness_dirt.png',
-        { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
-    },
-    use_texture_alpha = 'clip',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 2,
-        grass_block = 1,
-        grass_block_no_snow = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-        -- Everness
-        everness_spreading_dirt_type = 1,
-        -- ALL
-        soil = 1,
-    },
-    _mcl_blast_resistance = 0.6,
-    _mcl_hardness = 0.6,
-    drop = 'everness:dirt_1',
-    sounds = Everness.node_sound_grass_defaults(),
-})
+    Everness:register_node('everness:dirt_with_grass_extras_2', {
+        description = S('Dirt with Grass'),
+        short_description = S('Dirt with Grass'),
+        tiles = {
+            { name = 'everness_grass_top.png^everness_grass_extras_2.png', tileable_vertical = false },
+            'everness_dirt.png',
+            { name = 'everness_dirt.png^everness_grass_side.png', tileable_vertical = false }
+        },
+        use_texture_alpha = 'clip',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 2,
+            grass_block = 1,
+            grass_block_no_snow = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+            -- Everness
+            everness_spreading_dirt_type = 1,
+            -- ALL
+            soil = 1,
+        },
+        _mcl_blast_resistance = 0.6,
+        _mcl_hardness = 0.6,
+        drop = 'everness:dirt_1',
+        sounds = Everness.node_sound_grass_defaults(),
+    })
+end
 
 Everness:register_node('everness:crystal_cave_dirt', {
     description = S('Crystal Cave Dirt'),
@@ -5292,6 +5305,7 @@ Everness:register_node('everness:crystal_leaves', {
         }
     },
     sounds = Everness.node_sound_leaves_defaults(),
+    light_source = 2,
     after_place_node = function(pos, placer, itemstack, pointed_thing)
         return Everness:after_place_leaves(pos, placer, itemstack, pointed_thing)
     end
@@ -5659,6 +5673,7 @@ Everness:register_node('everness:crystal_tree_sapling', {
     _mcl_blast_resistance = 0,
     _mcl_hardness = 0,
     sounds = Everness.node_sound_leaves_defaults(),
+    light_source = 2,
     on_timer = function(pos, elapsed)
         Everness.grow_sapling(pos)
     end,
@@ -5803,6 +5818,7 @@ Everness:register_node('everness:crystal_bush_leaves', {
         }
     },
     sounds = Everness.node_sound_leaves_defaults(),
+    light_source = 2,
     after_place_node = function(pos, placer, itemstack, pointed_thing)
         return Everness:after_place_leaves(pos, placer, itemstack, pointed_thing)
     end
@@ -5846,6 +5862,7 @@ Everness:register_node('everness:crystal_bush_sapling', {
     _mcl_blast_resistance = 0,
     _mcl_hardness = 0,
     sounds = Everness.node_sound_leaves_defaults(),
+    light_source = 2,
 
     on_construct = function(pos)
         minetest.get_node_timer(pos):start(math.random(300, 1500))
@@ -7589,6 +7606,51 @@ Everness:register_node('everness:twisted_crystal_grass', {
     waving = 1
 })
 
+Everness:register_node('everness:sparkling_crystal_grass', {
+    description = S('Sparkling Crystal Grass'),
+    drawtype = 'plantlike',
+    tiles = { 'everness_sparkling_crystal_grass.png' },
+    use_texture_alpha = 'blend',
+    inventory_image = 'everness_sparkling_crystal_grass.png',
+    wield_image = 'everness_sparkling_crystal_grass.png',
+    paramtype = 'light',
+    sunlight_propagates = true,
+    walkable = false,
+    buildable_to = true,
+    groups = {
+        -- MTG
+        snappy = 3,
+        flora = 1,
+        normal_grass = 1,
+        -- Everness
+        crystal_grass = 1,
+        -- X Farming
+        compost = 30,
+        -- MCL
+        handy = 1,
+        shearsy = 1,
+        deco_block = 1,
+        plant = 1,
+        non_mycelium_plant = 1,
+        fire_encouragement = 60,
+        fire_flammability = 100,
+        dig_by_water = 1,
+        destroy_by_lava_flow = 1,
+        compostability = 30,
+        -- ALL
+        attached_node = 1,
+        flammable = 1,
+    },
+    _mcl_blast_resistance = 0,
+    _mcl_hardness = 0,
+    sounds = Everness.node_sound_thin_glass_defaults(),
+    selection_box = {
+        type = 'fixed',
+        fixed = { -6 / 16, -0.5, -6 / 16, 6 / 16, -5 / 16, 6 / 16 },
+    },
+    light_source = 1,
+})
+
 Everness:register_node('everness:crystal_grass_1', {
     description = S('Crystal Grass'),
     drawtype = 'plantlike',
@@ -7631,7 +7693,7 @@ Everness:register_node('everness:crystal_grass_1', {
         type = 'fixed',
         fixed = { -6 / 16, -0.5, -6 / 16, 6 / 16, -5 / 16, 6 / 16 },
     },
-    light_source = 1,
+    light_source = 2,
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random grass node
         local stack = ItemStack('everness:crystal_grass_' .. math.random(1, 3))
@@ -7643,7 +7705,7 @@ Everness:register_node('everness:crystal_grass_1', {
 
 for i = 2, 3 do
     Everness:register_node('everness:crystal_grass_' .. i, {
-        description = S('Coral Grass'),
+        description = S('Crystal Grass'),
         drawtype = 'plantlike',
         tiles = { 'everness_crystal_grass_' .. i .. '.png' },
         inventory_image = 'everness_crystal_grass_' .. i .. '.png',
@@ -7681,7 +7743,7 @@ for i = 2, 3 do
         _mcl_blast_resistance = 0,
         _mcl_hardness = 0,
         sounds = Everness.node_sound_thin_glass_defaults(),
-        light_source = i,
+        light_source = i + 1,
         selection_box = {
             type = 'fixed',
             fixed = { -6 / 16, -0.5, -6 / 16, 6 / 16, -3 / 16, 6 / 16 },

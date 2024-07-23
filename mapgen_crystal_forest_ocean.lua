@@ -68,7 +68,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:crystal_forest_ocean' }
+    biomes = asuna.features.ocean.crystal_forest
 })
 
 -- Crystal sand
@@ -90,7 +90,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:crystal_forest_ocean' }
+    biomes = asuna.features.ocean.crystal_forest
 })
 
 -- Dirt
@@ -112,7 +112,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:crystal_forest_ocean' }
+    biomes = asuna.features.ocean.crystal_forest
 })
 
 --
@@ -135,7 +135,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:crystal_forest_ocean' },
+    biomes = asuna.features.ocean.crystal_forest,
     y_max = y_max,
     y_min = y_max - 10 > y_min and y_max - 10 or y_min,
     flags = 'force_placement',

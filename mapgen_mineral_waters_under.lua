@@ -61,7 +61,7 @@ minetest.register_on_mods_loaded(function()
             and not biomes
         then
             def.wherein = { 'everness:mineral_cave_stone' }
-            def.biomes = { 'everness:mineral_waters_under' }
+            def.biomes = asuna.features.cave.mineral_waters
             def.y_max = y_max
             def.y_min = y_min
 
@@ -90,7 +90,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:mineral_waters_under' }
+    biomes = asuna.features.cave.mineral_waters
 })
 
 --
@@ -100,11 +100,11 @@ Everness:register_ore({
 Everness:register_decoration({
     name = 'everness:mineral_waters_under_floors',
     deco_type = 'simple',
-    place_on = { 'everness:mineral_cave_stone' },
+    place_on = { 'everness:mineral_cave_stone', "default:stone" },
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 10,
-    biomes = { 'everness:mineral_waters_under' },
+    biomes = asuna.features.cave.mineral_waters,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -133,7 +133,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:mineral_waters_under' },
+    biomes = asuna.features.cave.mineral_waters,
     spawn_by = 'air',
     check_offset = 0,
     num_spawn_by = 1,
@@ -161,7 +161,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:mineral_waters_under' },
+    biomes = asuna.features.cave.mineral_waters,
     decoration = {
         'everness:marker'
     },
@@ -180,11 +180,11 @@ Everness:register_decoration({
     },
     sidelen = 16,
     fill_ratio = 0.025,
-    biomes = { 'everness:mineral_waters_under' },
+    biomes = asuna.features.cave.mineral_waters,
     decoration = {
         'everness:marker'
     },
-    y_max = y_max,
+    y_max = y_max - 64,
     y_min = y_min,
     flags = 'all_floors',
 })
@@ -209,7 +209,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:mineral_waters_under' },
+    biomes = asuna.features.cave.mineral_waters,
     decoration = {
         'everness:marker'
     },
@@ -255,7 +255,10 @@ local c_everness_mineral_lava_stone_spike_6 = minetest.get_content_id('everness:
 local c_everness_mineral_lava_stone_spike_7 = minetest.get_content_id('everness:mineral_lava_stone_spike_7')
 local c_everness_mineral_lava_stone_with_moss = minetest.get_content_id('everness:mineral_lava_stone_with_moss')
 -- Biome IDs
-local biome_id_everness_mineral_waters_under = minetest.get_biome_id('everness:mineral_waters_under')
+local biome_id_everness_mineral_waters_under = {}
+for _,biome in ipairs(asuna.features.cave.mineral_waters) do
+    table.insert(biome_id_everness_mineral_waters_under,minetest.get_biome_id(biome))
+end
 -- Decoration IDs
 local d_everness_mineral_waters_under_volcanic_spike = minetest.get_decoration_id('everness:mineral_waters_under_volcanic_spike')
 local d_everness_mineral_waters_under_volcanic_spike_ceiling = minetest.get_decoration_id('everness:mineral_waters_under_volcanic_spike_ceiling')
@@ -330,7 +333,12 @@ minetest.set_gen_notify({ decoration = true }, {
 Everness:add_to_queue_on_generated({
     name = 'everness:mineral_waters_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_mineral_waters_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_mineral_waters_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     -- read/write to `data` what will be eventually saved (set_data)
     -- used for voxelmanip `data` manipulation

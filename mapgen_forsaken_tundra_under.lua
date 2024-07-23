@@ -59,7 +59,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:forsaken_tundra_under' }
+    biomes = asuna.features.cave.forsaken_tundra
 })
 
 --
@@ -73,7 +73,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 10,
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -88,7 +88,7 @@ Everness:register_decoration({
     place_on = { 'default:stone' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -104,7 +104,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 0.02,
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = {
@@ -122,7 +122,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 0.02,
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = {
@@ -146,7 +146,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = 'everness:cactus_orange',
@@ -173,7 +173,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max - 1500 > y_min and y_max - 1500 or y_max,
     y_min = y_min,
     flags = 'all_floors',
@@ -195,7 +195,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max,
     y_min = y_min,
     decoration = 'everness:bloodspore_plant_small',
@@ -209,7 +209,7 @@ Everness:register_decoration({
     place_on = { 'everness:moss_block' },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     param2 = 8,
     decoration = {
         'everness:whispering_gourd_vine_1',
@@ -237,7 +237,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:forsaken_tundra_under' },
+    biomes = asuna.features.cave.forsaken_tundra,
     y_max = y_max - 1000 > y_min and y_max - 1000 or y_max,
     y_min = y_min,
     decoration = { 'everness:glowing_pillar' },
@@ -259,7 +259,7 @@ local function register_agave_leaf_decoration(offset, scale, length)
             persist = 0.6
         },
         param2 = 8,
-        biomes = { 'everness:forsaken_tundra_under' },
+        biomes = asuna.features.cave.forsaken_tundra,
         y_max = y_max,
         y_min = y_min,
         decoration = 'everness:agave_leaf_' .. length,
@@ -277,7 +277,10 @@ register_agave_leaf_decoration(0, 0.06, 1)
 -- On Generated
 --
 
-local biome_id_everness_forsaken_tundra_under = minetest.get_biome_id('everness:forsaken_tundra_under')
+local biome_id_everness_forsaken_tundra_under = {}
+for _,biome in ipairs(asuna.features.cave.forsaken_tundra) do
+    table.insert(biome_id_everness_forsaken_tundra_under,minetest.get_biome_id(biome))
+end
 
 local deco_id_everness_forsaken_tundra_under_willow_tree = minetest.get_decoration_id('everness:forsaken_tundra_under_willow_tree')
 
@@ -290,12 +293,17 @@ local y_dis = 1
 local willow_tree_place_on = minetest.registered_decorations['everness:forsaken_tundra_under_willow_tree'].place_on
 willow_tree_place_on = type(willow_tree_place_on) == 'string' and { willow_tree_place_on } or willow_tree_place_on
 
-minetest.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
+-- minetest.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:forsaken_tundra_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_forsaken_tundra_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_forsaken_tundra_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         --

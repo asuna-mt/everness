@@ -61,7 +61,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:coral_forest_under' }
+    biomes = asuna.features.cave.coral_forest
 })
 
 --
@@ -77,7 +77,7 @@ Everness:register_decoration({
     place_offset_y = -1,
     sidelen = 16,
     fill_ratio = 10,
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -92,7 +92,7 @@ Everness:register_decoration({
     place_on = { 'default:stone' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -114,8 +114,8 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:coral_forest_under' },
-    y_max = y_max - 1500 > y_min and y_max - 1500 or y_max,
+    biomes = asuna.features.cave.coral_forest,
+    y_max = y_max - 1000,
     y_min = y_min,
     flags = 'all_floors',
     decoration = {
@@ -137,7 +137,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     y_max = y_max,
     y_min = y_min,
     decoration = 'everness:coral_plant_bioluminescent',
@@ -157,7 +157,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     y_max = y_max - 1000 > y_min and y_max - 1000 or y_max,
     y_min = y_min,
     decoration = 'everness:lumecorn',
@@ -170,7 +170,7 @@ Everness:register_decoration({
     place_on = { 'everness:moss_block' },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     param2 = 8,
     decoration = {
         'everness:lumabus_vine_1',
@@ -198,7 +198,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:coral_forest_under' },
+    biomes = asuna.features.cave.coral_forest,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = {
@@ -213,7 +213,10 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_coral_forest_under = minetest.get_biome_id('everness:coral_forest_under')
+local biome_id_everness_coral_forest_under = {}
+for _,biome in ipairs(asuna.features.cave.coral_forest) do
+    table.insert(biome_id_everness_coral_forest_under,minetest.get_biome_id(biome))
+end
 
 local deco_id_coral_forest_under_coral_tree_bioluminescent = minetest.get_decoration_id('everness:coral_forest_under_coral_tree_bioluminescent')
 
@@ -231,7 +234,12 @@ minetest.set_gen_notify({ decoration = true }, { deco_id_coral_forest_under_cora
 Everness:add_to_queue_on_generated({
     name = 'everness:coral_forest_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_coral_forest_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_coral_forest_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         --

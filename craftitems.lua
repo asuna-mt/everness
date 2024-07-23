@@ -15,16 +15,21 @@
 --]]
 
 local S = minetest.get_translator(minetest.get_current_modname())
+local tms = minetest.get_modpath("too_many_stones")
 
 --
 -- Craftitem registry
 --
 
 --  Quartz Crystal
-Everness:register_craftitem('everness:quartz_crystal', {
-    description = S('Quartz Crystal'),
-    inventory_image = 'everness_quartz.png',
-})
+if tms then
+    minetest.register_alias("everness:quartz_crystal","too_many_stones:quartz")
+else
+    Everness:register_craftitem('everness:quartz_crystal', {
+        description = S('Quartz Crystal'),
+        inventory_image = 'everness_quartz.png',
+    })
+end
 
 Everness:register_craftitem('everness:bamboo_item', {
     description = S('Bamboo'),
@@ -42,10 +47,14 @@ Everness:register_craftitem('everness:pyrite_ingot', {
     inventory_image = 'everness_pyrite_ingot.png'
 })
 
-Everness:register_craftitem('everness:pyrite_lump', {
-    description = S('Pyrite Lump'),
-    inventory_image = 'everness_pyrite_lump.png'
-})
+if tms then
+    minetest.register_alias("everness:pyrite_lump","too_many_stones:pyrite")
+else
+    Everness:register_craftitem('everness:pyrite_lump', {
+        description = S('Pyrite Lump'),
+        inventory_image = 'everness_pyrite_lump.png'
+    })
+end
 
 Everness:register_craftitem('everness:coconut_fruit', {
     description = S('Coconut') .. '\n'.. minetest.colorize(Everness.colors.brown, S('Hunger') .. ': 4'),

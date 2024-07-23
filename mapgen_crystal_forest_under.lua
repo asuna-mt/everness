@@ -46,7 +46,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 10,
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -62,7 +62,7 @@ Everness:register_decoration({
     place_on = { 'default:stone' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -77,7 +77,7 @@ Everness:register_decoration({
     place_on = { 'everness:crystal_moss_block' },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     param2 = 8,
     decoration = {
         'everness:twisted_vine_1',
@@ -108,7 +108,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max - 1000 > y_min and y_max - 1000 or y_max,
     y_min = y_min,
     flags = 'all_floors',
@@ -133,7 +133,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max - 1500 > y_min and y_max - 1500 or y_max,
     y_min = y_min,
     flags = 'all_floors',
@@ -158,7 +158,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -186,7 +186,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7
     },
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = 'everness:twisted_crystal_grass',
@@ -207,7 +207,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:crystal_forest_under' },
+    biomes = asuna.features.cave.crystal_forest,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -222,7 +222,10 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_crystal_forest_under = minetest.get_biome_id('everness:crystal_forest_under')
+local biome_id_everness_crystal_forest_under = {}
+for _,biome in ipairs(asuna.features.cave.crystal_forest) do
+    table.insert(biome_id_everness_crystal_forest_under,minetest.get_biome_id(biome))
+end
 
 local deco_id_crystal_forest_under_crystal_cluster = minetest.get_decoration_id('everness:crystal_forest_under_crystal_cluster')
 local deco_id_crystal_forest_under_crystal_sphere_cluster = minetest.get_decoration_id('everness:crystal_forest_under_crystal_sphere_cluster')
@@ -253,7 +256,12 @@ minetest.set_gen_notify({ decoration = true }, {
 Everness:add_to_queue_on_generated({
     name = 'everness:crystal_forest_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_crystal_forest_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_crystal_forest_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         --

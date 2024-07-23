@@ -73,6 +73,7 @@ Everness:register_ore({
 --
 
 local all_biomes_mese_tree_place_on = {
+    'group:soil',
     'everness:coral_desert_stone_with_moss',
     'everness:coral_sand',
     'everness:crystal_moss_block',
@@ -119,40 +120,29 @@ if minetest.get_modpath('default') then
     })
 end
 
-Everness:register_decoration({
-    name = 'everness:all_biomes_mese_tree',
-    deco_type = 'schematic',
-    place_on = all_biomes_mese_tree_place_on,
-    sidelen = 16,
-    noise_params = {
-        offset = 0,
-        scale = 0.002,
-        spread = { x = 250, y = 250, z = 250 },
-        seed = 2,
-        octaves = 3,
-        persist = 0.66
-    },
-    y_max = 250,
-    y_min = 80,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
-    flags = 'place_center_x, place_center_z',
-    rotation = 'random',
-})
+if minetest.get_modpath('asuna_core') then
+    for name,def in pairs(asuna.biomes) do
+        if def.nodes[1] ~= 'default:stone' then
+            table.insert(all_biomes_mese_tree_place_on,def.nodes[1])
+        end
+    end
+end
 
-Everness:register_decoration({
+minetest.register_decoration({
     name = 'everness:all_biomes_mese_tree_2',
     deco_type = 'schematic',
     place_on = all_biomes_mese_tree_place_on,
-    sidelen = 16,
+    sidelen = 8,
     noise_params = {
-        offset = -0.004,
-        scale = 0.01,
-        spread = { x = 100, y = 100, z = 100 },
+        offset = -0.00675,
+        scale = 0.0087125,
+        spread = { x = 5, y = 5, z = 5 },
         seed = 137,
-        octaves = 3,
-        persist = 0.7,
+        octaves = 2,
+        persist = 0.675,
+        lacunarity = 1.36,
     },
-    y_max = 250,
+    y_max = 31000,
     y_min = 80,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
     flags = 'place_center_x, place_center_z',

@@ -174,6 +174,27 @@ Everness:register_ore({
 --
 
 Everness:register_decoration({
+    name = 'everness:cursed_lands_cursed_mud',
+    deco_type = 'simple',
+    place_on = { 'everness:dirt_with_cursed_grass', 'everness:cursed_dirt', 'everness:cursed_sand' },
+    place_offset_y = -1,
+    sidelen = 4,
+    noise_params = {
+        offset = -4,
+        scale = 4,
+        spread = { x = 50, y = 50, z = 50 },
+        seed = 7013,
+        octaves = 3,
+        persist = 0.7,
+    },
+    biomes = { 'everness:cursed_lands' },
+    y_max = y_max,
+    y_min = y_min,
+    flags = 'force_placement',
+    decoration = { 'everness:cursed_mud' },
+})
+
+Everness:register_decoration({
     name = 'everness:cursed_lands_cemetery',
     deco_type = 'schematic',
     place_on = { 'everness:dirt_with_cursed_grass' },
@@ -244,27 +265,6 @@ register_red_castor_decoration(0, 0.06, 2)
 register_red_castor_decoration(0.015, 0.045, 1)
 
 Everness:register_decoration({
-    name = 'everness:cursed_lands_cursed_mud',
-    deco_type = 'simple',
-    place_on = { 'everness:dirt_with_cursed_grass', 'everness:cursed_dirt', 'everness:cursed_sand' },
-    place_offset_y = -1,
-    sidelen = 4,
-    noise_params = {
-        offset = -4,
-        scale = 4,
-        spread = { x = 50, y = 50, z = 50 },
-        seed = 7013,
-        octaves = 3,
-        persist = 0.7,
-    },
-    biomes = { 'everness:cursed_lands' },
-    y_max = y_max,
-    y_min = y_min,
-    flags = 'force_placement',
-    decoration = { 'everness:cursed_mud' },
-})
-
-Everness:register_decoration({
     name = 'everness:cursed_lands_dry_tree',
     deco_type = 'schematic',
     place_on = {
@@ -312,6 +312,73 @@ Everness:register_decoration({
     flags = 'place_center_x, place_center_z',
 })
 
+Everness:register_decoration({
+    name = 'everness:cursed_lands_ferns',
+    deco_type = "simple",
+    place_on = {
+        "everness:dirt_with_cursed_grass",
+    },
+    sidelen = 16,
+    fill_ratio = 0.2,
+    biomes = {"everness_cursed_lands"},
+    y_max = 31000,
+    y_min = 1,
+    decoration = {
+        "default:grass_1",
+        "default:fern_1",
+    },
+})
+
+Everness:register_decoration({
+    name = 'everness:cursed_lands_junglegrass',
+    deco_type = "simple",
+    place_on = {
+        "everness:dirt_with_cursed_grass",
+    },
+    sidelen = 16,
+    fill_ratio = 0.0075,
+    biomes = {"everness_cursed_lands"},
+    y_max = 31000,
+    y_min = 1,
+    decoration = {
+        "default:junglegrass",
+    },
+})
+
+Everness:register_decoration({
+    name = 'everness:cursed_lands_dry_shrub',
+    deco_type = "simple",
+    place_on = {
+        "everness:dirt_with_cursed_grass",
+    },
+    sidelen = 16,
+    fill_ratio = 0.0225,
+    biomes = {"everness_cursed_lands"},
+    y_max = 31000,
+    y_min = 1,
+    decoration = {
+        "default:dry_shrub",
+    },
+})
+
+Everness:register_decoration({
+    name = 'everness:cursed_lands_dry_tree_stumps',
+    deco_type = "simple",
+    place_on = {
+        "everness:dirt_with_cursed_grass",
+    },
+    sidelen = 16,
+    fill_ratio = 0.000175,
+    biomes = {"everness_cursed_lands"},
+    y_max = 31000,
+    y_min = 1,
+    decoration = {
+        "everness:dry_tree",
+    },
+    height = 2,
+    height_max = 4,
+})
+
 --
 -- On Generated
 --
@@ -355,17 +422,18 @@ Everness:add_to_queue_on_generated({
                 -- add Y displacement
                 local schem_pos = vector.new(s_pos.x, s_pos.y - y_dis, s_pos.z)
 
-                -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                -- ensure there are no trees in the area
+                local tree_positions = minetest.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
-                        'everness:dirt_with_cursed_grass'
+                        'group:tree',
+                        'group:leaves',
                     }
                 )
 
-                if #positions < size.x * size.z then
-                    -- not enough space
+                if #tree_positions > 0 then
+                    -- trees in the way
                     return
                 end
 

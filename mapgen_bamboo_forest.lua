@@ -104,14 +104,7 @@ if jungle_tree_schem then
         deco_type = 'schematic',
         place_on = { 'everness:dirt_with_grass_1' },
         sidelen = 16,
-        noise_params = {
-            offset = 0.0015,
-            scale = 0.0021,
-            spread = { x = 250, y = 250, z = 250 },
-            seed = 2,
-            octaves = 3,
-            persist = 0.66
-        },
+        fill_ratio = 0.0125,
         biomes = { 'everness:bamboo_forest' },
         y_max = y_max,
         y_min = y_min,
@@ -150,6 +143,21 @@ end
 -- Bush
 
 if minetest.get_modpath('default') then
+    Everness:register_decoration({
+        name = 'everness:bamboo_forest_grass',
+        deco_type = 'simple',
+        place_on = { 'everness:dirt_with_grass_1' },
+        sidelen = 80,
+        fill_ratio = 0.4,
+        biomes = { 'everness:bamboo_forest' },
+        y_max = y_max,
+        y_min = y_min,
+        decoration = {
+            'default:grass_4',
+            'default:grass_5',
+        },
+    })
+
     Everness:register_decoration({
         name = 'everness:bamboo_forest_bush',
         deco_type = 'schematic',

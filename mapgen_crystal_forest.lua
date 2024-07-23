@@ -224,9 +224,51 @@ register_crystal_grass_decoration(-0.03, 0.09, 3)
 register_crystal_grass_decoration(-0.015, 0.075, 2)
 register_crystal_grass_decoration(0, 0.06, 1)
 
+minetest.register_decoration({
+    name = 'everness:crystal_forest_sparkling_crystal_grass',
+    deco_type = 'simple',
+    place_on = { 'everness:dirt_with_crystal_grass' },
+    biomes = { 'everness_crystal_forest' },
+    sidelen = 16,
+    fill_ratio = 0.4,
+    y_min = 2,
+    y_max = 31000,
+    decoration = 'everness:sparkling_crystal_grass',
+})
+
 --
 -- On Generated
 --
+
+local dids = {}
+for decoration,size in pairs({
+    ['everness:crystal_forest_crystal_tree'] = { x = 12, y = 13, z = 12 },
+    ['everness:crystal_forest_crystal_tree_large'] = { x = 20, y = 14, z = 20 },
+}) do
+    local did = minetest.get_decoration_id(decoration)
+    minetest.set_gen_notify('decoration',{ did })
+    dids['decoration#' .. did] = { x = size.x / 2, y = size.y, z = size.z / 2 }
+end
+
+minetest.register_on_generated(function(minp, maxp, blockseed)
+    if maxp.y > 8 then
+        --
+        -- Crystal trees - fix light
+        --
+        local gennotify = minetest.get_mapgen_object('gennotify')
+        for did,size in pairs(dids) do
+            for _, pos in ipairs(gennotify[did] or {}) do
+                minetest.fix_light(
+                    { x = pos.x - size.x, y = pos.y, z = pos.z - size.z },
+                    { x = pos.x + size.x, y = pos.y + size.y, z = pos.z + size.z },
+                    true
+                )
+            end
+        end
+    end
+end)
+
+---
 
 local chance = 20
 local disp = 16

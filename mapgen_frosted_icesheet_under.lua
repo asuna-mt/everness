@@ -59,7 +59,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:frosted_icesheet_under' }
+    biomes = asuna.features.cave.frosted_icesheet
 })
 
 --
@@ -73,7 +73,7 @@ Everness:register_decoration({
     place_offset_y = -1,
     sidelen = 16,
     fill_ratio = 10,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -92,7 +92,7 @@ Everness:register_decoration({
     place_on = { 'default:stone' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -118,7 +118,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 0.01,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     decoration = { 'everness:frosted_cave_ice_illuminating' },
@@ -138,7 +138,7 @@ Everness:register_decoration({
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 0.01,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     decoration = { 'everness:frosted_cave_ice_illuminating' },
@@ -164,7 +164,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = { 'everness:amaranita_lantern' },
@@ -183,7 +183,7 @@ Everness:register_decoration({
     },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     param2 = 8,
     decoration = {
         'everness:tenanea_flowers_vine_1',
@@ -217,8 +217,8 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:frosted_icesheet_under' },
-    y_max = y_max,
+    biomes = asuna.features.cave.frosted_icesheet,
+    y_max = y_max - 64,
     y_min = y_min,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_ceiling.mts',
     flags = 'place_center_x, place_center_z, all_ceilings',
@@ -244,8 +244,8 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:frosted_icesheet_under' },
-    y_max = y_max,
+    biomes = asuna.features.cave.frosted_icesheet,
+    y_max = y_max - 64,
     y_min = y_min,
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_floor.mts',
     flags = 'place_center_x, place_center_z, all_floors',
@@ -272,7 +272,7 @@ Everness:register_decoration({
         persist = 0.6
     },
     param2 = 8,
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -301,7 +301,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:frosted_icesheet_under' },
+    biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max,
     y_min = y_min,
     decoration = { 'everness:creeping_moss_spores' },
@@ -323,7 +323,10 @@ local size_floor_z = math.round(size_floor.z / 2)
 local deco_id_frosted_icicle_large_ceiling = minetest.get_decoration_id('everness:frosted_icicle_large_ceiling')
 local deco_id_frosted_icicle_large_floor = minetest.get_decoration_id('everness:frosted_icicle_large_floor')
 
-local biome_id_everness_frosted_icesheet_under = minetest.get_biome_id('everness:frosted_icesheet_under')
+local biome_id_everness_frosted_icesheet_under = {}
+for _,biome in ipairs(asuna.features.cave.frosted_icesheet) do
+    table.insert(biome_id_everness_frosted_icesheet_under,minetest.get_biome_id(biome))
+end
 
 minetest.set_gen_notify(
     { decoration = true },
@@ -336,7 +339,12 @@ minetest.set_gen_notify(
 Everness:add_to_queue_on_generated({
     name = 'everness:frosted_icesheet_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_frosted_icesheet_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_frosted_icesheet_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_write_to_map = function(shared_args, gennotify)
         --

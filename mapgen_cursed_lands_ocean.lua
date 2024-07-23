@@ -68,7 +68,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:cursed_lands_ocean' }
+    biomes = asuna.features.ocean.cursed_lands
 })
 
 -- Sand
@@ -90,7 +90,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:cursed_lands_ocean' }
+    biomes = asuna.features.ocean.cursed_lands
 })
 
 -- Dirt
@@ -112,7 +112,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:cursed_lands_ocean' }
+    biomes = asuna.features.ocean.cursed_lands
 })
 
 -- Mud
@@ -134,7 +134,7 @@ Everness:register_ore({
         octaves = 1,
         persist = 0.0
     },
-    biomes = { 'everness:cursed_lands_ocean' }
+    biomes = asuna.features.ocean.cursed_lands
 })
 
 -- Scatter ores
@@ -150,7 +150,7 @@ Everness:register_ore({
     clust_size = 3,
     y_max = y_max,
     y_min = y_min,
-    biomes = { 'everness:cursed_lands_ocean' }
+    biomes = asuna.features.ocean.cursed_lands
 })
 
 --
@@ -176,7 +176,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:cursed_lands_ocean' },
+    biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max,
     y_min = y_max - (y_max + 1),
     schematic = minetest.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
@@ -200,7 +200,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7
     },
-    biomes = { 'everness:cursed_lands_ocean' },
+    biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max - (y_max + 5),
     y_min = y_max - (y_max + 10),
     flags = 'force_placement',

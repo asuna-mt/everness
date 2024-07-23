@@ -46,7 +46,7 @@ Everness:register_decoration({
     place_offset_y = -1,
     sidelen = 16,
     fill_ratio = 10,
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_floors, force_placement',
@@ -61,7 +61,7 @@ Everness:register_decoration({
     place_on = { 'default:stone' },
     sidelen = 16,
     fill_ratio = 0.4,
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max,
     y_min = y_min,
     flags = 'all_ceilings',
@@ -83,7 +83,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max - 1000 > y_min and y_max - 1000 or y_max,
     y_min = y_min,
     decoration = 'everness:skull_with_candle',
@@ -97,7 +97,7 @@ Everness:register_decoration({
     place_on = { 'everness:moss_block' },
     sidelen = 16,
     fill_ratio = 0.09,
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     param2 = 8,
     decoration = {
         'everness:eye_vine_1',
@@ -125,7 +125,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.66
     },
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max - 500 > y_min and y_max - 500 or y_max,
     y_min = y_min,
     decoration = { 'everness:cursed_pumpkin_lantern' },
@@ -147,7 +147,7 @@ Everness:register_decoration({
         persist = 0.66
     },
     biomes = { 'everness:cursed_lands_under' },
-    y_max = y_max - 1500 > y_min and y_max - 1500 or y_max,
+    y_max = y_max - 1000,
     y_min = y_min,
     flags = 'all_floors',
     decoration = {
@@ -168,7 +168,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -192,7 +192,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.6
     },
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max,
     y_min = y_min,
     decoration = {
@@ -208,7 +208,7 @@ Everness:register_decoration({
     place_on = { 'everness:soul_sandstone_veined' },
     sidelen = 16,
     fill_ratio = 0.02,
-    biomes = { 'everness:cursed_lands_under' },
+    biomes = asuna.features.cave.cursed_lands,
     y_max = y_max,
     y_min = y_min,
     decoration = { 'everness:cobweb' },
@@ -219,7 +219,10 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_cursed_lands_under = minetest.get_biome_id('everness:cursed_lands_under')
+local biome_id_everness_cursed_lands_under = {}
+for _,biome in ipairs(asuna.features.cave.cursed_lands) do
+    table.insert(biome_id_everness_cursed_lands_under,minetest.get_biome_id(biome))
+end
 
 local deco_id_cursed_lands_under_cursed_dream_tree = minetest.get_decoration_id('everness:cursed_lands_under_cursed_dream_tree')
 
@@ -237,7 +240,12 @@ minetest.set_gen_notify({ decoration = true }, { deco_id_cursed_lands_under_curs
 Everness:add_to_queue_on_generated({
     name = 'everness:cursed_lands_under',
     can_run = function(biomemap)
-        return table.indexof(biomemap, biome_id_everness_cursed_lands_under) ~= -1
+        for _,biome in ipairs(biome_id_everness_cursed_lands_under) do
+            if table.indexof(biomemap, biome) ~= -1 then
+                return true
+            end
+        end
+        return false
     end,
     after_set_data = function(minp, maxp, vm, area, data, p2data, gennotify, rand, shared_args)
         --
