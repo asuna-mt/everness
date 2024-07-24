@@ -47,6 +47,16 @@ Everness:register_biome({
 
 -- Frosted Icesheet Ocean
 
+local starfish_oceans = {}
+for _,oceans in ipairs({
+    asuna.features.ocean.tropical,
+    asuna.features.ocean.frozen,
+}) do
+    for _,ocean in ipairs(oceans) do
+        table.insert(starfish_oceans,ocean)
+    end
+end
+
 Everness:register_decoration({
     name = 'everness:frosted_icesheet_ocean_corals',
     deco_type = 'simple',
@@ -61,7 +71,7 @@ Everness:register_decoration({
         octaves = 3,
         persist = 0.7,
     },
-    biomes = asuna.features.ocean.frosted_icesheet,
+    biomes = starfish_oceans,
     y_max = y_max - (y_max + 2), -- -2
     y_min = y_max - (y_max + 50), -- -50
     flags = 'force_placement',
