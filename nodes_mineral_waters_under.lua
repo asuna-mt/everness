@@ -188,7 +188,7 @@ Everness:register_node('everness:mineral_lava_stone_with_moss', {
     _mcl_hardness = 1.5,
     _mcl_silk_touch_drop = true,
     light_source = 3,
-    sounds = Everness.node_sound_stone_defaults(),
+    sounds = Everness.node_sound_grass_defaults(),
 })
 
 for i = 1, 7 do
