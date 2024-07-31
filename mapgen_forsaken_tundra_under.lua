@@ -293,7 +293,7 @@ local y_dis = 1
 local willow_tree_place_on = minetest.registered_decorations['everness:forsaken_tundra_under_willow_tree'].place_on
 willow_tree_place_on = type(willow_tree_place_on) == 'string' and { willow_tree_place_on } or willow_tree_place_on
 
--- minetest.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
+minetest.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:forsaken_tundra_under',
