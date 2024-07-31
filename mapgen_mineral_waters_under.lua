@@ -60,12 +60,11 @@ minetest.register_on_mods_loaded(function()
             table.indexof(wherein, mapgen_stone_itemstring) > -1
             and not biomes
             and def.clust_scarcity ~= 1 -- ignore ores that replace everything
+            and (def.y_min <= y_max or def.y_max >= y_min)
         then
             def = table.copy(def)
             def.wherein = { 'everness:mineral_cave_stone' }
             def.biomes = asuna.features.cave.mineral_waters
-            def.y_max = y_max
-            def.y_min = y_min
 
             Everness:register_ore(def)
         end
@@ -102,7 +101,10 @@ Everness:register_ore({
 Everness:register_decoration({
     name = 'everness:mineral_waters_under_floors',
     deco_type = 'simple',
-    place_on = { 'everness:mineral_cave_stone', "default:stone" },
+    place_on = {
+        'mapgen_stone',
+        'everness:mineral_cave_stone',
+    },
     sidelen = 16,
     place_offset_y = -1,
     fill_ratio = 10,
@@ -123,6 +125,7 @@ Everness:register_decoration({
     name = 'everness:mineral_waters_under_volcanic_spike',
     deco_type = 'simple',
     place_on = {
+        'mapgen_stone',
         'everness:mineral_lava_stone',
         'everness:mineral_cave_stone'
     },
@@ -142,7 +145,7 @@ Everness:register_decoration({
     decoration = {
         'everness:marker'
     },
-    y_max = y_max,
+    y_max = y_max - 64,
     y_min = y_min,
     flags = 'all_floors',
 })
@@ -151,6 +154,7 @@ Everness:register_decoration({
     name = 'everness:mineral_waters_under_lava_stone_spike',
     deco_type = 'simple',
     place_on = {
+        'mapgen_stone',
         'everness:mineral_lava_stone',
         'everness:mineral_cave_stone'
     },
@@ -167,7 +171,7 @@ Everness:register_decoration({
     decoration = {
         'everness:marker'
     },
-    y_max = y_max,
+    y_max = y_max - 64,
     y_min = y_min,
     flags = 'all_floors',
 })
@@ -176,6 +180,7 @@ Everness:register_decoration({
     name = 'everness:mineral_waters_under_lava_tree',
     deco_type = 'simple',
     place_on = {
+        'mapgen_stone',
         'everness:mineral_lava_stone',
         'everness:mineral_cave_stone',
         'everness:mineral_lava_stone_with_moss'
@@ -215,7 +220,7 @@ Everness:register_decoration({
     decoration = {
         'everness:marker'
     },
-    y_max = y_max,
+    y_max = y_max - 64,
     y_min = y_min,
     flags = 'all_ceilings',
 })
@@ -345,10 +350,10 @@ Everness:add_to_queue_on_generated({
     -- read/write to `data` what will be eventually saved (set_data)
     -- used for voxelmanip `data` manipulation
     on_data = function(minp, maxp, area, data, p2data, gennotify, rand, shared_args)
-        local rand_version = rand:next(1, 2)
+        local rand_version = rand:next(1, 5)
         shared_args.rand_version = rand_version
 
-        if rand_version == 1 then
+        if rand_version < 3 then
             --
             -- Lakes
             --
@@ -374,6 +379,8 @@ Everness:add_to_queue_on_generated({
                         local max_dig_depth = 11
 
                         if
+                            y <= -64 and -- spawn lava in deeper caves only
+                            rand:next(1,5) == 1 and -- reduce lava lakes
                             c_current == c_everness_mineral_lava_stone
                             and (
                                 c_right == c_everness_mineral_lava_stone
@@ -673,7 +680,7 @@ Everness:add_to_queue_on_generated({
                 -- remove marker
                 minetest.remove_node(marker_pos)
 
-                if shared_args.rand_version ~= 1
+                if shared_args.rand_version > 2
                     and table.indexof(lava_tree_place_on, place_on_node.name) ~= -1
                 then
                     -- enough air to place structure ?
