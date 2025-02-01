@@ -163,39 +163,43 @@ Everness:register_node('everness:coral_dirt_soil', {
     }
 })
 
-Everness:register_node('everness:dirt_1_soil', {
-    description = S('Dirt Soil'),
-    tiles = {
-        'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_overlay.png^[multiply:#51341E80)',
-        'everness_dirt.png'
-    },
-    drop = 'everness:dirt_1',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        not_in_creative_inventory = 1,
-        soil = 2,
-        grassland = 1,
-        field = 1,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-    soil = {
-        base = 'everness:dirt_1',
-        dry = 'everness:dirt_1_soil',
-        wet = 'everness:dirt_1_soil_wet'
-    }
-})
+if minetest.registered_nodes["farming:soil"] then
+    minetest.register_alias("everness:dirt_1_soil","farming:soil")
+else
+    Everness:register_node('everness:dirt_1_soil', {
+        description = S('Dirt Soil'),
+        tiles = {
+            'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_overlay.png^[multiply:#51341E80)',
+            'everness_dirt.png'
+        },
+        drop = 'everness:dirt_1',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            not_in_creative_inventory = 1,
+            soil = 2,
+            grassland = 1,
+            field = 1,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+        soil = {
+            base = 'everness:dirt_1',
+            dry = 'everness:dirt_1_soil',
+            wet = 'everness:dirt_1_soil_wet'
+        }
+    })
+end
 
 Everness:register_node('everness:crystal_dirt_soil', {
     description = S('Crystal Dirt Soil'),
@@ -299,39 +303,43 @@ Everness:register_node('everness:cursed_dirt_soil', {
     }
 })
 
-Everness:register_node('everness:dry_dirt_soil', {
-    description = S('Dry Dirt Soil'),
-    tiles = {
-        'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_overlay.png^[multiply:#9F754780)',
-        'everness_dry_dirt.png'
-    },
-    drop = 'everness:dry_dirt',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        not_in_creative_inventory = 1,
-        soil = 2,
-        grassland = 1,
-        field = 1,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-    soil = {
-        base = 'everness:dry_dirt',
-        dry = 'everness:dry_dirt_soil',
-        wet = 'everness:dry_dirt_soil_wet'
-    }
-})
+if minetest.registered_nodes["farming:dry_soil"] then
+    minetest.register_alias("everness:dry_dirt_soil","farming:dry_soil")
+else
+    Everness:register_node('everness:dry_dirt_soil', {
+        description = S('Dry Dirt Soil'),
+        tiles = {
+            'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_overlay.png^[multiply:#9F754780)',
+            'everness_dry_dirt.png'
+        },
+        drop = 'everness:dry_dirt',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            not_in_creative_inventory = 1,
+            soil = 2,
+            grassland = 1,
+            field = 1,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+        soil = {
+            base = 'everness:dry_dirt',
+            dry = 'everness:dry_dirt_soil',
+            wet = 'everness:dry_dirt_soil_wet'
+        }
+    })
+end
 
 -- wet soil
 Everness:register_node('everness:coral_dirt_soil_wet', {
@@ -369,40 +377,44 @@ Everness:register_node('everness:coral_dirt_soil_wet', {
     }
 })
 
-Everness:register_node('everness:dirt_1_soil_wet', {
-    description = S('Coral Dirt Wet Soil'),
-    tiles = {
-        'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_wet_overlay.png^[multiply:#51341E80)',
-        'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_wet_side_overlay.png^[multiply:#51341E80)',
-    },
-    drop = 'everness:dirt_1',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        not_in_creative_inventory = 1,
-        soil = 3,
-        wet = 1,
-        grassland = 1,
-        field = 1,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-    soil = {
-        base = 'everness:dirt_1',
-        dry = 'everness:dirt_1_soil',
-        wet = 'everness:dirt_1_soil_wet'
-    }
-})
+if minetest.registered_nodes["farming:soil_wet"] then
+    minetest.register_alias("everness:dirt_1_soil_wet","farming:soil_wet")
+else
+    Everness:register_node('everness:dirt_1_soil_wet', {
+        description = S('Coral Dirt Wet Soil'),
+        tiles = {
+            'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_wet_overlay.png^[multiply:#51341E80)',
+            'everness_dirt.png^(everness_dirt.png^[mask:everness_farming_soil_wet_side_overlay.png^[multiply:#51341E80)',
+        },
+        drop = 'everness:dirt_1',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            not_in_creative_inventory = 1,
+            soil = 3,
+            wet = 1,
+            grassland = 1,
+            field = 1,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+        soil = {
+            base = 'everness:dirt_1',
+            dry = 'everness:dirt_1_soil',
+            wet = 'everness:dirt_1_soil_wet'
+        }
+    })
+end
 
 Everness:register_node('everness:crystal_dirt_soil_wet', {
     description = S('Crystal Dirt Wet Soil'),
@@ -509,37 +521,41 @@ Everness:register_node('everness:cursed_dirt_soil_wet', {
     }
 })
 
-Everness:register_node('everness:dry_dirt_soil_wet', {
-    description = S('Cursed Dirt Wet Soil'),
-    tiles = {
-        'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_wet_overlay.png^[multiply:#9F754780)',
-        'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_wet_side_overlay.png^[multiply:#9F754780)',
-    },
-    drop = 'everness:dry_dirt',
-    groups = {
-        -- MTG
-        crumbly = 3,
-        not_in_creative_inventory = 1,
-        soil = 3,
-        wet = 1,
-        grassland = 1,
-        field = 1,
-        -- MCL
-        handy = 1,
-        shovely = 1,
-        dirt = 1,
-        soil_sapling = 2,
-        soil_sugarcane = 1,
-        cultivatable = 2,
-        enderman_takable = 1,
-        building_block = 1,
-    },
-    _mcl_blast_resistance = 0.5,
-    _mcl_hardness = 0.5,
-    sounds = Everness.node_sound_dirt_defaults(),
-    soil = {
-        base = 'everness:dry_dirt',
-        dry = 'everness:dry_dirt_soil',
-        wet = 'everness:dry_dirt_soil_wet'
-    }
-})
+if minetest.registered_nodes["farming:dry_soil_wet"] then
+    minetest.register_alias("everness:dry_dirt_soil_wet","farming:dry_soil_wet")
+else
+    Everness:register_node('everness:dry_dirt_soil_wet', {
+        description = S('Cursed Dirt Wet Soil'),
+        tiles = {
+            'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_wet_overlay.png^[multiply:#9F754780)',
+            'everness_dry_dirt.png^(everness_dry_dirt.png^[mask:everness_farming_soil_wet_side_overlay.png^[multiply:#9F754780)',
+        },
+        drop = 'everness:dry_dirt',
+        groups = {
+            -- MTG
+            crumbly = 3,
+            not_in_creative_inventory = 1,
+            soil = 3,
+            wet = 1,
+            grassland = 1,
+            field = 1,
+            -- MCL
+            handy = 1,
+            shovely = 1,
+            dirt = 1,
+            soil_sapling = 2,
+            soil_sugarcane = 1,
+            cultivatable = 2,
+            enderman_takable = 1,
+            building_block = 1,
+        },
+        _mcl_blast_resistance = 0.5,
+        _mcl_hardness = 0.5,
+        sounds = Everness.node_sound_dirt_defaults(),
+        soil = {
+            base = 'everness:dry_dirt',
+            dry = 'everness:dry_dirt_soil',
+            wet = 'everness:dry_dirt_soil_wet'
+        }
+    })
+end
