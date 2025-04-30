@@ -249,7 +249,7 @@ x_farming.x_bonemeal:register_tree_defs({
 -- Recipes
 --
 
-minetest.register_craft({
+core.register_craft({
     output = 'x_farming:bonemeal 4',
     recipe = {
         { 'everness:bone' }

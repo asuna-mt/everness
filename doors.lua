@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 doors.register('everness:door_bamboo', {
     tiles = { { name = 'everness_door_bamboo.png', backface_culling = true } },

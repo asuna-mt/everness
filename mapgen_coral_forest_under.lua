@@ -213,20 +213,20 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_coral_forest_under = minetest.get_biome_id('everness:coral_forest_under')
+local biome_id_everness_coral_forest_under = core.get_biome_id('everness:coral_forest_under')
 
-local deco_id_coral_forest_under_coral_tree_bioluminescent = minetest.get_decoration_id('everness:coral_forest_under_coral_tree_bioluminescent')
+local deco_id_coral_forest_under_coral_tree_bioluminescent = core.get_decoration_id('everness:coral_forest_under_coral_tree_bioluminescent')
 
-local schem_bioluminescent_tree = minetest.get_modpath('everness') .. '/schematics/everness_coral_tree_bioluminescent.mts'
+local schem_bioluminescent_tree = core.get_modpath('everness') .. '/schematics/everness_coral_tree_bioluminescent.mts'
 local coral_bioluminescent_tree_size = { x = 15, y = 17, z = 15 }
 local bioluminescent_tree_size_x = math.round(coral_bioluminescent_tree_size.x / 2)
 local bioluminescent_tree_size_z = math.round(coral_bioluminescent_tree_size.z / 2)
 local bioluminescent_tree_safe_volume = (coral_bioluminescent_tree_size.x * coral_bioluminescent_tree_size.y * coral_bioluminescent_tree_size.z) / 1.5
 local bioluminescent_tree_y_dis = 1
-local bioluminescent_tree_place_on = minetest.registered_decorations['everness:coral_forest_under_coral_tree_bioluminescent'].place_on
+local bioluminescent_tree_place_on = core.registered_decorations['everness:coral_forest_under_coral_tree_bioluminescent'].place_on
 bioluminescent_tree_place_on = type(bioluminescent_tree_place_on) == 'string' and { bioluminescent_tree_place_on } or bioluminescent_tree_place_on
 
-minetest.set_gen_notify({ decoration = true }, { deco_id_coral_forest_under_coral_tree_bioluminescent })
+core.set_gen_notify({ decoration = true }, { deco_id_coral_forest_under_coral_tree_bioluminescent })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:coral_forest_under',
@@ -240,16 +240,16 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_coral_forest_under_coral_tree_bioluminescent or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if table.indexof(bioluminescent_tree_place_on, place_on_node.name) ~= -1 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - bioluminescent_tree_size_x,
                             pos.y - bioluminescent_tree_y_dis,
@@ -272,7 +272,7 @@ Everness:add_to_queue_on_generated({
 
                     -- do not overlap another tree
                     if #tree == 0 and #air > bioluminescent_tree_safe_volume then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             vector.new(marker_pos.x, marker_pos.y - bioluminescent_tree_y_dis, marker_pos.z),
                             schem_bioluminescent_tree,
@@ -282,7 +282,7 @@ Everness:add_to_queue_on_generated({
                             'place_center_x, place_center_z'
                         )
 
-                        -- minetest.log('action', '[Everness] Coral Tree Bioluminescent was placed at ' .. pos:to_string())
+                        -- core.log('action', '[Everness] Coral Tree Bioluminescent was placed at ' .. pos:to_string())
                     end
                 end
             end

@@ -179,7 +179,7 @@ Everness:register_decoration({
     biomes = { 'everness:cursed_lands_ocean' },
     y_max = y_max,
     y_min = y_max - (y_max + 1),
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })

@@ -24,7 +24,7 @@ local function pick_dropped_items(player)
         return
     end
 
-    local objects = minetest.get_objects_inside_radius(pos, 3)
+    local objects = core.get_objects_inside_radius(pos, 3)
     local objects_to_collect = {}
 
     -- filter - leave only builtin items
@@ -51,7 +51,7 @@ local function pick_dropped_items(player)
 
         if not luaentity._being_collected then
             -- Invoke global on_item_pickup callbacks.
-            -- for _, callback in ipairs(minetest.registered_on_item_pickups) do
+            -- for _, callback in ipairs(core.registered_on_item_pickups) do
             --     local result = callback(itemstack, player, { type = 'object', ref = object })
 
             --     if result then
@@ -67,7 +67,7 @@ local function pick_dropped_items(player)
                 local pos_obj = object:get_pos()
 
                 if stack_count_leftover ~= 0 then
-                    minetest.spawn_item(pos_obj, leftover_stack:to_string())
+                    core.spawn_item(pos_obj, leftover_stack:to_string())
                 end
 
                 luaentity._being_collected = true
@@ -89,13 +89,13 @@ local function pick_dropped_items(player)
                     (pos.z - pos_obj.z) + pos_obj.z
                 ))
 
-                minetest.sound_play('everness_item_drop_pickup', {
+                core.sound_play('everness_item_drop_pickup', {
                     pos = pos,
                     max_hear_distance = 16,
                     gain = 0.4,
                 })
 
-                minetest.after(0, function(v_object)
+                core.after(0, function(v_object)
                     if v_object and v_object:get_luaentity() then
                         v_object:remove()
                     end
@@ -105,12 +105,12 @@ local function pick_dropped_items(player)
     end
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
     local player_meta = player:get_meta()
     player_meta:set_int('everness_is_sneaking', 0)
 end)
 
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
     TIMER = TIMER + dtime
 
     if DELAY > 0 then
@@ -120,13 +120,13 @@ minetest.register_globalstep(function(dtime)
     end
 
     if TIMER > 0.5 then
-        for _, player in ipairs(minetest.get_connected_players()) do
+        for _, player in ipairs(core.get_connected_players()) do
             local player_meta = player:get_meta()
             local control = player:get_player_control()
             local player_hp = player:get_hp()
             local is_sneaking = player_meta:get_int('everness_is_sneaking') > 0
 
-            if control.sneak and (player_hp > 0 or not minetest.settings:get_bool('enable_damage')) then
+            if control.sneak and (player_hp > 0 or not core.settings:get_bool('enable_damage')) then
                 -- [Shift + E + Q] single drop item
                 -- Autopickup after DELAY
                 if control.aux1 then

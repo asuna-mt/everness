@@ -14,9 +14,9 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
-minetest.override_item('everness:coral_dirt', {
+core.override_item('everness:coral_dirt', {
     soil = {
         base = 'everness:coral_dirt',
         dry = 'everness:coral_dirt_soil',
@@ -24,7 +24,7 @@ minetest.override_item('everness:coral_dirt', {
     }
 })
 
-minetest.override_item('everness:dirt_with_coral_grass', {
+core.override_item('everness:dirt_with_coral_grass', {
     soil = {
         base = 'everness:dirt_with_coral_grass',
         dry = 'everness:coral_dirt_soil',
@@ -32,7 +32,7 @@ minetest.override_item('everness:dirt_with_coral_grass', {
     }
 })
 
-minetest.override_item('everness:dirt_1', {
+core.override_item('everness:dirt_1', {
     soil = {
         base = 'everness:dirt_1',
         dry = 'everness:dirt_1_soil',
@@ -40,7 +40,7 @@ minetest.override_item('everness:dirt_1', {
     }
 })
 
-minetest.override_item('everness:dirt_with_grass_1', {
+core.override_item('everness:dirt_with_grass_1', {
     soil = {
         base = 'everness:dirt_with_grass_1',
         dry = 'everness:dirt_1_soil',
@@ -48,7 +48,7 @@ minetest.override_item('everness:dirt_with_grass_1', {
     }
 })
 
-minetest.override_item('everness:dry_dirt', {
+core.override_item('everness:dry_dirt', {
     soil = {
         base = 'everness:dry_dirt',
         dry = 'everness:dry_dirt_soil',
@@ -56,7 +56,7 @@ minetest.override_item('everness:dry_dirt', {
     }
 })
 
-minetest.override_item('everness:dry_dirt_with_dry_grass', {
+core.override_item('everness:dry_dirt_with_dry_grass', {
     soil = {
         base = 'everness:dry_dirt_with_dry_grass',
         dry = 'everness:dry_dirt_soil',
@@ -64,7 +64,7 @@ minetest.override_item('everness:dry_dirt_with_dry_grass', {
     }
 })
 
-minetest.override_item('everness:dirt_with_grass_extras_1', {
+core.override_item('everness:dirt_with_grass_extras_1', {
     soil = {
         base = 'everness:dirt_with_grass_extras_1',
         dry = 'everness:dirt_1_soil',
@@ -72,7 +72,7 @@ minetest.override_item('everness:dirt_with_grass_extras_1', {
     }
 })
 
-minetest.override_item('everness:dirt_with_grass_extras_2', {
+core.override_item('everness:dirt_with_grass_extras_2', {
     soil = {
         base = 'everness:dirt_with_grass_extras_2',
         dry = 'everness:dirt_1_soil',
@@ -80,7 +80,7 @@ minetest.override_item('everness:dirt_with_grass_extras_2', {
     }
 })
 
-minetest.override_item('everness:crystal_dirt', {
+core.override_item('everness:crystal_dirt', {
     soil = {
         base = 'everness:crystal_dirt',
         dry = 'everness:crystal_dirt_soil',
@@ -88,7 +88,7 @@ minetest.override_item('everness:crystal_dirt', {
     }
 })
 
-minetest.override_item('everness:dirt_with_crystal_grass', {
+core.override_item('everness:dirt_with_crystal_grass', {
     soil = {
         base = 'everness:dirt_with_crystal_grass',
         dry = 'everness:crystal_dirt_soil',
@@ -96,7 +96,7 @@ minetest.override_item('everness:dirt_with_crystal_grass', {
     }
 })
 
-minetest.override_item('everness:crystal_cave_dirt', {
+core.override_item('everness:crystal_cave_dirt', {
     soil = {
         base = 'everness:crystal_cave_dirt',
         dry = 'everness:crystal_cave_dirt_soil',
@@ -104,7 +104,7 @@ minetest.override_item('everness:crystal_cave_dirt', {
     }
 })
 
-minetest.override_item('everness:crystal_cave_dirt_with_moss', {
+core.override_item('everness:crystal_cave_dirt_with_moss', {
     soil = {
         base = 'everness:crystal_cave_dirt_with_moss',
         dry = 'everness:crystal_cave_dirt_soil',
@@ -112,7 +112,7 @@ minetest.override_item('everness:crystal_cave_dirt_with_moss', {
     }
 })
 
-minetest.override_item('everness:cursed_dirt', {
+core.override_item('everness:cursed_dirt', {
     soil = {
         base = 'everness:cursed_dirt',
         dry = 'everness:cursed_dirt_soil',
@@ -120,7 +120,7 @@ minetest.override_item('everness:cursed_dirt', {
     }
 })
 
-minetest.override_item('everness:dirt_with_cursed_grass', {
+core.override_item('everness:dirt_with_cursed_grass', {
     soil = {
         base = 'everness:dirt_with_cursed_grass',
         dry = 'everness:cursed_dirt_soil',

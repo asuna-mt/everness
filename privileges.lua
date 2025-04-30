@@ -15,8 +15,8 @@
 --]]
 
 local function update_sfinv(name)
-    minetest.after(0, function()
-        local player = minetest.get_player_by_name(name)
+    core.after(0, function()
+        local player = core.get_player_by_name(name)
 
         if player then
             if sfinv.get_page(player) == 'everness:encyclopedia' then
@@ -29,8 +29,8 @@ local function update_sfinv(name)
 end
 
 local function update_ui(name)
-    minetest.after(0, function()
-        local player = minetest.get_player_by_name(name)
+    core.after(0, function()
+        local player = core.get_player_by_name(name)
 
         if player then
             if unified_inventory.current_page[name] == 'everness:encyclopedia' then
@@ -42,7 +42,7 @@ local function update_ui(name)
     end)
 end
 
-minetest.register_privilege('everness_encyclopedia', {
+core.register_privilege('everness_encyclopedia', {
     -- Privilege description
     description = 'Collection of registered items and functions with some information about them. Used for testing not for gameplay. Works only with SFINV!',
 
@@ -56,12 +56,12 @@ minetest.register_privilege('everness_encyclopedia', {
     -- Called when given to player 'name' by 'granter_name'.
     -- 'granter_name' will be nil if the priv was granted by a mod.
     on_grant = function(name, granter_name)
-        if minetest.get_modpath('sfinv') and sfinv.enabled then
+        if core.get_modpath('sfinv') and sfinv.enabled then
             update_sfinv(name)
-        elseif minetest.get_modpath('unified_inventory') then
+        elseif core.get_modpath('unified_inventory') then
             update_ui(name)
         else
-            minetest.chat_send_player(name, 'Compatible inventory not found. Everness encyclopedia will not be shown.')
+            core.chat_send_player(name, 'Compatible inventory not found. Everness encyclopedia will not be shown.')
         end
     end,
 
@@ -74,12 +74,12 @@ minetest.register_privilege('everness_encyclopedia', {
     -- Return true in the above callbacks to stop register_on_priv_grant or
     -- revoke being called.
     on_revoke = function(name, revoker_name)
-        if minetest.get_modpath('sfinv') and sfinv.enabled then
+        if core.get_modpath('sfinv') and sfinv.enabled then
             update_sfinv(name)
-        elseif minetest.get_modpath('unified_inventory') then
+        elseif core.get_modpath('unified_inventory') then
             update_ui(name)
         else
-            minetest.chat_send_player(name, 'Compatible inventory not found. Everness encyclopedia will not be shown.')
+            core.chat_send_player(name, 'Compatible inventory not found. Everness encyclopedia will not be shown.')
         end
     end,
 })

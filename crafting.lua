@@ -17,7 +17,7 @@
 ---@param input_name string
 ---@param output_name string
 local function register_craft_single(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shapeless',
         output = output_name,
         recipe = { input_name }
@@ -28,7 +28,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_2x2(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -42,7 +42,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_3x2(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -57,7 +57,7 @@ end
 ---@param input_bottom_name string
 ---@param output_name string
 local function register_craft_3x2_composite(input_top_name, input_bottom_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -72,7 +72,7 @@ end
 ---@param input_bottom_name string
 ---@param output_name string
 local function register_craft_1x2_composite(input_top_name, input_bottom_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -86,7 +86,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_1x3(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -101,7 +101,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_2x1(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -115,7 +115,7 @@ end
 ---@param input_second_name string
 ---@param output_name string
 local function register_craft_2x1_composite(input_first_name, input_second_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -128,7 +128,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_2x3(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -143,7 +143,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_3x1(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -156,7 +156,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_3x3(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -171,7 +171,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_anvil_pattern(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -187,7 +187,7 @@ end
 ---@param input_center_name string
 ---@param output_name string
 local function register_craft_bullseye_pattern(input_around_name, input_center_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -203,7 +203,7 @@ end
 ---@param input_center_name string
 ---@param output_name string
 local function register_craft_sandwich_pattern(input_around_name, input_center_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -218,7 +218,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_pillar_top(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -233,7 +233,7 @@ end
 ---@param input_name string
 ---@param output_name string
 local function register_craft_pillar_bottom(input_name, output_name)
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = output_name,
         recipe = {
@@ -247,7 +247,7 @@ end
 --
 -- Default Blocks
 --
-if minetest.get_modpath('default') then
+if core.get_modpath('default') then
     register_craft_3x3('default:snowblock', 'everness:snowcobble 9')
     register_craft_3x3('default:ice', 'everness:icecobble 9')
     register_craft_single('everness:chest', 'default:chest')
@@ -292,7 +292,7 @@ register_craft_2x3('everness:pyriteblock_forged', 'everness:pyrite_roof_tile 6')
 
 register_craft_1x2_composite('group:glass', 'everness:pyrite_ingot', 'everness:pyrite_glass')
 
-if minetest.get_modpath('default') then
+if core.get_modpath('default') then
     register_craft_1x2_composite('default:glass', 'everness:pyrite_ingot', 'everness:pyrite_glass')
 end
 
@@ -415,7 +415,7 @@ register_craft_1x3('everness:quartz_block', 'everness:quartz_pillar 3')
 
 register_craft_2x1_composite('everness:cursed_brick', 'group:leaves', 'everness:cursed_brick_with_growth 4')
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:cursed_brick_mixed 4',
     recipe = {
         { 'everness:cursed_stone', 'everness:cursed_brick' },
@@ -431,7 +431,7 @@ register_craft_2x2('everness:forsaken_desert_brick', 'everness:forsaken_desert_e
 --
 -- Misc items
 --
-minetest.register_craft({
+core.register_craft({
     output = 'everness:coral_forest_deep_ocean_lantern 1',
     recipe = {
         { 'everness:coral_deep_ocean_sandstone_block', 'group:glass', 'everness:coral_deep_ocean_sandstone_block' },
@@ -440,8 +440,8 @@ minetest.register_craft({
     }
 })
 
-if minetest.get_modpath('default') then
-    minetest.register_craft({
+if core.get_modpath('default') then
+    core.register_craft({
         output = 'everness:coral_forest_deep_ocean_lantern 1',
         recipe = {
             { 'everness:coral_deep_ocean_sandstone_block', 'default:glass', 'everness:coral_deep_ocean_sandstone_block' },
@@ -451,7 +451,7 @@ if minetest.get_modpath('default') then
     })
 end
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:shell_of_underwater_breathing',
     recipe = {
         { '', '', 'group:everness_crystal_forest_deep_ocean_coral' },
@@ -473,7 +473,7 @@ register_craft_sandwich_pattern('everness:mineral_stone_brick_with_growth', 'gro
 
 register_craft_3x2('everness:mineral_sandstone', 'everness:sand_castle_wall 6')
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:ceramic_pot_blank',
     recipe = {
         { '', 'everness:ceramic_pot_sherd_blank', ''},
@@ -521,7 +521,7 @@ local recipes_tool = {
 }
 
 for _, data in ipairs(recipes_tool) do
-    minetest.register_craft({
+    core.register_craft({
         type = 'shaped',
         output = data[1],
         recipe = data[2]
@@ -552,7 +552,7 @@ local recipes_fuel = {
 }
 
 for _, data in ipairs(recipes_fuel) do
-    minetest.register_craft({
+    core.register_craft({
         type = 'fuel',
         recipe = data[1],
         burntime = data[2],
@@ -583,7 +583,7 @@ local recipes_cooking = {
 }
 
 for _, data in ipairs(recipes_cooking) do
-    minetest.register_craft({
+    core.register_craft({
         type = 'cooking',
         output = data[2],
         recipe = data[1],

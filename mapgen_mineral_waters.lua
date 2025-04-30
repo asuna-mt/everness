@@ -190,37 +190,37 @@ local function find_irecursive(table, c_id)
 end
 
 -- Get the content IDs for the nodes used
-local c_everness_mineral_water_source = minetest.get_content_id('everness:mineral_water_source')
-local c_everness_mineral_stone = minetest.get_content_id('everness:mineral_stone')
-local c_everness_mineral_stone_brick = minetest.get_content_id('everness:mineral_stone_brick')
-local c_everness_mineral_stone_brick_with_growth = minetest.get_content_id('everness:mineral_stone_brick_with_growth')
-local c_everness_mineral_stone_brick_with_flower_growth = minetest.get_content_id('everness:mineral_stone_brick_with_flower_growth')
-local c_everness_mineral_sand = minetest.get_content_id('everness:mineral_sand')
-local c_everness_mineral_sandstone = minetest.get_content_id('everness:mineral_sandstone')
-local c_everness_mineral_sandstone_block = minetest.get_content_id('everness:mineral_sandstone_block')
-local c_everness_chest = minetest.get_content_id('everness:chest')
-local c_everness_mineral_stone_with_coal = minetest.get_content_id('everness:mineral_stone_with_coal')
-local c_everness_mineral_stone_with_ceramic_sherds = minetest.get_content_id('everness:mineral_stone_with_ceramic_sherds')
-local c_everness_lotus_flower_white = minetest.get_content_id('everness:lotus_flower_white')
-local c_everness_lotus_flower_purple = minetest.get_content_id('everness:lotus_flower_purple')
-local c_everness_lotus_flower_pink = minetest.get_content_id('everness:lotus_flower_pink')
-local c_everness_lotus_lotus_leaf = minetest.get_content_id('everness:lotus_leaf')
-local c_everness_lotus_lotus_leaf_2 = minetest.get_content_id('everness:lotus_leaf_2')
-local c_everness_lotus_lotus_leaf_3 = minetest.get_content_id('everness:lotus_leaf_3')
-local c_everness_ceramic_pot_blank = minetest.get_content_id('everness:ceramic_pot_blank')
-local c_everness_ceramic_pot_flowers = minetest.get_content_id('everness:ceramic_pot_flowers')
-local c_everness_ceramic_pot_lines = minetest.get_content_id('everness:ceramic_pot_lines')
-local c_everness_ceramic_pot_tribal = minetest.get_content_id('everness:ceramic_pot_tribal')
-local c_everness_mineral_water_weed_1 = minetest.get_content_id('everness:mineral_water_weed_1')
-local c_everness_mineral_water_weed_2 = minetest.get_content_id('everness:mineral_water_weed_2')
-local c_everness_mineral_water_weed_3 = minetest.get_content_id('everness:mineral_water_weed_3')
+local c_everness_mineral_water_source = core.get_content_id('everness:mineral_water_source')
+local c_everness_mineral_stone = core.get_content_id('everness:mineral_stone')
+local c_everness_mineral_stone_brick = core.get_content_id('everness:mineral_stone_brick')
+local c_everness_mineral_stone_brick_with_growth = core.get_content_id('everness:mineral_stone_brick_with_growth')
+local c_everness_mineral_stone_brick_with_flower_growth = core.get_content_id('everness:mineral_stone_brick_with_flower_growth')
+local c_everness_mineral_sand = core.get_content_id('everness:mineral_sand')
+local c_everness_mineral_sandstone = core.get_content_id('everness:mineral_sandstone')
+local c_everness_mineral_sandstone_block = core.get_content_id('everness:mineral_sandstone_block')
+local c_everness_chest = core.get_content_id('everness:chest')
+local c_everness_mineral_stone_with_coal = core.get_content_id('everness:mineral_stone_with_coal')
+local c_everness_mineral_stone_with_ceramic_sherds = core.get_content_id('everness:mineral_stone_with_ceramic_sherds')
+local c_everness_lotus_flower_white = core.get_content_id('everness:lotus_flower_white')
+local c_everness_lotus_flower_purple = core.get_content_id('everness:lotus_flower_purple')
+local c_everness_lotus_flower_pink = core.get_content_id('everness:lotus_flower_pink')
+local c_everness_lotus_lotus_leaf = core.get_content_id('everness:lotus_leaf')
+local c_everness_lotus_lotus_leaf_2 = core.get_content_id('everness:lotus_leaf_2')
+local c_everness_lotus_lotus_leaf_3 = core.get_content_id('everness:lotus_leaf_3')
+local c_everness_ceramic_pot_blank = core.get_content_id('everness:ceramic_pot_blank')
+local c_everness_ceramic_pot_flowers = core.get_content_id('everness:ceramic_pot_flowers')
+local c_everness_ceramic_pot_lines = core.get_content_id('everness:ceramic_pot_lines')
+local c_everness_ceramic_pot_tribal = core.get_content_id('everness:ceramic_pot_tribal')
+local c_everness_mineral_water_weed_1 = core.get_content_id('everness:mineral_water_weed_1')
+local c_everness_mineral_water_weed_2 = core.get_content_id('everness:mineral_water_weed_2')
+local c_everness_mineral_water_weed_3 = core.get_content_id('everness:mineral_water_weed_3')
 -- Biome IDs
-local biome_id_everness_mineral_waters = minetest.get_biome_id('everness:mineral_waters')
+local biome_id_everness_mineral_waters = core.get_biome_id('everness:mineral_waters')
 -- Decoration IDs
-local d_everness_palm_trees = minetest.get_decoration_id('everness:palm_trees')
-local d_everness_water_geyser = minetest.get_decoration_id('everness:water_geyser')
-local d_everness_pots = minetest.get_decoration_id('everness:pots')
-local d_rose_bush = minetest.get_decoration_id('everness:rose_bush')
+local d_everness_palm_trees = core.get_decoration_id('everness:palm_trees')
+local d_everness_water_geyser = core.get_decoration_id('everness:water_geyser')
+local d_everness_pots = core.get_decoration_id('everness:pots')
+local d_rose_bush = core.get_decoration_id('everness:rose_bush')
 
 -- Pool building blocks variations
 local pool_build_nodes = {
@@ -258,13 +258,13 @@ local c_water_weeds = {
 
 local chance = 20
 local disp = 16
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_mineral_waters_tower.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_mineral_waters_tower.mts'
 local size = { x = 7, y = 16, z = 9 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 
 local function place_decoration(pos, vm, area, data, deco_id, callback)
-    local deco_def = minetest.registered_decorations[deco_id]
+    local deco_def = core.registered_decorations[deco_id]
 
     if not deco_def then
         return
@@ -273,16 +273,16 @@ local function place_decoration(pos, vm, area, data, deco_id, callback)
     -- Position of the 'place_on' node
     local vi = area:indexp(pos)
     local place_on_valid = false
-    local data_node_name = minetest.get_name_from_content_id(data[vi])
+    local data_node_name = core.get_name_from_content_id(data[vi])
     local placeholder_node_name = type(deco_def.decoration) == 'string' and deco_def.decoration or deco_def.decoration[1]
 
     if type(deco_def.place_on) == 'string' then
-        if deco_def.place_on == data_node_name and data[vi + area.ystride * 2] == minetest.CONTENT_AIR then
+        if deco_def.place_on == data_node_name and data[vi + area.ystride * 2] == core.CONTENT_AIR then
             place_on_valid = true
         end
     else
         for i, v in ipairs(deco_def.place_on) do
-            if v == data_node_name and data[vi + area.ystride * 2] == minetest.CONTENT_AIR then
+            if v == data_node_name and data[vi + area.ystride * 2] == core.CONTENT_AIR then
                 place_on_valid = true
                 break
             end
@@ -301,7 +301,7 @@ local function place_decoration(pos, vm, area, data, deco_id, callback)
     end
 end
 
-minetest.set_gen_notify({ decoration = true }, {
+core.set_gen_notify({ decoration = true }, {
     d_everness_palm_trees,
     d_everness_water_geyser,
     d_everness_pots,
@@ -328,11 +328,11 @@ Everness:add_to_queue_on_generated({
 
                     for x = minp.x, maxp.x do
                         local ai = area:index(x, y, z)
-                        local node_name = minetest.get_name_from_content_id(data[ai])
-                        local node_def = minetest.registered_nodes[node_name]
+                        local node_name = core.get_name_from_content_id(data[ai])
+                        local node_def = core.registered_nodes[node_name]
 
                         if
-                            data[ai + area.ystride] == minetest.CONTENT_AIR
+                            data[ai + area.ystride] == core.CONTENT_AIR
                             and node_def
                             and node_def.walkable
                         then
@@ -345,15 +345,15 @@ Everness:add_to_queue_on_generated({
                             for li = 1, length do
                                 for wi = 1, width do
                                     local ai_rec = (ai + li) + (area.zstride * wi)
-                                    local n_name = minetest.get_name_from_content_id(data[ai_rec])
-                                    local n_def = minetest.registered_nodes[n_name]
-                                    local b_data = minetest.get_biome_data(area:position(ai_rec))
+                                    local n_name = core.get_name_from_content_id(data[ai_rec])
+                                    local n_def = core.registered_nodes[n_name]
+                                    local b_data = core.get_biome_data(area:position(ai_rec))
 
                                     if not b_data then
                                         return
                                     end
 
-                                    local b_name = minetest.get_biome_name(b_data.biome)
+                                    local b_name = core.get_biome_name(b_data.biome)
 
                                     if not b_name then
                                         return
@@ -361,8 +361,8 @@ Everness:add_to_queue_on_generated({
 
                                     if b_name ~= 'everness:mineral_waters'
                                         -- for mese trees, they dont have specific biome
-                                        or minetest.get_item_group(n_name, 'tree') > 0
-                                        or minetest.get_item_group(n_name, 'leaves') > 0
+                                        or core.get_item_group(n_name, 'tree') > 0
+                                        or core.get_item_group(n_name, 'leaves') > 0
                                     then
                                         -- bordering with anohter biome, be more precise in placing
                                         precision_perc = 100
@@ -370,7 +370,7 @@ Everness:add_to_queue_on_generated({
 
                                     if n_def
                                         and n_def.walkable
-                                        and data[ai_rec + area.ystride] == minetest.CONTENT_AIR
+                                        and data[ai_rec + area.ystride] == core.CONTENT_AIR
                                     then
                                         walkable_nodes = walkable_nodes + 1
                                     end
@@ -571,16 +571,16 @@ Everness:add_to_queue_on_generated({
                         and data[ai + area.zstride] == c_everness_mineral_water_source
                         and data[ai - area.zstride] == c_everness_mineral_water_source
                         -- make sure there is space above
-                        and data[ai + area.ystride] == minetest.CONTENT_AIR
+                        and data[ai + area.ystride] == core.CONTENT_AIR
                         -- spawn around air above
-                        and data[ai + area.ystride + 1] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride + 1 + area.zstride] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride + 1 - area.zstride] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride - 1] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride - 1 + area.zstride] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride - 1 - area.zstride] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride + area.zstride] == minetest.CONTENT_AIR
-                        and data[ai + area.ystride - area.zstride] == minetest.CONTENT_AIR
+                        and data[ai + area.ystride + 1] == core.CONTENT_AIR
+                        and data[ai + area.ystride + 1 + area.zstride] == core.CONTENT_AIR
+                        and data[ai + area.ystride + 1 - area.zstride] == core.CONTENT_AIR
+                        and data[ai + area.ystride - 1] == core.CONTENT_AIR
+                        and data[ai + area.ystride - 1 + area.zstride] == core.CONTENT_AIR
+                        and data[ai + area.ystride - 1 - area.zstride] == core.CONTENT_AIR
+                        and data[ai + area.ystride + area.zstride] == core.CONTENT_AIR
+                        and data[ai + area.ystride - area.zstride] == core.CONTENT_AIR
                     then
                         if rand:next(0, 100) < 2 then
                             data[ai + area.ystride] = c_lotus_flowers[rand:next(1, #c_lotus_flowers)]
@@ -601,7 +601,7 @@ Everness:add_to_queue_on_generated({
 
                                     if
                                         rand:next(0, 100) < chance_lotus_leaf
-                                        and data[idx] == minetest.CONTENT_AIR
+                                        and data[idx] == core.CONTENT_AIR
                                         and data[idx - area.ystride] == c_everness_mineral_water_source
                                     then
                                         data[idx] = c_lotus_leaves[rand:next(1, #c_lotus_leaves)]
@@ -620,7 +620,7 @@ Everness:add_to_queue_on_generated({
 
                                     if
                                         rand:next(0, 100) < 25
-                                        and data[idx] == minetest.CONTENT_AIR
+                                        and data[idx] == core.CONTENT_AIR
                                         and data[idx - area.ystride] == c_everness_mineral_water_source
                                     then
                                         data[idx] = c_lotus_leaves[rand:next(1, #c_lotus_leaves)]
@@ -722,7 +722,7 @@ Everness:add_to_queue_on_generated({
         for y = minp.y, maxp.y do
             local vi = area:index(minp.x + sidelength / 2 + x_disp, y, minp.z + sidelength / 2 + z_disp)
 
-            if data[vi + area.ystride] == minetest.CONTENT_AIR
+            if data[vi + area.ystride] == core.CONTENT_AIR
                 and (
                     data[vi] == c_everness_mineral_water_source
                     or data[vi] == c_everness_mineral_sand
@@ -736,7 +736,7 @@ Everness:add_to_queue_on_generated({
                 --
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -751,7 +751,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -760,7 +760,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         s_pos,
                         schem,
@@ -778,7 +778,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Mineral Waters Tower was placed at ' .. s_pos:to_string())
+                    core.log('action', '[Everness] Mineral Waters Tower was placed at ' .. s_pos:to_string())
                 end
             end
         end
@@ -793,10 +793,10 @@ Everness:add_to_queue_on_generated({
         --
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_palm_trees or '')] or {}) do
             place_decoration(pos, vm, area, data, 'everness:palm_trees', function(p)
-                minetest.place_schematic_on_vmanip(
+                core.place_schematic_on_vmanip(
                     vm,
                     p,
-                    minetest.get_modpath('everness') .. '/schematics/everness_palm_tree.mts',
+                    core.get_modpath('everness') .. '/schematics/everness_palm_tree.mts',
                     nil,
                     nil,
                     true,
@@ -829,20 +829,20 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_pots or '')] or {}) do
             place_decoration(pos, vm, area, data, 'everness:pots', function(p, deco_def)
                 if deco_def._decoration then
-                    -- Use `minetest.set_node` so we can set inventory on node construct
-                    minetest.set_node(p, { name = deco_def._decoration[rand:next(1, #deco_def._decoration)] })
+                    -- Use `core.set_node` so we can set inventory on node construct
+                    core.set_node(p, { name = deco_def._decoration[rand:next(1, #deco_def._decoration)] })
 
-                    local inv = minetest.get_inventory({ type = 'node', pos = p })
+                    local inv = core.get_inventory({ type = 'node', pos = p })
                     local item_def = Everness.loot_chest.default[rand:next(1, #Everness.loot_chest.default)]
 
-                    if not minetest.registered_items[item_def.name] then
+                    if not core.registered_items[item_def.name] then
                         return
                     end
 
                     if rand:next(0, 100) <= item_def.chance then
                         local stack = ItemStack(item_def.name)
 
-                        if minetest.registered_tools[item_def.name] then
+                        if core.registered_tools[item_def.name] then
                             stack:set_wear(rand:next(1, 65535))
                         else
                             stack:set_count(rand:next(1, math.min(item_def.max_count, stack:get_stack_max())))
@@ -858,20 +858,20 @@ Everness:add_to_queue_on_generated({
         -- Pots (under water)
         --
         for _, v in ipairs(pot_pos) do
-            -- Use `minetest.set_node` so we can set inventory on node construct
-            minetest.set_node(v, { name = minetest.get_name_from_content_id(c_pots[rand:next(1, #c_pots)]) })
+            -- Use `core.set_node` so we can set inventory on node construct
+            core.set_node(v, { name = core.get_name_from_content_id(c_pots[rand:next(1, #c_pots)]) })
 
-            local inv = minetest.get_inventory({ type = 'node', pos = v })
+            local inv = core.get_inventory({ type = 'node', pos = v })
             local item_def = Everness.loot_chest.default[rand:next(1, #Everness.loot_chest.default)]
 
-            if not minetest.registered_items[item_def.name] then
+            if not core.registered_items[item_def.name] then
                 return
             end
 
             if rand:next(0, 100) <= item_def.chance then
                 local stack = ItemStack(item_def.name)
 
-                if minetest.registered_tools[item_def.name] then
+                if core.registered_tools[item_def.name] then
                     stack:set_wear(rand:next(1, 65535))
                 else
                     stack:set_count(rand:next(1, math.min(item_def.max_count, stack:get_stack_max())))
@@ -895,7 +895,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions2 = minetest.find_nodes_in_area(
+                    local chest_positions2 = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

@@ -53,7 +53,7 @@ Everness:register_decoration({
     biomes = { 'everness:bamboo_forest' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_small_bamboo.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_small_bamboo.mts',
     flags = 'place_center_x, place_center_z, force_placement',
     rotation = 'random',
 })
@@ -67,7 +67,7 @@ Everness:register_decoration({
     biomes = { 'everness:bamboo_forest' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_large_bamboo.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_large_bamboo.mts',
     flags = 'place_center_x, place_center_z, force_placement',
     rotation = 'random',
 })
@@ -77,11 +77,11 @@ Everness:register_decoration({
 local jungle_tree_schem
 local jungle_log_schem
 
-if minetest.get_modpath('default') then
-    jungle_tree_schem = minetest.get_modpath('default') .. '/schematics/jungle_tree.mts'
-    jungle_log_schem = minetest.get_modpath('default') .. '/schematics/jungle_log.mts'
-elseif minetest.get_modpath('mcl_core') then
-    jungle_tree_schem = minetest.get_modpath('mcl_core') .. '/schematics/mcl_core_jungle_tree.mts'
+if core.get_modpath('default') then
+    jungle_tree_schem = core.get_modpath('default') .. '/schematics/jungle_tree.mts'
+    jungle_log_schem = core.get_modpath('default') .. '/schematics/jungle_log.mts'
+elseif core.get_modpath('mcl_core') then
+    jungle_tree_schem = core.get_modpath('mcl_core') .. '/schematics/mcl_core_jungle_tree.mts'
     jungle_log_schem = {
         size = { x = 3, y = 3, z = 1 },
         data = {
@@ -149,7 +149,7 @@ end
 
 -- Bush
 
-if minetest.get_modpath('default') then
+if core.get_modpath('default') then
     Everness:register_decoration({
         name = 'everness:bamboo_forest_bush',
         deco_type = 'schematic',
@@ -166,7 +166,7 @@ if minetest.get_modpath('default') then
         biomes = { 'everness:bamboo_forest' },
         y_max = y_max,
         y_min = y_min,
-        schematic = minetest.get_modpath('default') .. '/schematics/bush.mts',
+        schematic = core.get_modpath('default') .. '/schematics/bush.mts',
         flags = 'place_center_x, place_center_z',
     })
 
@@ -189,7 +189,7 @@ if minetest.get_modpath('default') then
         y_max = y_max,
         y_min = y_min,
         place_offset_y = 1,
-        schematic = minetest.get_modpath('default') .. '/schematics/blueberry_bush.mts',
+        schematic = core.get_modpath('default') .. '/schematics/blueberry_bush.mts',
         flags = 'place_center_x, place_center_z',
     })
 end
@@ -253,21 +253,21 @@ register_flower_magenta_decoration(0.015, 0.045, 1)
 
 local disp = 16
 local chance = 20
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_japanese_shrine.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_japanese_shrine.mts'
 
-local c_everness_bamboo_1 = minetest.get_content_id('everness:bamboo_1')
-local c_everness_bamboo_3 = minetest.get_content_id('everness:bamboo_3')
-local c_everness_bamboo_4 = minetest.get_content_id('everness:bamboo_4')
-local c_everness_bamboo_5 = minetest.get_content_id('everness:bamboo_5')
-local c_dirt_with_grass_1 = minetest.get_content_id('everness:dirt_with_grass_1')
-local c_dirt_with_grass_extras_1 = minetest.get_content_id('everness:dirt_with_grass_extras_1')
-local c_dirt_with_grass_extras_2 = minetest.get_content_id('everness:dirt_with_grass_extras_2')
+local c_everness_bamboo_1 = core.get_content_id('everness:bamboo_1')
+local c_everness_bamboo_3 = core.get_content_id('everness:bamboo_3')
+local c_everness_bamboo_4 = core.get_content_id('everness:bamboo_4')
+local c_everness_bamboo_5 = core.get_content_id('everness:bamboo_5')
+local c_dirt_with_grass_1 = core.get_content_id('everness:dirt_with_grass_1')
+local c_dirt_with_grass_extras_1 = core.get_content_id('everness:dirt_with_grass_extras_1')
+local c_dirt_with_grass_extras_2 = core.get_content_id('everness:dirt_with_grass_extras_2')
 
-local biome_id_bamboo_forest = minetest.get_biome_id('everness:bamboo_forest')
+local biome_id_bamboo_forest = core.get_biome_id('everness:bamboo_forest')
 
-local d_everness_bamboo_forest_large_bamboo = minetest.get_decoration_id('everness:bamboo_forest_large_bamboo')
+local d_everness_bamboo_forest_large_bamboo = core.get_decoration_id('everness:bamboo_forest_large_bamboo')
 
-minetest.set_gen_notify({ decoration = true }, { d_everness_bamboo_forest_large_bamboo })
+core.set_gen_notify({ decoration = true }, { d_everness_bamboo_forest_large_bamboo })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:bamboo_forest',
@@ -298,7 +298,7 @@ Everness:add_to_queue_on_generated({
             -- Add top bamboo nodes with leaves based on their generated height
             if bamboo_height > 4 then
                 for i = 1, 3 do
-                    if data[last_vi + area.ystride * i] == minetest.CONTENT_AIR then
+                    if data[last_vi + area.ystride * i] == core.CONTENT_AIR then
                         if i == 1 then
                             data[last_vi + area.ystride * i] = c_everness_bamboo_4
                         else
@@ -310,7 +310,7 @@ Everness:add_to_queue_on_generated({
                 end
             else
                 for i = 1, 2 do
-                    if data[last_vi + area.ystride * i] == minetest.CONTENT_AIR then
+                    if data[last_vi + area.ystride * i] == core.CONTENT_AIR then
                         if i == 1 then
                             data[last_vi + area.ystride * i] = c_everness_bamboo_4
                         else
@@ -334,7 +334,7 @@ Everness:add_to_queue_on_generated({
 
             if
                 (
-                    data[vi + area.ystride] == minetest.CONTENT_AIR
+                    data[vi + area.ystride] == core.CONTENT_AIR
                     or data[vi + area.ystride] == c_everness_bamboo_1
                     or data[vi + area.ystride] == c_everness_bamboo_3
                 )
@@ -357,7 +357,7 @@ Everness:add_to_queue_on_generated({
                 local schem_pos = vector.new(s_pos)
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -365,7 +365,7 @@ Everness:add_to_queue_on_generated({
                     }
                 )
                 -- Can force over these blocks
-                local force_positions = minetest.find_nodes_in_area(
+                local force_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -383,7 +383,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -395,7 +395,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         schem_pos,
                         schem,
@@ -413,7 +413,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Japanese Shrine was placed at ' .. schem_pos:to_string())
+                    core.log('action', '[Everness] Japanese Shrine was placed at ' .. schem_pos:to_string())
                 end
             end
         end
@@ -424,7 +424,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

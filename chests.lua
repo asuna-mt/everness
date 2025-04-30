@@ -2,7 +2,7 @@
     Everness. Never ending discovery in Everness mapgen.
     GNU Lesser General Public License, version 2.1
     Copyright (C) 2011-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
-    Copyright (C) 2011-2018 Various Minetest developers and contributors
+    Copyright (C) 2011-2018 Various Luanti developers and contributors
     Copyright (C) 2022 SaKeL
 
     This program is free software; you can redistribute it and/or modify it under the terms
@@ -18,7 +18,7 @@
 Everness.chest = {}
 
 -- support for MT game translation.
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 function Everness.chest.get_chest_formspec(pos)
     local spos = pos.x .. ',' .. pos.y .. ',' .. pos.z
@@ -59,7 +59,7 @@ end
 
 function Everness.chest.chest_lid_obstructed(pos)
     local above = { x = pos.x, y = pos.y + 1, z = pos.z }
-    local def = minetest.registered_nodes[minetest.get_node(above).name]
+    local def = core.registered_nodes[core.get_node(above).name]
 
     -- allow ladders, signs, wallmounted things and torches to not obstruct
     if def and
@@ -88,15 +88,15 @@ function Everness.chest.chest_lid_close(pn)
         end
     end
 
-    local node = minetest.get_node(pos)
+    local node = core.get_node(pos)
 
-    minetest.after(0.2, minetest.swap_node, pos, { name = swap, param2 = node.param2 })
-    minetest.sound_play(sound, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
+    core.after(0.2, core.swap_node, pos, { name = swap, param2 = node.param2 })
+    core.sound_play(sound, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
 end
 
 Everness.chest.open_chests = {}
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
     local pn = player:get_player_name()
 
     if formname ~= 'everness:chest' then
@@ -116,7 +116,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     return true
 end)
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
     local pn = player:get_player_name()
 
     if Everness.chest.open_chests[pn] then
@@ -137,7 +137,7 @@ function Everness.chest.register_chest(prefixed_name, d)
     if def.protected then
         -- Locked chest
         def.on_construct = function(pos)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             meta:set_string('infotext', S('Locked Chest'))
             meta:set_string('owner', '')
             local inv = meta:get_inventory()
@@ -145,13 +145,13 @@ function Everness.chest.register_chest(prefixed_name, d)
         end
 
         def.after_place_node = function(pos, placer)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             meta:set_string('owner', placer:get_player_name() or '')
             meta:set_string('infotext', S('Locked Chest (owned by @1)', meta:get_string('owner')))
         end
 
         def.can_dig = function(pos,player)
-            local meta = minetest.get_meta(pos);
+            local meta = core.get_meta(pos);
             local inv = meta:get_inventory()
             return inv:is_empty('main') and Everness.can_interact_with_node(player, pos)
         end
@@ -191,15 +191,15 @@ function Everness.chest.register_chest(prefixed_name, d)
                 Everness.chest.chest_lid_close(cn)
             end
 
-            minetest.sound_play(def.sound_open, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
+            core.sound_play(def.sound_open, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
 
             if not Everness.chest.chest_lid_obstructed(pos) then
-                minetest.swap_node(pos, { name = name .. '_open', param2 = node.param2 })
+                core.swap_node(pos, { name = name .. '_open', param2 = node.param2 })
             end
 
-            minetest.after(
+            core.after(
                 0.2,
-                minetest.show_formspec,
+                core.show_formspec,
                 cn,
                 'everness:chest',
                 Everness.chest.get_chest_formspec(pos)
@@ -210,7 +210,7 @@ function Everness.chest.register_chest(prefixed_name, d)
         def.on_blast = function() end
 
         def.on_key_use = function(pos, player)
-            local secret = minetest.get_meta(pos):get_string('key_lock_secret')
+            local secret = core.get_meta(pos):get_string('key_lock_secret')
             local itemstack = player:get_wielded_item()
             local key_meta = itemstack:get_meta()
 
@@ -219,7 +219,7 @@ function Everness.chest.register_chest(prefixed_name, d)
             end
 
             if key_meta:get_string('secret') == '' then
-                key_meta:set_string('secret', minetest.parse_json(itemstack:get_metadata()).secret)
+                key_meta:set_string('secret', core.parse_json(itemstack:get_metadata()).secret)
                 itemstack:set_metadata('')
             end
 
@@ -227,7 +227,7 @@ function Everness.chest.register_chest(prefixed_name, d)
                 return
             end
 
-            minetest.show_formspec(
+            core.show_formspec(
                 player:get_player_name(),
                 'everness:chest_locked',
                 Everness.chest.get_chest_formspec(pos)
@@ -235,14 +235,14 @@ function Everness.chest.register_chest(prefixed_name, d)
         end
 
         def.on_skeleton_key_use = function(pos, player, newsecret)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             local owner = meta:get_string('owner')
             local pn = player:get_player_name()
 
             -- verify placer is owner of lockable chest
             if owner ~= pn then
-                minetest.record_protection_violation(pos, pn)
-                minetest.chat_send_player(pn, S('You do not own this chest.'))
+                core.record_protection_violation(pos, pn)
+                core.chat_send_player(pn, S('You do not own this chest.'))
                 return nil
             end
 
@@ -257,26 +257,26 @@ function Everness.chest.register_chest(prefixed_name, d)
     else
         -- Public (unlocked) chest
         def.on_construct = function(pos)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             meta:set_string('infotext', S('Chest'))
             local inv = meta:get_inventory()
             inv:set_size('main', 8 * 4)
         end
 
         def.can_dig = function(pos,player)
-            local meta = minetest.get_meta(pos);
+            local meta = core.get_meta(pos);
             local inv = meta:get_inventory()
             return inv:is_empty('main')
         end
 
         def.on_rightclick = function(pos, node, clicker)
-            minetest.sound_play(def.sound_open, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
+            core.sound_play(def.sound_open, { gain = 0.3, pos = pos, max_hear_distance = 10 }, true)
 
             if not Everness.chest.chest_lid_obstructed(pos) then
-                minetest.swap_node(pos, { name = name .. '_open', param2 = node.param2 })
+                core.swap_node(pos, { name = name .. '_open', param2 = node.param2 })
             end
 
-            minetest.after(0.2, minetest.show_formspec, clicker:get_player_name(), 'everness:chest', Everness.chest.get_chest_formspec(pos))
+            core.after(0.2, core.show_formspec, clicker:get_player_name(), 'everness:chest', Everness.chest.get_chest_formspec(pos))
             Everness.chest.open_chests[clicker:get_player_name()] = { pos = pos, sound = def.sound_close, swap = name }
         end
 
@@ -284,7 +284,7 @@ function Everness.chest.register_chest(prefixed_name, d)
             local drops = {}
             Everness.get_inventory_drops(pos, 'main', drops)
             drops[#drops + 1] = name
-            minetest.remove_node(pos)
+            core.remove_node(pos)
             return drops
         end
     end
@@ -332,7 +332,7 @@ function Everness.chest.register_chest(prefixed_name, d)
         run_at_every_load = true,
         action = function(pos, node)
             node.name = prefixed_name
-            minetest.swap_node(pos, node)
+            core.swap_node(pos, node)
         end
     })
 end
@@ -366,7 +366,7 @@ Everness.chest.register_chest('everness:chest', {
     _mcl_hardness = 2.5,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:chest',
     recipe = {
         { 'group:everness_wood', 'group:everness_wood', 'group:everness_wood' },
@@ -375,7 +375,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     type = 'fuel',
     recipe = 'everness:chest',
     burntime = 30,

@@ -14,7 +14,7 @@
 
 --]]
 
-local mod_start_time = minetest.get_us_time()
+local mod_start_time = core.get_us_time()
 
 -- Bamboo Forest
 
@@ -577,6 +577,6 @@ if Everness.settings.biomes.everness_mineral_waters.enabled then
     x_obsidianmese:register_path_node(path_nodes_mineral_waters)
 end
 
-local mod_end_time = (minetest.get_us_time() - mod_start_time) / 1000000
+local mod_end_time = (core.get_us_time() - mod_start_time) / 1000000
 
 print('[Mod] everness: x_obsidianmese support loaded.. [' .. mod_end_time .. 's]')

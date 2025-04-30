@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 Everness:register_tool('everness:vine_shears', {
     description = S('Vine Shears'),
@@ -60,15 +60,15 @@ Everness:register_tool('everness:pick_illuminating', {
     groups = { pickaxe = 1, enchantability = 10 },
     on_place = function(itemstack, placer, pointed_thing)
         if pointed_thing.type == 'node' then
-            local pos = minetest.get_pointed_thing_position(pointed_thing)
+            local pos = core.get_pointed_thing_position(pointed_thing)
 
             if not pos or not placer then
                 return itemstack
             end
 
             local player_name = placer:get_player_name()
-            local pointed_node = minetest.get_node(pos)
-            local pointed_node_def = minetest.registered_nodes[pointed_node.name]
+            local pointed_node = core.get_node(pos)
+            local pointed_node_def = core.registered_nodes[pointed_node.name]
             local pos_placer = placer:get_pos()
 
             if not pointed_node then
@@ -80,13 +80,13 @@ Everness:register_tool('everness:pick_illuminating', {
                 return pointed_node_def.on_rightclick(pos, pointed_node, placer, itemstack, pointed_thing)
             end
 
-            if not minetest.is_protected(pointed_thing.above, player_name) and
-                not minetest.is_protected(pointed_thing.under, player_name)
-                and minetest.get_node(pointed_thing.above).name == 'air'
+            if not core.is_protected(pointed_thing.above, player_name) and
+                not core.is_protected(pointed_thing.under, player_name)
+                and core.get_node(pointed_thing.above).name == 'air'
             then
                 -- place crystal
-                if minetest.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
-                    minetest.add_particlespawner({
+                if core.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
+                    core.add_particlespawner({
                         amount = 50,
                         time = 1,
                         size = {
@@ -118,18 +118,18 @@ Everness:register_tool('everness:pick_illuminating', {
                     })
                 end
 
-                minetest.set_node(pointed_thing.above, { name = 'everness:floating_crystal' })
-                minetest.get_node_timer(pointed_thing.above):start(math.random(85, 95))
+                core.set_node(pointed_thing.above, { name = 'everness:floating_crystal' })
+                core.get_node_timer(pointed_thing.above):start(math.random(85, 95))
 
-                if not minetest.settings:get_bool('creative_mode')
-                    or not minetest.check_player_privs(placer:get_player_name(), { creative = true })
+                if not core.settings:get_bool('creative_mode')
+                    or not core.check_player_privs(placer:get_player_name(), { creative = true })
                 then
                     local wear_to_add = 65535 / (150 - 1)
 
                     if itemstack:get_wear() + wear_to_add > 65535 then
                         local itemstack_def = itemstack:get_definition()
                         -- Break tool
-                        minetest.sound_play(itemstack_def.sound.breaks, {
+                        core.sound_play(itemstack_def.sound.breaks, {
                             pos = pos,
                             gain = 0.5
                         }, true)
@@ -205,9 +205,9 @@ Everness:register_tool('everness:shovel_silk', {
     },
 })
 
-local old_handle_node_drops = minetest.handle_node_drops
+local old_handle_node_drops = core.handle_node_drops
 
-function minetest.handle_node_drops(pos, drops, digger)
+function core.handle_node_drops(pos, drops, digger)
     if not digger
         or not digger:is_player()
         or digger:get_wielded_item():get_name() ~= 'everness:shovel_silk'
@@ -215,11 +215,11 @@ function minetest.handle_node_drops(pos, drops, digger)
         return old_handle_node_drops(pos, drops, digger)
     end
 
-    local node = minetest.get_node(pos)
+    local node = core.get_node(pos)
 
     -- Silk Touch
-    if minetest.get_item_group(node.name, 'crumbly') > 0
-        and minetest.get_item_group(node.name, 'no_silktouch') == 0
+    if core.get_item_group(node.name, 'crumbly') > 0
+        and core.get_item_group(node.name, 'no_silktouch') == 0
     then
         -- drop raw item/node
         return old_handle_node_drops(pos, { ItemStack(node.name) }, digger)
@@ -258,9 +258,9 @@ Everness:register_tool('everness:shell_of_underwater_breathing', {
 -- Hammer
 --
 
-minetest.register_on_mods_loaded(function()
+core.register_on_mods_loaded(function()
     -- Hammer functionality and populating `cid_data` for lated VoxelManipulation
-    for name, def in pairs(minetest.registered_nodes) do
+    for name, def in pairs(core.registered_nodes) do
         if def.walkable and def.pointable and def.diggable then
             local prev_after_dig = def.after_dig_node
 
@@ -275,9 +275,9 @@ minetest.register_on_mods_loaded(function()
                 end
             end
 
-            minetest.override_item(name, { after_dig_node = func })
+            core.override_item(name, { after_dig_node = func })
 
-            Everness.hammer_cid_data[minetest.get_content_id(name)] = {
+            Everness.hammer_cid_data[core.get_content_id(name)] = {
                 name = name,
                 drops = def.drops,
                 can_dig = def.can_dig,
@@ -324,14 +324,14 @@ Everness:register_node('everness:hammer', {
     on_place = function(itemstack, placer, pointed_thing)
         -- disable placing (returns `nil`)
         if pointed_thing.type == 'node' then
-            local pos = minetest.get_pointed_thing_position(pointed_thing)
+            local pos = core.get_pointed_thing_position(pointed_thing)
 
             if not pos or not placer then
                 return
             end
 
-            local pointed_node = minetest.get_node(pos)
-            local pointed_node_def = minetest.registered_nodes[pointed_node.name]
+            local pointed_node = core.get_node(pos)
+            local pointed_node_def = core.registered_nodes[pointed_node.name]
 
             if not pointed_node then
                 return
@@ -382,14 +382,14 @@ Everness:register_node('everness:hammer_sharp', {
     on_place = function(itemstack, placer, pointed_thing)
         -- disable placing (returns `nil`)
         if pointed_thing.type == 'node' then
-            local pos = minetest.get_pointed_thing_position(pointed_thing)
+            local pos = core.get_pointed_thing_position(pointed_thing)
 
             if not pos or not placer then
                 return
             end
 
-            local pointed_node = minetest.get_node(pos)
-            local pointed_node_def = minetest.registered_nodes[pointed_node.name]
+            local pointed_node = core.get_node(pos)
+            local pointed_node_def = core.registered_nodes[pointed_node.name]
 
             if not pointed_node then
                 return

@@ -100,7 +100,7 @@ local all_biomes_mese_tree_place_on = {
     'everness:volcanic_sulfur'
 }
 
-if minetest.get_modpath('default') then
+if core.get_modpath('default') then
     table.insert_all(all_biomes_mese_tree_place_on, {
         'default:desert_sand',
         'default:dirt',
@@ -134,7 +134,7 @@ Everness:register_decoration({
     },
     y_max = 250,
     y_min = 80,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -154,7 +154,7 @@ Everness:register_decoration({
     },
     y_max = 250,
     y_min = 80,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random'
 })

@@ -219,20 +219,20 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_cursed_lands_under = minetest.get_biome_id('everness:cursed_lands_under')
+local biome_id_everness_cursed_lands_under = core.get_biome_id('everness:cursed_lands_under')
 
-local deco_id_cursed_lands_under_cursed_dream_tree = minetest.get_decoration_id('everness:cursed_lands_under_cursed_dream_tree')
+local deco_id_cursed_lands_under_cursed_dream_tree = core.get_decoration_id('everness:cursed_lands_under_cursed_dream_tree')
 
-local schem_cursed_dream_tree = minetest.get_modpath('everness') .. '/schematics/everness_cursed_dream_tree.mts'
+local schem_cursed_dream_tree = core.get_modpath('everness') .. '/schematics/everness_cursed_dream_tree.mts'
 local cursed_dream_tree_size = { x = 17, y = 15, z = 17 }
 local cursed_dream_tree_size_x = math.round(cursed_dream_tree_size.x / 2)
 local cursed_dream_tree_size_z = math.round(cursed_dream_tree_size.z / 2)
 local cursed_dream_tree_safe_volume = (cursed_dream_tree_size.x * cursed_dream_tree_size.y * cursed_dream_tree_size.z) / 1.5
 local cursed_dream_tree_y_dis = 1
-local cursed_dream_tree_place_on = minetest.registered_decorations['everness:cursed_lands_under_cursed_dream_tree'].place_on
+local cursed_dream_tree_place_on = core.registered_decorations['everness:cursed_lands_under_cursed_dream_tree'].place_on
 cursed_dream_tree_place_on = type(cursed_dream_tree_place_on) == 'string' and { cursed_dream_tree_place_on } or cursed_dream_tree_place_on
 
-minetest.set_gen_notify({ decoration = true }, { deco_id_cursed_lands_under_cursed_dream_tree })
+core.set_gen_notify({ decoration = true }, { deco_id_cursed_lands_under_cursed_dream_tree })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:cursed_lands_under',
@@ -246,16 +246,16 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_cursed_lands_under_cursed_dream_tree or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if table.indexof(cursed_dream_tree_place_on, place_on_node.name) ~= -1 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - cursed_dream_tree_size_x,
                             pos.y - cursed_dream_tree_y_dis,
@@ -277,7 +277,7 @@ Everness:add_to_queue_on_generated({
                     local tree = positions['everness:dry_tree'] or {}
 
                     if #air > cursed_dream_tree_safe_volume and #tree <= 1 then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             vector.new(marker_pos.x, marker_pos.y - cursed_dream_tree_y_dis, marker_pos.z),
                             schem_cursed_dream_tree,
@@ -287,7 +287,7 @@ Everness:add_to_queue_on_generated({
                             'place_center_x, place_center_z'
                         )
 
-                        -- minetest.log('action', '[Everness] Cursed Dream Tree was placed at ' .. pos:to_string())
+                        -- core.log('action', '[Everness] Cursed Dream Tree was placed at ' .. pos:to_string())
                     end
                 end
             end

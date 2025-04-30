@@ -1,7 +1,7 @@
 {
     "name": "everness",
     "version": "1.0.0",
-    "description": "Adds bow and arrows to Minetest.",
+    "description": "Never ending discovery in Everness mapgen.",
     "main": "index.js",
     "type": "module",
     "directories": {

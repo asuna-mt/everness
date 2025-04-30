@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 local rand_global = PcgRandom(tonumber(tostring(os.time()):reverse():sub(1, 9)))
 
 --- Base class
@@ -60,169 +60,169 @@ Everness = {
     settings = {
         biomes = {
             everness_coral_forest = {
-                enabled = minetest.settings:get_bool('everness_coral_forest', true),
-                y_max = tonumber(minetest.settings:get('everness_coral_forest_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_coral_forest_y_min')) or 6,
+                enabled = core.settings:get_bool('everness_coral_forest', true),
+                y_max = tonumber(core.settings:get('everness_coral_forest_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_coral_forest_y_min')) or 6,
             },
             everness_coral_forest_dunes = {
-                enabled = minetest.settings:get_bool('everness_coral_forest_dunes', true),
-                y_max = tonumber(minetest.settings:get('everness_coral_forest_dunes_y_max')) or 5,
-                y_min = tonumber(minetest.settings:get('everness_coral_forest_dunes_y_min')) or 4,
+                enabled = core.settings:get_bool('everness_coral_forest_dunes', true),
+                y_max = tonumber(core.settings:get('everness_coral_forest_dunes_y_max')) or 5,
+                y_min = tonumber(core.settings:get('everness_coral_forest_dunes_y_min')) or 4,
             },
             everness_coral_forest_ocean = {
-                enabled = minetest.settings:get_bool('everness_coral_forest_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_coral_forest_ocean_y_max')) or 3,
-                y_min = tonumber(minetest.settings:get('everness_coral_forest_ocean_y_min')) or -10,
+                enabled = core.settings:get_bool('everness_coral_forest_ocean', true),
+                y_max = tonumber(core.settings:get('everness_coral_forest_ocean_y_max')) or 3,
+                y_min = tonumber(core.settings:get('everness_coral_forest_ocean_y_min')) or -10,
             },
             everness_coral_forest_deep_ocean = {
-                enabled = minetest.settings:get_bool('everness_coral_forest_deep_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_coral_forest_deep_ocean_y_max')) or -11,
-                y_min = tonumber(minetest.settings:get('everness_coral_forest_deep_ocean_y_min')) or -255,
+                enabled = core.settings:get_bool('everness_coral_forest_deep_ocean', true),
+                y_max = tonumber(core.settings:get('everness_coral_forest_deep_ocean_y_max')) or -11,
+                y_min = tonumber(core.settings:get('everness_coral_forest_deep_ocean_y_min')) or -255,
             },
             everness_coral_forest_under = {
-                enabled = minetest.settings:get_bool('everness_coral_forest_under', true),
-                y_max = tonumber(minetest.settings:get('everness_coral_forest_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_coral_forest_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_coral_forest_under', true),
+                y_max = tonumber(core.settings:get('everness_coral_forest_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_coral_forest_under_y_min')) or -31000,
             },
             everness_frosted_icesheet = {
-                enabled = minetest.settings:get_bool('everness_frosted_icesheet', true),
-                y_max = tonumber(minetest.settings:get('everness_frosted_icesheet_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_frosted_icesheet_y_min')) or -8,
+                enabled = core.settings:get_bool('everness_frosted_icesheet', true),
+                y_max = tonumber(core.settings:get('everness_frosted_icesheet_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_frosted_icesheet_y_min')) or -8,
             },
             everness_frosted_icesheet_ocean = {
-                enabled = minetest.settings:get_bool('everness_frosted_icesheet_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_frosted_icesheet_ocean_y_max')) or -9,
-                y_min = tonumber(minetest.settings:get('everness_frosted_icesheet_ocean_y_min')) or -255,
+                enabled = core.settings:get_bool('everness_frosted_icesheet_ocean', true),
+                y_max = tonumber(core.settings:get('everness_frosted_icesheet_ocean_y_max')) or -9,
+                y_min = tonumber(core.settings:get('everness_frosted_icesheet_ocean_y_min')) or -255,
             },
             everness_frosted_icesheet_under = {
-                enabled = minetest.settings:get_bool('everness_frosted_icesheet_under', true),
-                y_max = tonumber(minetest.settings:get('everness_frosted_icesheet_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_frosted_icesheet_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_frosted_icesheet_under', true),
+                y_max = tonumber(core.settings:get('everness_frosted_icesheet_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_frosted_icesheet_under_y_min')) or -31000,
             },
             everness_cursed_lands = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_y_min')) or 6,
+                enabled = core.settings:get_bool('everness_cursed_lands', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_y_min')) or 6,
             },
             everness_cursed_lands_dunes = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands_dunes', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_dunes_y_max')) or 5,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_dunes_y_min')) or 1,
+                enabled = core.settings:get_bool('everness_cursed_lands_dunes', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_dunes_y_max')) or 5,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_dunes_y_min')) or 1,
             },
             everness_cursed_lands_swamp = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands_swamp', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_swamp_y_max')) or 0,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_swamp_y_min')) or -1,
+                enabled = core.settings:get_bool('everness_cursed_lands_swamp', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_swamp_y_max')) or 0,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_swamp_y_min')) or -1,
             },
             everness_cursed_lands_ocean = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_ocean_y_max')) or -2,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_ocean_y_min')) or -10,
+                enabled = core.settings:get_bool('everness_cursed_lands_ocean', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_ocean_y_max')) or -2,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_ocean_y_min')) or -10,
             },
             everness_cursed_lands_deep_ocean = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_ocean_y_max')) or -11,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_ocean_y_min')) or -255,
+                enabled = core.settings:get_bool('everness_cursed_lands_ocean', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_ocean_y_max')) or -11,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_ocean_y_min')) or -255,
             },
             everness_cursed_lands_under = {
-                enabled = minetest.settings:get_bool('everness_cursed_lands_under', true),
-                y_max = tonumber(minetest.settings:get('everness_cursed_lands_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_cursed_lands_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_cursed_lands_under', true),
+                y_max = tonumber(core.settings:get('everness_cursed_lands_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_cursed_lands_under_y_min')) or -31000,
             },
             everness_crystal_forest = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_y_min')) or 6,
+                enabled = core.settings:get_bool('everness_crystal_forest', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_y_min')) or 6,
             },
             everness_crystal_forest_dunes = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest_dunes', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_dunes_y_max')) or 5,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_dunes_y_min')) or 1,
+                enabled = core.settings:get_bool('everness_crystal_forest_dunes', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_dunes_y_max')) or 5,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_dunes_y_min')) or 1,
             },
             everness_crystal_forest_shore = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest_shore', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_shore_y_max')) or 0,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_shore_y_min')) or -1,
+                enabled = core.settings:get_bool('everness_crystal_forest_shore', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_shore_y_max')) or 0,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_shore_y_min')) or -1,
             },
             everness_crystal_forest_ocean = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_ocean_y_max')) or -2,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_ocean_y_min')) or -10,
+                enabled = core.settings:get_bool('everness_crystal_forest_ocean', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_ocean_y_max')) or -2,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_ocean_y_min')) or -10,
             },
             everness_crystal_forest_deep_ocean = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest_deep_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_deep_ocean_y_max')) or -11,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_deep_ocean_y_min')) or -255,
+                enabled = core.settings:get_bool('everness_crystal_forest_deep_ocean', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_deep_ocean_y_max')) or -11,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_deep_ocean_y_min')) or -255,
             },
             everness_crystal_forest_under = {
-                enabled = minetest.settings:get_bool('everness_crystal_forest_under', true),
-                y_max = tonumber(minetest.settings:get('everness_crystal_forest_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_crystal_forest_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_crystal_forest_under', true),
+                y_max = tonumber(core.settings:get('everness_crystal_forest_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_crystal_forest_under_y_min')) or -31000,
             },
             everness_bamboo_forest = {
-                enabled = minetest.settings:get_bool('everness_bamboo_forest', true),
-                y_max = tonumber(minetest.settings:get('everness_bamboo_forest_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_bamboo_forest_y_min')) or 1,
+                enabled = core.settings:get_bool('everness_bamboo_forest', true),
+                y_max = tonumber(core.settings:get('everness_bamboo_forest_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_bamboo_forest_y_min')) or 1,
             },
             everness_bamboo_forest_under = {
-                enabled = minetest.settings:get_bool('everness_bamboo_forest_under', true),
-                y_max = tonumber(minetest.settings:get('everness_bamboo_forest_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_bamboo_forest_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_bamboo_forest_under', true),
+                y_max = tonumber(core.settings:get('everness_bamboo_forest_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_bamboo_forest_under_y_min')) or -31000,
             },
             everness_forsaken_desert = {
-                enabled = minetest.settings:get_bool('everness_forsaken_desert', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_desert_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_desert_y_min')) or 4,
+                enabled = core.settings:get_bool('everness_forsaken_desert', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_desert_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_forsaken_desert_y_min')) or 4,
             },
             everness_forsaken_desert_ocean = {
-                enabled = minetest.settings:get_bool('everness_forsaken_desert_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_desert_ocean_y_max')) or 3,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_desert_ocean_y_min')) or -8,
+                enabled = core.settings:get_bool('everness_forsaken_desert_ocean', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_desert_ocean_y_max')) or 3,
+                y_min = tonumber(core.settings:get('everness_forsaken_desert_ocean_y_min')) or -8,
             },
             everness_forsaken_desert_under = {
-                enabled = minetest.settings:get_bool('everness_forsaken_desert_under', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_desert_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_desert_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_forsaken_desert_under', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_desert_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_forsaken_desert_under_y_min')) or -31000,
             },
             everness_baobab_savanna = {
-                enabled = minetest.settings:get_bool('everness_baobab_savanna', true),
-                y_max = tonumber(minetest.settings:get('everness_baobab_savanna_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_baobab_savanna_y_min')) or 1,
+                enabled = core.settings:get_bool('everness_baobab_savanna', true),
+                y_max = tonumber(core.settings:get('everness_baobab_savanna_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_baobab_savanna_y_min')) or 1,
             },
             everness_forsaken_tundra = {
-                enabled = minetest.settings:get_bool('everness_forsaken_tundra', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_tundra_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_tundra_y_min')) or 2,
+                enabled = core.settings:get_bool('everness_forsaken_tundra', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_tundra_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_forsaken_tundra_y_min')) or 2,
             },
             everness_forsaken_tundra_beach = {
-                enabled = minetest.settings:get_bool('everness_forsaken_tundra_beach', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_tundra_beach_y_max')) or 1,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_tundra_beach_y_min')) or -3,
+                enabled = core.settings:get_bool('everness_forsaken_tundra_beach', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_tundra_beach_y_max')) or 1,
+                y_min = tonumber(core.settings:get('everness_forsaken_tundra_beach_y_min')) or -3,
             },
             everness_forsaken_tundra_ocean = {
-                enabled = minetest.settings:get_bool('everness_forsaken_tundra_ocean', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_tundra_ocean_y_max')) or -4,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_tundra_ocean_y_min')) or -255,
+                enabled = core.settings:get_bool('everness_forsaken_tundra_ocean', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_tundra_ocean_y_max')) or -4,
+                y_min = tonumber(core.settings:get('everness_forsaken_tundra_ocean_y_min')) or -255,
             },
             everness_forsaken_tundra_under = {
-                enabled = minetest.settings:get_bool('everness_forsaken_tundra_under', true),
-                y_max = tonumber(minetest.settings:get('everness_forsaken_tundra_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_forsaken_tundra_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_forsaken_tundra_under', true),
+                y_max = tonumber(core.settings:get('everness_forsaken_tundra_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_forsaken_tundra_under_y_min')) or -31000,
             },
             everness_mineral_waters = {
-                enabled = minetest.settings:get_bool('everness_mineral_waters', true),
-                y_max = tonumber(minetest.settings:get('everness_mineral_waters_y_max')) or 31000,
-                y_min = tonumber(minetest.settings:get('everness_mineral_waters_y_min')) or 1,
+                enabled = core.settings:get_bool('everness_mineral_waters', true),
+                y_max = tonumber(core.settings:get('everness_mineral_waters_y_max')) or 31000,
+                y_min = tonumber(core.settings:get('everness_mineral_waters_y_min')) or 1,
             },
             everness_mineral_waters_under = {
-                enabled = minetest.settings:get_bool('everness_mineral_waters_under', true),
-                y_max = tonumber(minetest.settings:get('everness_mineral_waters_under_y_max')) or -256,
-                y_min = tonumber(minetest.settings:get('everness_mineral_waters_under_y_min')) or -31000,
+                enabled = core.settings:get_bool('everness_mineral_waters_under', true),
+                y_max = tonumber(core.settings:get('everness_mineral_waters_under_y_max')) or -256,
+                y_min = tonumber(core.settings:get('everness_mineral_waters_under_y_min')) or -31000,
             },
         },
         features = {
-            everness_feature_sneak_pickup = minetest.settings:get_bool('everness_feature_sneak_pickup', true),
-            everness_feature_skybox = minetest.settings:get_bool('everness_feature_skybox', true),
+            everness_feature_sneak_pickup = core.settings:get_bool('everness_feature_sneak_pickup', true),
+            everness_feature_skybox = core.settings:get_bool('everness_feature_skybox', true),
         }
     },
     hammer_cid_data = {},
@@ -249,8 +249,8 @@ function Everness.grow_cactus(self, pos, node, params)
 
     pos.y = pos.y - 1
 
-    if minetest.get_item_group(minetest.get_node(pos).name, 'sand') == 0
-        and minetest.get_item_group(minetest.get_node(pos).name, 'everness_sand') == 0
+    if core.get_item_group(core.get_node(pos).name, 'sand') == 0
+        and core.get_item_group(core.get_node(pos).name, 'everness_sand') == 0
     then
         return
     end
@@ -262,18 +262,18 @@ function Everness.grow_cactus(self, pos, node, params)
     while (node.name == 'everness:cactus_orange' or node.name == 'everness:cactus_blue') and height < 5 do
         height = height + 1
         pos.y = pos.y + 1
-        node = minetest.get_node(pos)
+        node = core.get_node(pos)
     end
 
     if height == 5 or node.name ~= 'air' then
         return
     end
 
-    if minetest.get_node_light(pos) < 13 then
+    if core.get_node_light(pos) < 13 then
         return
     end
 
-    minetest.set_node(pos, { name = node_copy.name })
+    core.set_node(pos, { name = node_copy.name })
 
     return true
 end
@@ -293,30 +293,30 @@ end
 
 -- how often node timers for plants will tick, +/- some random value
 function Everness.tick_vine(self, pos)
-    minetest.get_node_timer(pos):start(math.random(5, 10))
+    core.get_node_timer(pos):start(math.random(5, 10))
 end
 
 -- how often a growth failure tick is retried (e.g. too dark)
 function Everness.tick_vine_again(self, pos)
-    minetest.get_node_timer(pos):start(math.random(40, 80))
+    core.get_node_timer(pos):start(math.random(40, 80))
 end
 
 -- how often node timers for plants will tick, +/- some random value
 function Everness.tick_sulfur_stone(self, pos)
-    minetest.get_node_timer(pos):start(math.random(5, 10))
+    core.get_node_timer(pos):start(math.random(5, 10))
 end
 
 -- how often a growth failure tick is retried (e.g. too dark)
 function Everness.tick_sulfur_stone_again(self, pos)
-    minetest.get_node_timer(pos):start(math.random(40, 80))
+    core.get_node_timer(pos):start(math.random(40, 80))
 end
 
 -- Grows vines
 -- @param pos {vector}
 function Everness.grow_vine(self, pos, elapsed, params)
-    local node = minetest.get_node(pos)
+    local node = core.get_node(pos)
     local pos_under = vector.new(pos.x, pos.y - 1, pos.z)
-    local node_under = minetest.get_node(pos_under)
+    local node_under = core.get_node(pos_under)
     local node_names = params.node_names
     local end_node_name = params.end_node_name
     local end_node_param2 = params.end_node_param2
@@ -325,9 +325,9 @@ function Everness.grow_vine(self, pos, elapsed, params)
     local length = 0
     local temp_node = node
 
-    while minetest.get_item_group(temp_node.name, 'vine') > 0 and length < 16 do
+    while core.get_item_group(temp_node.name, 'vine') > 0 and length < 16 do
         length = length + 1
-        temp_node = minetest.get_node(vector.new(pos.x, pos.y + length, pos.z))
+        temp_node = core.get_node(vector.new(pos.x, pos.y + length, pos.z))
     end
 
     -- stop growing - random height between 12 - 16 nodes
@@ -341,7 +341,7 @@ function Everness.grow_vine(self, pos, elapsed, params)
         return
     end
 
-    if minetest.get_item_group(node_under.name, 'vine') > 0 then
+    if core.get_item_group(node_under.name, 'vine') > 0 then
         -- stop timer for gown vine
         return
     end
@@ -353,9 +353,9 @@ function Everness.grow_vine(self, pos, elapsed, params)
 
     local new_node_name = node_names[math.random(1, #node_names)]
 
-    minetest.set_node(pos, { name = new_node_name, param2 = new_node_name.param2 or 0 })
+    core.set_node(pos, { name = new_node_name, param2 = new_node_name.param2 or 0 })
     -- last hanging vine
-    minetest.set_node(pos_under, { name = end_node_name, param2 = end_node_param2 and end_node_param2 or node.param2 })
+    core.set_node(pos_under, { name = end_node_name, param2 = end_node_param2 and end_node_param2 or node.param2 })
 
     Everness:tick_vine(pos_under)
 end
@@ -547,12 +547,12 @@ function Everness.stack_icicle_recursive(node, pos_node, incrementer, pos_marker
             Everness.emerge_icicle_area_recursive(pos, inc, m_pos, direction)
             break
         else
-            minetest.set_node(pos, { name = 'everness:frosted_cave_ice_illuminating' })
+            core.set_node(pos, { name = 'everness:frosted_cave_ice_illuminating' })
             -- Shift 1 down
             inc = inc + 1
             local y_offset = (direction == 'down') and (m_pos.y - inc) or (m_pos.y + inc)
             pos = vector.new(m_pos.x, y_offset, m_pos.z)
-            nb = minetest.get_node(pos)
+            nb = core.get_node(pos)
         end
     end
 end
@@ -560,7 +560,7 @@ end
 function Everness.emerge_icicle_area_recursive(pos_node, incrementer, pos_marker, direction)
     local y_offset = (direction == 'down') and (pos_node.y - 16) or (pos_node.y + 16)
 
-    minetest.emerge_area(
+    core.emerge_area(
         vector.new(pos_node.x - 1, pos_node.y, pos_node.z - 1),
         vector.new(pos_node.x + 1, y_offset, pos_node.z + 1),
         function(blockpos, action, calls_remaining, param)
@@ -570,7 +570,7 @@ function Everness.emerge_icicle_area_recursive(pos_node, incrementer, pos_marker
             callback = function(data)
                 local incrementer_cllbck = data.incrementer
                 local pos_node_cllbck = data.pos_node
-                local node_cllbck = minetest.get_node(pos_node_cllbck)
+                local node_cllbck = core.get_node(pos_node_cllbck)
 
                 Everness.stack_icicle_recursive(node_cllbck, pos_node_cllbck, incrementer_cllbck, pos_marker, direction)
             end,
@@ -590,14 +590,14 @@ function Everness.use_shell_of_underwater_breathing(self, itemstack, user, point
     local pos_player = user:get_pos()
 
     if pointed_thing.type == 'node' then
-        local pos_pt = minetest.get_pointed_thing_position(pointed_thing)
+        local pos_pt = core.get_pointed_thing_position(pointed_thing)
 
         if not pos_pt then
             return itemstack
         end
 
-        local pointed_node = minetest.get_node(pos_pt)
-        local pointed_node_def = minetest.registered_nodes[pointed_node.name]
+        local pointed_node = core.get_node(pos_pt)
+        local pointed_node_def = core.registered_nodes[pointed_node.name]
 
         if not pointed_node or not pointed_node_def then
             return itemstack
@@ -608,7 +608,7 @@ function Everness.use_shell_of_underwater_breathing(self, itemstack, user, point
         end
     end
 
-    local node_head = minetest.get_node(
+    local node_head = core.get_node(
         vector.new(
             math.floor(pos_player.x + 0.5),
             math.ceil(pos_player.y + 1),
@@ -617,12 +617,12 @@ function Everness.use_shell_of_underwater_breathing(self, itemstack, user, point
     )
     local breath = user:get_breath()
 
-    if minetest.get_item_group(node_head.name, 'water') > 0 and breath < 9 then
+    if core.get_item_group(node_head.name, 'water') > 0 and breath < 9 then
         -- Under water
         user:set_breath(9)
 
-        if not minetest.settings:get_bool('creative_mode')
-            or not minetest.check_player_privs(user:get_player_name(), { creative = true })
+        if not core.settings:get_bool('creative_mode')
+            or not core.check_player_privs(user:get_player_name(), { creative = true })
         then
             local wear_to_add = 65535 / 20
 
@@ -630,7 +630,7 @@ function Everness.use_shell_of_underwater_breathing(self, itemstack, user, point
                 local itemstack_def = itemstack:get_definition()
 
                 -- Break tool
-                minetest.sound_play(itemstack_def.sound.breaks, {
+                core.sound_play(itemstack_def.sound.breaks, {
                     pos = pos_player,
                     gain = 0.5
                 }, true)
@@ -639,13 +639,13 @@ function Everness.use_shell_of_underwater_breathing(self, itemstack, user, point
             itemstack:add_wear(wear_to_add)
         end
 
-        minetest.sound_play('everness_underwater_bubbles', {
+        core.sound_play('everness_underwater_bubbles', {
             object = user,
             gain = 1.0,
             max_hear_distance = 16
         })
 
-        minetest.add_particlespawner({
+        core.add_particlespawner({
             amount = 40,
             time = 0.1,
             pos = {
@@ -686,9 +686,9 @@ end
 -- copy from MTG
 --
 function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props)
-    if minetest.get_modpath('mcl_util') and minetest.global_exists('mcl_util') then
+    if core.get_modpath('mcl_util') and core.global_exists('mcl_util') then
         local on_place_func = mcl_util.generate_on_place_plant_function(function(pos, node)
-            local node_below = minetest.get_node_or_nil({ x = pos.x, y = pos.y - 1, z = pos.z })
+            local node_below = core.get_node_or_nil({ x = pos.x, y = pos.y - 1, z = pos.z })
 
             if not node_below then
                 return false
@@ -696,7 +696,7 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
 
             local nn = node_below.name
 
-            return minetest.get_item_group(nn, 'grass_block') == 1
+            return core.get_item_group(nn, 'grass_block') == 1
                 or (nn == 'everness:mineral_sand' and itemstack:get_name() == 'everness:palm_tree_sapling')
                 or nn == 'mcl_core:podzol'
                 or nn == 'mcl_core:podzol_snow'
@@ -718,8 +718,8 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
 
         -- Position of sapling
         local pos = pointed_thing.under
-        local node = minetest.get_node_or_nil(pos)
-        local pdef = node and minetest.registered_nodes[node.name]
+        local node = core.get_node_or_nil(pos)
+        local pdef = node and core.registered_nodes[node.name]
 
         if pdef and node and pdef.on_rightclick
             and not (placer and placer:is_player()
@@ -730,8 +730,8 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
 
         if not pdef or not pdef.buildable_to then
             pos = pointed_thing.above
-            node = minetest.get_node_or_nil(pos)
-            pdef = node and minetest.registered_nodes[node.name]
+            node = core.get_node_or_nil(pos)
+            pdef = node and core.registered_nodes[node.name]
 
             if not pdef or not pdef.buildable_to then
                 return itemstack
@@ -741,21 +741,21 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
         local player_name = placer and placer:get_player_name() or ''
 
         -- Check sapling position for protection
-        if minetest.is_protected(pos, player_name) then
-            minetest.record_protection_violation(pos, player_name)
+        if core.is_protected(pos, player_name) then
+            core.record_protection_violation(pos, player_name)
             return itemstack
         end
 
         -- Check tree volume for protection
-        if minetest.is_area_protected(
+        if core.is_area_protected(
                 vector.add(pos, minp_relative),
                 vector.add(pos, maxp_relative),
                 player_name,
                 interval
             )
         then
-            minetest.record_protection_violation(pos, player_name)
-            minetest.chat_send_player(
+            core.record_protection_violation(pos, player_name)
+            core.chat_send_player(
                 player_name,
                 S('@1 will intersect protection on growth.', itemstack:get_definition().description)
             )
@@ -765,11 +765,11 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
 
         Everness.log_player_action(placer, 'places node', sapling_name, 'at', pos)
 
-        local take_item = not minetest.is_creative_enabled(player_name)
+        local take_item = not core.is_creative_enabled(player_name)
         local newnode = { name = sapling_name }
-        local ndef = minetest.registered_nodes[sapling_name]
+        local ndef = core.registered_nodes[sapling_name]
 
-        minetest.set_node(pos, newnode)
+        core.set_node(pos, newnode)
 
         -- Run callback
         if ndef and ndef.after_place_node then
@@ -781,7 +781,7 @@ function Everness.sapling_on_place(self, itemstack, placer, pointed_thing, props
         end
 
         -- Run script hook
-        for _, callback in ipairs(minetest.registered_on_placenodes or {}) do
+        for _, callback in ipairs(core.registered_on_placenodes or {}) do
             -- Deepcopy pos, node and pointed_thing because callback can modify them
             if callback(table.copy(pos), table.copy(newnode),
                     placer, table.copy(node or {}),
@@ -806,21 +806,21 @@ end
 
 Everness.after_place_leaves = function(self, pos, placer, itemstack, pointed_thing)
     if placer and placer:is_player() then
-        local node = minetest.get_node(pos)
+        local node = core.get_node(pos)
         node.param2 = 1
-        minetest.set_node(pos, node)
+        core.set_node(pos, node)
     end
 end
 
 -- Leafdecay
 local function leafdecay_after_destruct(pos, oldnode, def)
-    for _, v in pairs(minetest.find_nodes_in_area(vector.subtract(pos, def.radius),
+    for _, v in pairs(core.find_nodes_in_area(vector.subtract(pos, def.radius),
         vector.add(pos, def.radius), def.leaves))
     do
-        local node = minetest.get_node(v)
-        local timer = minetest.get_node_timer(v)
+        local node = core.get_node(v)
+        local timer = core.get_node_timer(v)
         if node.param2 ~= 1
-            and minetest.get_meta(v):get_int('everness_prevent_leafdecay') ~= 1
+            and core.get_meta(v):get_int('everness_prevent_leafdecay') ~= 1
             and not timer:is_started()
         then
             timer:start(math.random(20, 120) / 10)
@@ -828,15 +828,15 @@ local function leafdecay_after_destruct(pos, oldnode, def)
     end
 end
 
-local movement_gravity = tonumber(minetest.settings:get('movement_gravity')) or 9.81
+local movement_gravity = tonumber(core.settings:get('movement_gravity')) or 9.81
 
 local function leafdecay_on_timer(pos, def)
-    if minetest.find_node_near(pos, def.radius, def.trunks) then
+    if core.find_node_near(pos, def.radius, def.trunks) then
         return false
     end
 
-    local node = minetest.get_node(pos)
-    local drops = minetest.get_node_drops(node.name)
+    local node = core.get_node(pos)
+    local drops = core.get_node_drops(node.name)
 
     for _, item in ipairs(drops) do
         local is_leaf
@@ -845,10 +845,10 @@ local function leafdecay_on_timer(pos, def)
                 is_leaf = true
             end
         end
-        if minetest.get_item_group(item, 'leafdecay_drop') ~= 0
+        if core.get_item_group(item, 'leafdecay_drop') ~= 0
             or not is_leaf
         then
-            minetest.add_item({
+            core.add_item({
                 x = pos.x - 0.5 + math.random(),
                 y = pos.y - 0.5 + math.random(),
                 z = pos.z - 0.5 + math.random(),
@@ -856,11 +856,11 @@ local function leafdecay_on_timer(pos, def)
         end
     end
 
-    minetest.remove_node(pos)
-    minetest.check_for_falling(pos)
+    core.remove_node(pos)
+    core.check_for_falling(pos)
 
     -- spawn a few particles for the removed node
-    minetest.add_particlespawner({
+    core.add_particlespawner({
         amount = 8,
         time = 0.001,
         minpos = vector.subtract(pos, { x = 0.5, y = 0.5, z = 0.5 }),
@@ -881,7 +881,7 @@ function Everness.register_leafdecay(self, def)
     assert(def.radius)
 
     for _, v in pairs(def.trunks) do
-        minetest.override_item(v, {
+        core.override_item(v, {
             after_destruct = function(pos, oldnode)
                 leafdecay_after_destruct(pos, oldnode, def)
             end,
@@ -889,7 +889,7 @@ function Everness.register_leafdecay(self, def)
     end
 
     for _, v in pairs(def.leaves) do
-        minetest.override_item(v, {
+        core.override_item(v, {
             on_timer = function(pos)
                 leafdecay_on_timer(pos, def)
             end,
@@ -904,7 +904,7 @@ function Everness.register_node(self, name, def)
     _def.mod_origin = 'everness'
 
     -- X Farming composter description
-    if minetest.get_modpath('x_farming') and minetest.global_exists('x_farming') then
+    if core.get_modpath('x_farming') and core.global_exists('x_farming') then
         -- X Farming
         if _def.groups and (_def.groups.compost or 0) > 0 then
             _def.description = _def.description .. '\n' .. S('Compost chance') .. ': ' .. def.groups.compost .. '%'
@@ -912,7 +912,7 @@ function Everness.register_node(self, name, def)
     end
 
     self.registered_nodes[_name] = _def
-    minetest.register_node(_name, _def)
+    core.register_node(_name, _def)
 end
 
 function Everness.register_tool(self, name, def)
@@ -922,7 +922,7 @@ function Everness.register_tool(self, name, def)
     _def.mod_origin = 'everness'
 
     self.registered_tools[_name] = _def
-    minetest.register_tool(_name, _def)
+    core.register_tool(_name, _def)
 end
 
 function Everness.register_abm(self, def)
@@ -930,7 +930,7 @@ function Everness.register_abm(self, def)
     local _name = _def.label
 
     self.registered_abms[_name] = _def
-    minetest.register_abm(_def)
+    core.register_abm(_def)
 end
 
 function Everness.register_lbm(self, def)
@@ -938,7 +938,7 @@ function Everness.register_lbm(self, def)
     local _name = _def.name
 
     self.registered_lbms[_name] = _def
-    minetest.register_lbm(_def)
+    core.register_lbm(_def)
 end
 
 function Everness.register_craftitem(self, name, def)
@@ -948,7 +948,7 @@ function Everness.register_craftitem(self, name, def)
     _def.mod_origin = 'everness'
 
     self.registered_craftitems[_name] = _def
-    minetest.register_craftitem(_name, _def)
+    core.register_craftitem(_name, _def)
 end
 
 function Everness.register_biome(self, def)
@@ -956,7 +956,7 @@ function Everness.register_biome(self, def)
     local _name = _def.name
 
     self.registered_biomes[_name] = _def
-    minetest.register_biome(_def)
+    core.register_biome(_def)
 end
 
 function Everness.register_decoration(self, def)
@@ -964,7 +964,7 @@ function Everness.register_decoration(self, def)
     local _name = _def.name
 
     self.registered_decorations[_name] = _def
-    minetest.register_decoration(_def)
+    core.register_decoration(_def)
 end
 
 function Everness.register_ore(self, def)
@@ -974,14 +974,14 @@ function Everness.register_ore(self, def)
     local _name = _def.ore
 
     self.registered_ores[_name] = _def
-    minetest.register_ore(_def)
+    core.register_ore(_def)
 end
 
 --
 -- Log API / helpers - copy from MTG
 --
 
-local log_non_player_actions = minetest.settings:get_bool('log_non_player_actions', false)
+local log_non_player_actions = core.settings:get_bool('log_non_player_actions', false)
 
 local is_pos = function(v)
     return type(v) == 'table'
@@ -1002,12 +1002,12 @@ function Everness.log_player_action(player, ...)
     end
     for _, v in ipairs({ ... }) do
         -- translate pos
-        local part = is_pos(v) and minetest.pos_to_string(v) or v
+        local part = is_pos(v) and core.pos_to_string(v) or v
         -- no leading spaces before punctuation marks
         msg = msg .. (string.match(part, '^[;,.]') and '' or ' ') .. part
     end
 
-    minetest.log('action', msg)
+    core.log('action', msg)
 end
 
 function Everness.set_inventory_action_loggers(def, name)
@@ -1025,7 +1025,7 @@ end
 -- 'can grow' function - copy from MTG
 
 function Everness.can_grow(pos, groups_under)
-    local node_under = minetest.get_node_or_nil({ x = pos.x, y = pos.y - 1, z = pos.z })
+    local node_under = core.get_node_or_nil({ x = pos.x, y = pos.y - 1, z = pos.z })
 
     if not node_under then
         return false
@@ -1041,7 +1041,7 @@ function Everness.can_grow(pos, groups_under)
 
     -- Check is one of the `groups_under` are under the sapling
     for i, v in ipairs(_groups_under) do
-        if minetest.get_item_group(node_under.name, v) > 0 then
+        if core.get_item_group(node_under.name, v) > 0 then
             has_fertile_under = true
             break
         end
@@ -1051,7 +1051,7 @@ function Everness.can_grow(pos, groups_under)
         return false
     end
 
-    local light_level = minetest.get_node_light(pos)
+    local light_level = core.get_node_light(pos)
 
     if not light_level or light_level < 13 then
         return false
@@ -1067,14 +1067,14 @@ end
 
 function Everness.can_interact_with_node(player, pos)
     if player and player:is_player() then
-        if minetest.check_player_privs(player, 'protection_bypass') then
+        if core.check_player_privs(player, 'protection_bypass') then
             return true
         end
     else
         return false
     end
 
-    local meta = minetest.get_meta(pos)
+    local meta = core.get_meta(pos)
     local owner = meta:get_string('owner')
 
     if not owner or owner == '' or owner == player:get_player_name() then
@@ -1084,17 +1084,17 @@ function Everness.can_interact_with_node(player, pos)
     -- Is player wielding the right key?
     local item = player:get_wielded_item()
 
-    if minetest.get_item_group(item:get_name(), 'key') == 1 then
+    if core.get_item_group(item:get_name(), 'key') == 1 then
         local key_meta = item:get_meta()
 
         if key_meta:get_string('secret') == '' then
             local key_oldmeta = item:get_metadata()
 
-            if key_oldmeta == '' or not minetest.parse_json(key_oldmeta) then
+            if key_oldmeta == '' or not core.parse_json(key_oldmeta) then
                 return false
             end
 
-            key_meta:set_string('secret', minetest.parse_json(key_oldmeta).secret)
+            key_meta:set_string('secret', core.parse_json(key_oldmeta).secret)
             item:set_metadata('')
         end
 
@@ -1110,7 +1110,7 @@ end
 --
 
 function Everness.get_inventory_drops(pos, inventory, drops)
-    local inv = minetest.get_meta(pos):get_inventory()
+    local inv = core.get_meta(pos):get_inventory()
     local n = #drops
     for i = 1, inv:get_size(inventory) do
         local stack = inv:get_stack(inventory, i)
@@ -1124,8 +1124,8 @@ end
 function Everness.set_loot_chest_items()
     local loot_items = {}
 
-    for name, def in pairs(minetest.registered_items) do
-        local craft_recipe = minetest.get_craft_recipe(name)
+    for name, def in pairs(core.registered_items) do
+        local craft_recipe = core.get_craft_recipe(name)
         local mod_name = name:split(':')[1]
 
         if def.groups
@@ -1153,19 +1153,19 @@ function Everness.populate_loot_chests(self, positions, params)
     local inventories = {}
 
     for i, pos in ipairs(positions) do
-        local inv = minetest.get_inventory({ type = 'node', pos = pos })
+        local inv = core.get_inventory({ type = 'node', pos = pos })
 
         if not inv then
-            local chest_def = minetest.registered_nodes['everness:chest']
+            local chest_def = core.registered_nodes['everness:chest']
             chest_def.on_construct(pos)
-            inv = minetest.get_inventory({ type = 'node', pos = pos })
+            inv = core.get_inventory({ type = 'node', pos = pos })
         end
 
         if inv then
             table.insert(inventories, inv)
             string_positions = string_positions .. ' ' .. pos:to_string()
         else
-            minetest.log('warning', '[Everness] FAILED to populate loot chests inventory at ' .. pos:to_string())
+            core.log('warning', '[Everness] FAILED to populate loot chests inventory at ' .. pos:to_string())
         end
     end
 
@@ -1174,14 +1174,14 @@ function Everness.populate_loot_chests(self, positions, params)
             local rand_idx = rand_global:next(1, #self.loot_chest[_loot_chest_items_group])
             local item_def = self.loot_chest[_loot_chest_items_group][rand_idx]
 
-            if not minetest.registered_items[item_def.name] then
+            if not core.registered_items[item_def.name] then
                 return
             end
 
             if rand_global:next(0, 100) <= item_def.chance then
                 local stack = ItemStack(item_def.name)
 
-                if minetest.registered_tools[item_def.name] then
+                if core.registered_tools[item_def.name] then
                     stack:set_wear(rand_global:next(1, 65535))
                 else
                     stack:set_count(rand_global:next(1, math.min(item_def.max_count, stack:get_stack_max())))
@@ -1192,7 +1192,7 @@ function Everness.populate_loot_chests(self, positions, params)
             end
         end
 
-        minetest.log('action', '[Everness] Loot chests inventory populated at ' .. string_positions)
+        core.log('action', '[Everness] Loot chests inventory populated at ' .. string_positions)
     end
 end
 
@@ -1203,7 +1203,7 @@ end
 
 local function rand_pos(center, pos, radius)
     local def
-    local reg_nodes = minetest.registered_nodes
+    local reg_nodes = core.registered_nodes
     local i = 0
 
     repeat
@@ -1215,7 +1215,7 @@ local function rand_pos(center, pos, radius)
 
         pos.x = center.x + math.random(-radius, radius)
         pos.z = center.z + math.random(-radius, radius)
-        def = reg_nodes[minetest.get_node(pos).name]
+        def = reg_nodes[core.get_node(pos).name]
         i = i + 1
     until def and not def.walkable
 end
@@ -1243,7 +1243,7 @@ local function eject_drops(drops, pos, radius)
 
             dropitem:set_count(take)
 
-            local obj = minetest.add_item(drop_pos, dropitem)
+            local obj = core.add_item(drop_pos, dropitem)
 
             if obj then
                 obj:get_luaentity().collect = true
@@ -1275,7 +1275,7 @@ local function add_drop(drops, item)
 end
 
 local function destroy(drops, npos, cid, c_air, can_dig, owner)
-    if minetest.is_protected(npos, owner) then
+    if core.is_protected(npos, owner) then
         return cid
     end
 
@@ -1283,10 +1283,10 @@ local function destroy(drops, npos, cid, c_air, can_dig, owner)
 
     if not def then
         return cid
-    elseif def.can_dig and not def.can_dig(npos, minetest.get_player_by_name(owner)) then
+    elseif def.can_dig and not def.can_dig(npos, core.get_player_by_name(owner)) then
         return cid
     else
-        local node_drops = minetest.get_node_drops(def.name, '')
+        local node_drops = core.get_node_drops(def.name, '')
 
         for _, item in pairs(node_drops) do
             add_drop(drops, item)
@@ -1347,8 +1347,8 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
     local look_dir = vector.round(digger:get_look_dir())
     local look_dir_multi = vector.round(vector.multiply(look_dir, radius / 2))
     pos = vector.round(vector.add(pos, look_dir_multi))
-    local c_air = minetest.CONTENT_AIR
-    local c_ignore = minetest.CONTENT_IGNORE
+    local c_air = core.CONTENT_AIR
+    local c_ignore = core.CONTENT_IGNORE
     local vm = VoxelManip()
     local pr = PseudoRandom(os.time())
     local p1 = vector.subtract(pos, radius)
@@ -1360,12 +1360,12 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
     local drops = {}
     local p_name = digger:get_player_name()
 
-    if not minetest.settings:get_bool('creative_mode') then
+    if not core.settings:get_bool('creative_mode') then
         local wielditem_meta = wielditem:get_meta()
         local wielditem_wear = wielditem_meta:get_int('everness_wear')
-        local node_def = minetest.registered_nodes[node.name]
+        local node_def = core.registered_nodes[node.name]
         local wielditem_def = wielditem:get_definition()
-        local dig_params = minetest.get_dig_params(node_def and node_def.groups, wielditem_def and wielditem_def.tool_capabilities, wielditem:get_wear())
+        local dig_params = core.get_dig_params(node_def and node_def.groups, wielditem_def and wielditem_def.tool_capabilities, wielditem:get_wear())
         local new_wear = wielditem_wear + dig_params.wear
 
         -- Add wear
@@ -1376,7 +1376,7 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
 
         if wielditem_wear > 65535 then
             -- Break tool
-            minetest.sound_play(wielditem_def.sound.breaks, {
+            core.sound_play(wielditem_def.sound.breaks, {
                 pos = pos,
                 gain = 0.5
             }, true)
@@ -1437,7 +1437,7 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
                 local rad = vector.new(x, y, z)
                 local s = vector.add(pos, rad)
 
-                minetest.check_single_for_falling(s)
+                core.check_single_for_falling(s)
             end
         end
     end
@@ -1453,7 +1453,7 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
 
         if count > most then
             most = count
-            local def = minetest.registered_nodes[name]
+            local def = core.registered_nodes[name]
 
             if def then
                 node_for_particles = { name = name }
@@ -1467,10 +1467,10 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
                     -- `drop_pos` is being randomized here
                     rand_pos(pos, drop_pos, radius)
 
-                    minetest.after(
+                    core.after(
                         math.random(2, 8) / 10,
                         function()
-                            minetest.sound_play(def.sounds.dug, {
+                            core.sound_play(def.sounds.dug, {
                                 pos = drop_pos,
                                 pitch = math.random(1, 10) / 10
                             }, true)
@@ -1482,7 +1482,7 @@ function Everness.hammer_after_dig_node(pos, node, metadata, digger, can_dig)
     end
 
     if node_for_particles then
-        minetest.add_particlespawner({
+        core.add_particlespawner({
             amount = 64,
             time = 0.1,
             minpos = vector.subtract(pos, radius / 2),
@@ -1519,11 +1519,11 @@ function Everness.cool_lava(pos, node, dtime_s, prev_cool_lava_action)
             }
             local rand_node = obi_nodes[math.random(1, #obi_nodes)]
 
-            minetest.set_node(pos, {
+            core.set_node(pos, {
                 name = rand_node.name
             })
 
-            minetest.sound_play('everness_cool_lava',
+            core.sound_play('everness_cool_lava',
                 {
                     pos = pos,
                     max_hear_distance = 16,
@@ -1532,9 +1532,9 @@ function Everness.cool_lava(pos, node, dtime_s, prev_cool_lava_action)
                 true
             )
 
-            if minetest.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
+            if core.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
                 -- new syntax, after v5.6.0
-                minetest.add_particlespawner({
+                core.add_particlespawner({
                     amount = 80,
                     time = 1,
                     size = {
@@ -1568,10 +1568,10 @@ function Everness.cool_lava(pos, node, dtime_s, prev_cool_lava_action)
             end
         elseif node.name == 'everness:lava_source' then
             -- Lava flowing
-            minetest.set_node(pos, {name = 'default:obsidian'})
+            core.set_node(pos, {name = 'default:obsidian'})
         elseif node.name == 'everness:lava_flowing' then
             -- Lava flowing
-            minetest.set_node(pos, {name = 'default:stone'})
+            core.set_node(pos, {name = 'default:stone'})
         else
             prev_cool_lava_action(pos, node, dtime_s)
         end
@@ -1608,7 +1608,7 @@ function Everness.get_pot_formspec(pos, label, model_texture)
         list_bg,
         hotbar_bg,
         'image[0.5,3;1,1;everness_chest_ui_bg_hb_slot.png]',
-        'label[2.5,0.5;' .. minetest.formspec_escape(label) .. ']',
+        'label[2.5,0.5;' .. core.formspec_escape(label) .. ']',
         model
     }
 
@@ -1689,7 +1689,7 @@ local function get_unordered_list(tbl, pos, formspec, lvl)
             _formspec[#_formspec + 1] = ('label[%f,%f;%s]'):format(pos.x + 0.25 * _lvl, pos.y, k .. ':')
             get_unordered_list(v, pos, _formspec, _lvl + 1)
         else
-            if minetest.registered_items[v] then
+            if core.registered_items[v] then
                 pos.y = pos.y + 0.25
                 -- Label
                 _formspec[#_formspec + 1] = ('label[%f,%f;%s]'):format(pos.x + 0.25 * _lvl, pos.y, k .. ':')
@@ -1697,7 +1697,7 @@ local function get_unordered_list(tbl, pos, formspec, lvl)
                 -- Item image
                 _formspec[#_formspec + 1] = ('item_image[%f,%f;1,1;%s]'):format(pos.x + 0.25 * _lvl, pos.y, v)
                 -- Tooltip for description
-                _formspec[#_formspec + 1] = ('tooltip[%f,%f;1,1;%s]'):format(pos.x + 0.25 * _lvl, pos.y, minetest.formspec_escape(v))
+                _formspec[#_formspec + 1] = ('tooltip[%f,%f;1,1;%s]'):format(pos.x + 0.25 * _lvl, pos.y, core.formspec_escape(v))
                 pos.y = pos.y + 1
             else
                 pos.y = pos.y + 0.25
@@ -1802,11 +1802,11 @@ function Everness.encyclopedia_init(self)
         return tech_name_to_pretty_name(a) < tech_name_to_pretty_name(b)
     end)
 
-    if minetest.get_modpath('unified_inventory') then
+    if core.get_modpath('unified_inventory') then
         self:encyclopedia_ui_register_page()
-    elseif minetest.get_modpath('i3') then
+    elseif core.get_modpath('i3') then
         self:encyclopedia_i3_register_page()
-    elseif minetest.get_modpath('sfinv') and sfinv.enabled then
+    elseif core.get_modpath('sfinv') and sfinv.enabled then
         self:encyclopedia_sfinv_register_page()
     end
 end
@@ -1851,7 +1851,7 @@ function Everness.encyclopedia_get_formspec(self, context)
     local formspec = {
         -- Title
         'real_coordinates[true]',
-        ('label[%f,%f;%s]'):format(pos_primary.x, pos_primary.y, minetest.formspec_escape(S('Everness Encyclopedia'))),
+        ('label[%f,%f;%s]'):format(pos_primary.x, pos_primary.y, core.formspec_escape(S('Everness Encyclopedia'))),
     }
 
     -- Dropdown (main categories)
@@ -1870,7 +1870,7 @@ function Everness.encyclopedia_get_formspec(self, context)
     -- Margin
     pos_secondary_container.y = pos_secondary_container.y + 0.5
 
-    if minetest['registered_' .. dropdown_value][primary_list_selected_value]
+    if core['registered_' .. dropdown_value][primary_list_selected_value]
         and dropdown_value ~= 'biomes'
         and dropdown_value ~= 'decorations'
         and dropdown_value ~= 'ores'
@@ -1885,19 +1885,19 @@ function Everness.encyclopedia_get_formspec(self, context)
 
         if def.description then
             -- Tooltip for description
-            formspec[#formspec + 1] = ('tooltip[%f,%f;2,2;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, minetest.formspec_escape(def.description))
+            formspec[#formspec + 1] = ('tooltip[%f,%f;2,2;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, core.formspec_escape(def.description))
         end
 
         pos_secondary_container.y = pos_secondary_container.y + 2
     elseif def and def.description then
         -- Label description
-        formspec[#formspec + 1] = ('label[%f,%f;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, minetest.formspec_escape(def.description))
+        formspec[#formspec + 1] = ('label[%f,%f;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, core.formspec_escape(def.description))
     end
 
     if def and def.label then
         pos_secondary_container.y = pos_secondary_container.y + 0.25
         -- Label description
-        formspec[#formspec + 1] = ('label[%f,%f;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, minetest.formspec_escape(def.label))
+        formspec[#formspec + 1] = ('label[%f,%f;%s]'):format(pos_secondary_container.x, pos_secondary_container.y, core.formspec_escape(def.label))
     end
 
     -- Groups
@@ -1981,7 +1981,7 @@ function Everness.encyclopedia_i3_register_page(self)
         end,
         fields = function(player, data, fields)
             if fields.everness_ency_main_list then
-                local main_list_event = minetest.explode_textlist_event(fields.everness_ency_main_list)
+                local main_list_event = core.explode_textlist_event(fields.everness_ency_main_list)
 
                 -- Set context data
                 if main_list_event.type == 'CHG' then
@@ -1999,7 +1999,7 @@ function Everness.encyclopedia_i3_register_page(self)
             end
         end,
         access = function(player, data)
-            return minetest.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
+            return core.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
         end,
     })
 end
@@ -2018,7 +2018,7 @@ function Everness.encyclopedia_ui_register_page(self)
         end
     })
 
-    minetest.register_on_joinplayer(function(player)
+    core.register_on_joinplayer(function(player)
         local pname = player:get_player_name()
 
         unified_inventory.everness_context = {}
@@ -2028,7 +2028,7 @@ function Everness.encyclopedia_ui_register_page(self)
         }
     end)
 
-    minetest.register_on_player_receive_fields(function(player, formname, fields)
+    core.register_on_player_receive_fields(function(player, formname, fields)
         if formname ~= '' then
             return
         end
@@ -2036,7 +2036,7 @@ function Everness.encyclopedia_ui_register_page(self)
         local pname = player:get_player_name()
 
         if fields.everness_ency_main_list then
-            local main_list_event = minetest.explode_textlist_event(fields.everness_ency_main_list)
+            local main_list_event = core.explode_textlist_event(fields.everness_ency_main_list)
 
             -- Set context data
             if main_list_event.type == 'CHG' then
@@ -2062,13 +2062,13 @@ function Everness.encyclopedia_ui_register_page(self)
         image = 'everness_logo.png',
         tooltip = 'Everness Encyclopedia',
         condition = function(player)
-            return minetest.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
+            return core.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
         end,
         action = function(player)
             local pname = player:get_player_name()
 
-            if not minetest.check_player_privs(pname, 'everness_encyclopedia') then
-                minetest.chat_send_player(pname, S('You need "everness_encyclopedia" privilige to access this button.'))
+            if not core.check_player_privs(pname, 'everness_encyclopedia') then
+                core.chat_send_player(pname, S('You need "everness_encyclopedia" privilige to access this button.'))
                 unified_inventory.set_inventory_formspec(player, unified_inventory.current_page[pname])
                 return
             end
@@ -2083,7 +2083,7 @@ function Everness.encyclopedia_sfinv_register_page(self)
     sfinv.register_page('everness:encyclopedia', {
         title = 'Everness',
         is_in_nav = function(_self, player, context)
-            return minetest.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
+            return core.check_player_privs(player:get_player_name(), 'everness_encyclopedia')
         end,
         get = function(_self, player, context)
             local formspec = self:encyclopedia_get_formspec(context)
@@ -2091,7 +2091,7 @@ function Everness.encyclopedia_sfinv_register_page(self)
         end,
         on_player_receive_fields = function (_self, player, context, fields)
             if fields.everness_ency_main_list then
-                local main_list_event = minetest.explode_textlist_event(fields.everness_ency_main_list)
+                local main_list_event = core.explode_textlist_event(fields.everness_ency_main_list)
 
                 -- Set context data
                 if main_list_event.type == 'CHG' then
@@ -2146,7 +2146,7 @@ function Everness.find_content_under_air_in_vm_area(minp, maxp, contentIds, data
                 local ai = area:index(x, y, z)
 
                 if table.indexof(contentIds, data[ai]) ~= -1
-                    and data[ai + area.ystride] == minetest.CONTENT_AIR
+                    and data[ai + area.ystride] == core.CONTENT_AIR
                 then
                     id_count[data[ai]] = (id_count[data[ai]] or 0) + 1
                     table.insert(indexes, ai)
@@ -2161,7 +2161,7 @@ end
 
 function Everness.add_to_queue_on_generated(self, def)
     if type(def) ~= 'table' then
-        minetest.log('warning', '[add_to_queue_on_generated] Callback definition is not a table, not adding to queue! It was type of ' .. type(def))
+        core.log('warning', '[add_to_queue_on_generated] Callback definition is not a table, not adding to queue! It was type of ' .. type(def))
         return
     end
 

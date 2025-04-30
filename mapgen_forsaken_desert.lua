@@ -147,7 +147,7 @@ Everness:register_decoration({
     biomes = { 'everness:forsaken_desert' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_termite_nest.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_termite_nest.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -168,7 +168,7 @@ Everness:register_decoration({
     biomes = { 'everness:forsaken_desert' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_hollow_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_hollow_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -189,7 +189,7 @@ Everness:register_decoration({
     biomes = { 'everness:forsaken_desert' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_hollow_tree_large.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_hollow_tree_large.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -200,14 +200,14 @@ Everness:register_decoration({
 
 local chance = 20
 local disp = 16
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_forsaken_desert_temple.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_forsaken_desert_temple.mts'
 local size = { x = 9, y = 16, z = 9 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 
-local c_forsaken_desert_sand = minetest.get_content_id('everness:forsaken_desert_sand')
+local c_forsaken_desert_sand = core.get_content_id('everness:forsaken_desert_sand')
 
-local biome_id_everness_forsaken_desert = minetest.get_biome_id('everness:forsaken_desert')
+local biome_id_everness_forsaken_desert = core.get_biome_id('everness:forsaken_desert')
 
 Everness:add_to_queue_on_generated({
     name = 'everness:forsaken_desert',
@@ -223,7 +223,7 @@ Everness:add_to_queue_on_generated({
         for y = minp.y, maxp.y do
             local vi = area:index(minp.x + sidelength / 2 + x_disp, y, minp.z + sidelength / 2 + z_disp)
 
-            if data[vi + area.ystride] == minetest.CONTENT_AIR
+            if data[vi + area.ystride] == core.CONTENT_AIR
                 and data[vi] == c_forsaken_desert_sand
                 and rand:next(0, 100) < chance
             then
@@ -236,7 +236,7 @@ Everness:add_to_queue_on_generated({
                 local schem_pos = vector.new(s_pos.x, s_pos.y, s_pos.z)
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -250,7 +250,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -259,7 +259,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         schem_pos,
                         schem,
@@ -277,7 +277,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Forsaken Desert Temple was placed at ' .. schem_pos:to_string())
+                    core.log('action', '[Everness] Forsaken Desert Temple was placed at ' .. schem_pos:to_string())
                 end
             end
         end
@@ -288,7 +288,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

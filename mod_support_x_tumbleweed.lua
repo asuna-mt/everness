@@ -14,7 +14,7 @@
 
 --]]
 
-local mod_start_time = minetest.get_us_time()
+local mod_start_time = core.get_us_time()
 
 local allowed_biomes = {}
 
@@ -38,6 +38,6 @@ if #allowed_biomes > 0 then
     XTumbleweed:add_allowed_biomes(allowed_biomes)
 end
 
-local mod_end_time = (minetest.get_us_time() - mod_start_time) / 1000000
+local mod_end_time = (core.get_us_time() - mod_start_time) / 1000000
 
 print('[Mod] everness: x_tumbleweed support loaded.. [' .. mod_end_time .. 's]')

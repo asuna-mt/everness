@@ -19,7 +19,7 @@ exclude_files = {
 
 globals = {
     'Everness',
-    minetest = {
+    core = {
         fields = {
             "handle_node_drops"
         }

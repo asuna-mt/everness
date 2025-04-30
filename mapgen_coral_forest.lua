@@ -114,7 +114,7 @@ Everness:register_ore({
 
 -- Coral Forest
 
-local chunksize = tonumber(minetest.get_mapgen_setting('chunksize'))
+local chunksize = tonumber(core.get_mapgen_setting('chunksize'))
 
 if chunksize >= 5 then
     Everness:register_decoration({
@@ -134,7 +134,7 @@ if chunksize >= 5 then
         biomes = { 'everness:coral_forest' },
         y_max = y_max,
         y_min = y_min,
-        schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_tree.mts',
+        schematic = core.get_modpath('everness') .. '/schematics/everness_coral_tree.mts',
         flags = 'place_center_x, place_center_z',
         rotation = 'random',
         spawn_by = 'everness:dirt_with_coral_grass',
@@ -159,7 +159,7 @@ Everness:register_decoration({
     biomes = { 'everness:coral_forest' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_bones_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_bones_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -256,13 +256,13 @@ register_coral_grass_decoration(0.03, 0.03, 1)
 -- On Generated
 --
 
-local deco_id_coral_bones_tree = minetest.get_decoration_id('everness:coral_forest_coral_bones_tree')
+local deco_id_coral_bones_tree = core.get_decoration_id('everness:coral_forest_coral_bones_tree')
 
-local biome_id_coral_forest = minetest.get_biome_id('everness:coral_forest')
+local biome_id_coral_forest = core.get_biome_id('everness:coral_forest')
 
 local coral_bones_tree_size = { x = 16, y = 35, z = 16 }
 
-minetest.set_gen_notify({ decoration = true }, { deco_id_coral_bones_tree })
+core.set_gen_notify({ decoration = true }, { deco_id_coral_bones_tree })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:coral_forest',
@@ -274,7 +274,7 @@ Everness:add_to_queue_on_generated({
         -- Coral bone tree - fix light
         --
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_coral_bones_tree or '')] or {}) do
-            minetest.fix_light(
+            core.fix_light(
                 vector.round(vector.new(pos.x - (coral_bones_tree_size.x / 2), pos.y, pos.z - (coral_bones_tree_size.z / 2))),
                 vector.round(vector.new(pos.x + (coral_bones_tree_size.x / 2), pos.y + coral_bones_tree_size.y, pos.z + (coral_bones_tree_size.z / 2)))
             )

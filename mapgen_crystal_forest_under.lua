@@ -222,30 +222,30 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local biome_id_everness_crystal_forest_under = minetest.get_biome_id('everness:crystal_forest_under')
+local biome_id_everness_crystal_forest_under = core.get_biome_id('everness:crystal_forest_under')
 
-local deco_id_crystal_forest_under_crystal_cluster = minetest.get_decoration_id('everness:crystal_forest_under_crystal_cluster')
-local deco_id_crystal_forest_under_crystal_sphere_cluster = minetest.get_decoration_id('everness:crystal_forest_under_crystal_sphere_cluster')
+local deco_id_crystal_forest_under_crystal_cluster = core.get_decoration_id('everness:crystal_forest_under_crystal_cluster')
+local deco_id_crystal_forest_under_crystal_sphere_cluster = core.get_decoration_id('everness:crystal_forest_under_crystal_sphere_cluster')
 
--- `minetest.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
-local schem_crystal_cluster = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_crystal_orange_cluster.mts', {})
+-- `core.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
+local schem_crystal_cluster = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_crystal_orange_cluster.mts', {})
 local crystal_cluster_size = { x = 8, y = 4, z = 7}
 local crystal_cluster_size_x = math.round(crystal_cluster_size.x / 2)
 local crystal_cluster_size_z = math.round(crystal_cluster_size.z / 2)
 local crystal_cluster_safe_volume = (crystal_cluster_size.x * crystal_cluster_size.y * crystal_cluster_size.z) / 2
-local crystal_cluster_place_on = minetest.registered_decorations['everness:crystal_forest_under_crystal_cluster'].place_on
+local crystal_cluster_place_on = core.registered_decorations['everness:crystal_forest_under_crystal_cluster'].place_on
 crystal_cluster_place_on = type(crystal_cluster_place_on) == 'string' and { crystal_cluster_place_on } or crystal_cluster_place_on
 
--- `minetest.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
-local schem_crystal_sphere_cluster = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_crystal_purple_cluster.mts', {})
+-- `core.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
+local schem_crystal_sphere_cluster = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_crystal_purple_cluster.mts', {})
 local crystal_sphere_cluster_size = { x = 20, y = 19, z = 19 }
 local crystal_sphere_cluster_size_x = math.round(crystal_sphere_cluster_size.x / 2)
 local crystal_sphere_cluster_size_z = math.round(crystal_sphere_cluster_size.z / 2)
 local crystal_sphere_cluster_safe_volume = (crystal_sphere_cluster_size.x * crystal_sphere_cluster_size.y * crystal_sphere_cluster_size.z) / 2
-local crystal_sphere_cluster_place_on = minetest.registered_decorations['everness:crystal_forest_under_crystal_sphere_cluster'].place_on
+local crystal_sphere_cluster_place_on = core.registered_decorations['everness:crystal_forest_under_crystal_sphere_cluster'].place_on
 crystal_sphere_cluster_place_on = type(crystal_sphere_cluster_place_on) == 'string' and { crystal_sphere_cluster_place_on } or crystal_sphere_cluster_place_on
 
-minetest.set_gen_notify({ decoration = true }, {
+core.set_gen_notify({ decoration = true }, {
     deco_id_crystal_forest_under_crystal_cluster,
     deco_id_crystal_forest_under_crystal_sphere_cluster
 })
@@ -262,16 +262,16 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_crystal_forest_under_crystal_cluster or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if table.indexof(crystal_cluster_place_on, place_on_node.name) ~= -1 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - crystal_cluster_size_x,
                             pos.y,
@@ -304,7 +304,7 @@ Everness:add_to_queue_on_generated({
                             }
                         end
 
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             vector.new(marker_pos.x, marker_pos.y, marker_pos.z),
                             schem_crystal_cluster,
@@ -314,7 +314,7 @@ Everness:add_to_queue_on_generated({
                             'place_center_x, place_center_z'
                         )
 
-                        -- minetest.log('action', '[Everness] Crystal Cluster ' .. (rand_color or 'orange') .. ' was placed at ' .. pos:to_string())
+                        -- core.log('action', '[Everness] Crystal Cluster ' .. (rand_color or 'orange') .. ' was placed at ' .. pos:to_string())
                     end
                 end
             end
@@ -326,17 +326,17 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_crystal_forest_under_crystal_sphere_cluster or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
             local crystal_sphere_cluster_y_dis = rand:next(5, 9)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if table.indexof(crystal_sphere_cluster_place_on, place_on_node.name) ~= -1 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - crystal_sphere_cluster_size_x,
                             pos.y - crystal_sphere_cluster_y_dis,
@@ -386,7 +386,7 @@ Everness:add_to_queue_on_generated({
                             }
                         end
 
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             vector.new(marker_pos.x, marker_pos.y - crystal_sphere_cluster_y_dis, marker_pos.z),
                             schem_crystal_sphere_cluster,
@@ -396,7 +396,7 @@ Everness:add_to_queue_on_generated({
                             'place_center_x, place_center_z'
                         )
 
-                        -- minetest.log('action', '[Everness] Crystal Sphere Cluster ' .. (rand_color or 'orange') .. ' was placed at ' .. pos:to_string())
+                        -- core.log('action', '[Everness] Crystal Sphere Cluster ' .. (rand_color or 'orange') .. ' was placed at ' .. pos:to_string())
                     end
                 end
             end

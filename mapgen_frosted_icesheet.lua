@@ -54,7 +54,7 @@ Everness:register_biome({
 Everness:register_decoration({
     name = 'everness:frosted_icesheet_stalagmite',
     deco_type = 'schematic',
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_lands_stalagmite.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_frosted_lands_stalagmite.mts',
     place_on = { 'everness:frosted_snowblock' },
     place_offset_y = 1,
     sidelen = 16,
@@ -77,7 +77,7 @@ Everness:register_decoration({
 Everness:register_decoration({
     name = 'everness:frosted_icesheet_volcanic_rock',
     deco_type = 'schematic',
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_lands_volcanic_rock.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_frosted_lands_volcanic_rock.mts',
     place_on = { 'everness:frosted_snowblock' },
     sidelen = 16,
     noise_params = {
@@ -100,7 +100,7 @@ Everness:register_decoration({
 Everness:register_decoration({
     name = 'everness:frosted_icesheet_fossils',
     deco_type = 'schematic',
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_lands_fossils.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_frosted_lands_fossils.mts',
     place_on = { 'everness:frosted_snowblock' },
     sidelen = 16,
     place_offset_y = 1,
@@ -127,16 +127,16 @@ Everness:register_decoration({
 
 local chance = 20
 local disp = 16
-local schem = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_frosted_icesheet_igloo.mts', {})
+local schem = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_frosted_icesheet_igloo.mts', {})
 local size = { x = 16, y = 13, z = 16 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 local y_dis = 8
 
-local c_frosted_snowblock = minetest.get_content_id('everness:frosted_snowblock')
-local c_frosted_ice = minetest.get_content_id('everness:frosted_ice')
+local c_frosted_snowblock = core.get_content_id('everness:frosted_snowblock')
+local c_frosted_ice = core.get_content_id('everness:frosted_ice')
 
-local biome_id_everness_frosted_icesheet = minetest.get_biome_id('everness:frosted_icesheet')
+local biome_id_everness_frosted_icesheet = core.get_biome_id('everness:frosted_icesheet')
 
 Everness:add_to_queue_on_generated({
     name = 'everness:frosted_icesheet',
@@ -152,7 +152,7 @@ Everness:add_to_queue_on_generated({
         for y = minp.y, maxp.y do
             local vi = area:index(minp.x + sidelength / 2 + x_disp, y, minp.z + sidelength / 2 + z_disp)
 
-            if data[vi + area.ystride] == minetest.CONTENT_AIR
+            if data[vi + area.ystride] == core.CONTENT_AIR
                 and (
                     data[vi] == c_frosted_snowblock
                     or data[vi] == c_frosted_ice
@@ -169,7 +169,7 @@ Everness:add_to_queue_on_generated({
                 local schem_pos = vector.new(s_pos.x, s_pos.y - y_dis, s_pos.z)
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -184,7 +184,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -193,7 +193,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         schem_pos,
                         schem,
@@ -211,7 +211,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y - y_dis + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Igloo was placed at ' .. schem_pos:to_string())
+                    core.log('action', '[Everness] Igloo was placed at ' .. schem_pos:to_string())
                 end
             end
         end
@@ -222,7 +222,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

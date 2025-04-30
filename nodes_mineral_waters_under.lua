@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 Everness:register_node('everness:mineral_cave_stone', {
     description = S('Mineral Cave Stone'),
@@ -440,7 +440,7 @@ Everness:register_node('everness:lava_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:lava_tree_with_lava', {
@@ -481,7 +481,7 @@ Everness:register_node('everness:lava_tree_with_lava', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
     light_source = 3,
 })
 
@@ -559,7 +559,7 @@ Everness:register_node('everness:lava_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {

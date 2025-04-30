@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 --
 -- Ores
@@ -1233,7 +1233,7 @@ Everness:register_node('everness:sulfur_stone', {
         Everness:tick_sulfur_stone(pos)
     end,
     on_timer = function(pos, elapsed)
-        local _, node_counts = minetest.find_nodes_in_area(
+        local _, node_counts = core.find_nodes_in_area(
             vector.offset(pos, -1, 1, -1),
             vector.offset(pos, 1, 1, 1),
             'everness:volcanic_sulfur',
@@ -1241,7 +1241,7 @@ Everness:register_node('everness:sulfur_stone', {
         )
 
         if node_counts['everness:volcanic_sulfur'] < 4
-            or minetest.get_node(vector.new(pos.x, pos.y + 1, pos.z)).name ~= 'air'
+            or core.get_node(vector.new(pos.x, pos.y + 1, pos.z)).name ~= 'air'
         then
             -- stop timer, to restart timer: dig/place again
             -- Everness:tick_sulfur_stone_again(pos)
@@ -1264,7 +1264,7 @@ Everness:register_node('everness:sulfur_stone', {
             texture = 'everness_smoke_cloud_particle_static.png',
         }
 
-        if minetest.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
+        if core.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
             particlespawner_def = {
                 amount = 1,
                 time = 4,
@@ -1297,22 +1297,22 @@ Everness:register_node('everness:sulfur_stone', {
             }
         end
 
-        minetest.add_particlespawner(particlespawner_def)
+        core.add_particlespawner(particlespawner_def)
 
         Everness:tick_sulfur_stone(pos)
     end,
     after_destruct = function(pos, oldnode)
         pos.y = pos.y + 1
 
-        if minetest.get_node(pos).name == 'everness:flame_permanent' then
-            minetest.remove_node(pos)
+        if core.get_node(pos).name == 'everness:flame_permanent' then
+            core.remove_node(pos)
         end
     end,
     on_ignite = function(pos, igniter)
         local flame_pos = { x = pos.x, y = pos.y + 1, z = pos.z }
 
-        if minetest.get_node(flame_pos).name == 'air' then
-            minetest.set_node(flame_pos, {name = 'everness:flame_permanent'})
+        if core.get_node(flame_pos).name == 'air' then
+            core.set_node(flame_pos, {name = 'everness:flame_permanent'})
         end
     end,
     -- MCL
@@ -1320,8 +1320,8 @@ Everness:register_node('everness:sulfur_stone', {
         local pos = pointed_thing.under
         local flame_pos = { x = pos.x, y = pos.y + 1, z = pos.z }
 
-        if minetest.get_node(flame_pos).name == 'air' then
-            minetest.set_node(flame_pos, {name = 'everness:flame_permanent'})
+        if core.get_node(flame_pos).name == 'air' then
+            core.set_node(flame_pos, {name = 'everness:flame_permanent'})
             return true
         end
 
@@ -1542,14 +1542,14 @@ Everness:register_node('everness:soul_sandstone', {
     sounds = Everness.node_sound_stone_defaults(),
     after_destruct = function(pos)
         pos.y = pos.y + 1
-        if minetest.get_node(pos).name == 'everness:flame_permanent_blue' then
-            minetest.remove_node(pos)
+        if core.get_node(pos).name == 'everness:flame_permanent_blue' then
+            core.remove_node(pos)
         end
     end,
     on_ignite = function(pos)
         local flame_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
-        if minetest.get_node(flame_pos).name == 'air' then
-            minetest.set_node(flame_pos, {name = 'everness:flame_permanent_blue'})
+        if core.get_node(flame_pos).name == 'air' then
+            core.set_node(flame_pos, {name = 'everness:flame_permanent_blue'})
         end
     end
 })
@@ -1581,14 +1581,14 @@ Everness:register_node('everness:soul_sandstone_veined', {
     sounds = Everness.node_sound_stone_defaults(),
     after_destruct = function(pos)
         pos.y = pos.y + 1
-        if minetest.get_node(pos).name == 'everness:flame_permanent_purple' then
-            minetest.remove_node(pos)
+        if core.get_node(pos).name == 'everness:flame_permanent_purple' then
+            core.remove_node(pos)
         end
     end,
     on_ignite = function(pos)
         local flame_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
-        if minetest.get_node(flame_pos).name == 'air' then
-            minetest.set_node(flame_pos, {name = 'everness:flame_permanent_purple'})
+        if core.get_node(flame_pos).name == 'air' then
+            core.set_node(flame_pos, {name = 'everness:flame_permanent_purple'})
         end
     end
 })
@@ -1736,7 +1736,7 @@ Everness:register_node('everness:quartz_pillar', {
     _mcl_blast_resistance = 0.8,
     _mcl_hardness = 0.8,
     sounds = Everness.node_sound_stone_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:forsaken_desert_brick', {
@@ -2509,8 +2509,8 @@ Everness:register_node('everness:flame_permanent', {
     drop = '',
     on_flood = function(pos, oldnode, newnode)
         -- Play flame extinguish sound if liquid is not an 'igniter'
-        if minetest.get_item_group(newnode.name, 'igniter') == 0 then
-            minetest.sound_play('everness_extinguish_flame',
+        if core.get_item_group(newnode.name, 'igniter') == 0 then
+            core.sound_play('everness_extinguish_flame',
                 {
                     pos = pos,
                     max_hear_distance = 16,
@@ -2557,8 +2557,8 @@ Everness:register_node('everness:flame_permanent_purple', {
     drop = '',
     on_flood = function(pos, oldnode, newnode)
         -- Play flame extinguish sound if liquid is not an 'igniter'
-        if minetest.get_item_group(newnode.name, 'igniter') == 0 then
-            minetest.sound_play('everness_extinguish_flame',
+        if core.get_item_group(newnode.name, 'igniter') == 0 then
+            core.sound_play('everness_extinguish_flame',
                 {
                     pos = pos,
                     max_hear_distance = 16,
@@ -2605,8 +2605,8 @@ Everness:register_node('everness:flame_permanent_blue', {
     drop = '',
     on_flood = function(pos, oldnode, newnode)
         -- Play flame extinguish sound if liquid is not an 'igniter'
-        if minetest.get_item_group(newnode.name, 'igniter') == 0 then
-            minetest.sound_play('everness_extinguish_flame',
+        if core.get_item_group(newnode.name, 'igniter') == 0 then
+            core.sound_play('everness_extinguish_flame',
                 {
                     pos = pos,
                     max_hear_distance = 16,
@@ -3269,11 +3269,11 @@ Everness:register_node('everness:frosted_snowblock', {
     on_construct = function(pos)
         pos.y = pos.y - 1
 
-        local alias_dirt_with_grass = minetest.registered_aliases['default:dirt_with_grass']
-        local alias_dirt_with_snow = minetest.registered_aliases['default:dirt_with_snow']
+        local alias_dirt_with_grass = core.registered_aliases['default:dirt_with_grass']
+        local alias_dirt_with_snow = core.registered_aliases['default:dirt_with_snow']
 
-        if minetest.get_node(pos).name == alias_dirt_with_grass then
-            minetest.set_node(pos, { name = alias_dirt_with_snow })
+        if core.get_node(pos).name == alias_dirt_with_grass then
+            core.set_node(pos, { name = alias_dirt_with_snow })
         end
     end,
 })
@@ -3398,7 +3398,7 @@ Everness:register_node('everness:bone', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:ancient_emerald_ice', {
@@ -3485,11 +3485,11 @@ Everness:register_node('everness:snowcobble', {
     on_construct = function(pos)
         pos.y = pos.y - 1
 
-        local alias_dirt_with_grass = minetest.registered_aliases['default:dirt_with_grass']
-        local alias_dirt_with_snow = minetest.registered_aliases['default:dirt_with_snow']
+        local alias_dirt_with_grass = core.registered_aliases['default:dirt_with_grass']
+        local alias_dirt_with_snow = core.registered_aliases['default:dirt_with_snow']
 
-        if minetest.get_node(pos).name == alias_dirt_with_grass then
-            minetest.set_node(pos, { name = alias_dirt_with_snow })
+        if core.get_node(pos).name == alias_dirt_with_grass then
+            core.set_node(pos, { name = alias_dirt_with_snow })
         end
     end,
 })
@@ -3754,8 +3754,8 @@ for _, color in ipairs({ 'pink', 'purple', 'white' }) do
 
     def.on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        local node = minetest.get_node(pointed_thing.under)
-        local node_def = minetest.registered_nodes[node.name]
+        local node = core.get_node(pointed_thing.under)
+        local node_def = core.registered_nodes[node.name]
 
         if node_def and node_def.on_rightclick then
             return node_def.on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
@@ -3763,40 +3763,40 @@ for _, color in ipairs({ 'pink', 'purple', 'white' }) do
 
         if node_def
             and node_def.liquidtype == 'source'
-            and minetest.get_item_group(node.name, 'water') > 0
+            and core.get_item_group(node.name, 'water') > 0
         then
             local player_name = placer and placer:get_player_name() or ''
 
-            if not minetest.is_protected(pos, player_name) then
-                minetest.set_node(pos, { name = 'everness:lotus_flower_' .. color, param2 = math.random(0, 3) })
-                minetest.get_node_timer(pos):start(1)
+            if not core.is_protected(pos, player_name) then
+                core.set_node(pos, { name = 'everness:lotus_flower_' .. color, param2 = math.random(0, 3) })
+                core.get_node_timer(pos):start(1)
 
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         else
-            itemstack = minetest.item_place(itemstack, placer, pointed_thing)
+            itemstack = core.item_place(itemstack, placer, pointed_thing)
         end
 
         return itemstack
     end
 
     def.on_flood = function(pos, oldnode, newnode)
-        minetest.add_item(pos, ItemStack('everness:lotus_flower_' .. color .. ' 1'))
+        core.add_item(pos, ItemStack('everness:lotus_flower_' .. color .. ' 1'))
         -- Remove the node
         return false
     end
 
     def.on_timer = function(pos, elapsed)
-        if minetest.get_node_light(pos) <= 11 then
-            minetest.set_node(pos, { name = 'everness:lotus_flower_' .. color .. '_animated' })
+        if core.get_node_light(pos) <= 11 then
+            core.set_node(pos, { name = 'everness:lotus_flower_' .. color .. '_animated' })
         end
 
-        minetest.get_node_timer(pos):start(math.random(25, 35))
+        core.get_node_timer(pos):start(math.random(25, 35))
     end
 
     -- Animated Def
@@ -3838,11 +3838,11 @@ for _, color in ipairs({ 'pink', 'purple', 'white' }) do
     def_anim.drop = 'everness:lotus_flower_' .. color
 
     def_anim.on_timer = function(pos, elapsed)
-        if minetest.get_node_light(pos) > 11 then
-            minetest.set_node(pos, { name = 'everness:lotus_flower_' .. color })
+        if core.get_node_light(pos) > 11 then
+            core.set_node(pos, { name = 'everness:lotus_flower_' .. color })
         end
 
-        minetest.get_node_timer(pos):start(math.random(25, 35))
+        core.get_node_timer(pos):start(math.random(25, 35))
     end
 
     Everness:register_node('everness:lotus_flower_' .. color, def)
@@ -3916,8 +3916,8 @@ Everness:register_node('everness:lotus_leaf', {
 
     on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        local node = minetest.get_node(pointed_thing.under)
-        local def = minetest.registered_nodes[node.name]
+        local node = core.get_node(pointed_thing.under)
+        local def = core.registered_nodes[node.name]
 
         if def and def.on_rightclick then
             return def.on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
@@ -3925,29 +3925,29 @@ Everness:register_node('everness:lotus_leaf', {
 
         if def
             and def.liquidtype == 'source'
-            and minetest.get_item_group(node.name, 'water') > 0
+            and core.get_item_group(node.name, 'water') > 0
         then
             local player_name = placer and placer:get_player_name() or ''
 
-            if not minetest.is_protected(pos, player_name) then
-                minetest.set_node(pos, {name = 'everness:lotus_leaf', param2 = math.random(0, 3)})
+            if not core.is_protected(pos, player_name) then
+                core.set_node(pos, {name = 'everness:lotus_leaf', param2 = math.random(0, 3)})
 
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         else
-            itemstack = minetest.item_place(itemstack, placer, pointed_thing)
+            itemstack = core.item_place(itemstack, placer, pointed_thing)
         end
 
         return itemstack
     end,
 
     on_flood = function(pos, oldnode, newnode)
-        minetest.add_item(pos, ItemStack('everness:lotus_leaf 1'))
+        core.add_item(pos, ItemStack('everness:lotus_leaf 1'))
         -- Remove the node
         return false
     end
@@ -4020,8 +4020,8 @@ Everness:register_node('everness:lotus_leaf_2', {
 
     on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        local node = minetest.get_node(pointed_thing.under)
-        local def = minetest.registered_nodes[node.name]
+        local node = core.get_node(pointed_thing.under)
+        local def = core.registered_nodes[node.name]
 
         if def and def.on_rightclick then
             return def.on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
@@ -4029,29 +4029,29 @@ Everness:register_node('everness:lotus_leaf_2', {
 
         if def
             and def.liquidtype == 'source'
-            and minetest.get_item_group(node.name, 'water') > 0
+            and core.get_item_group(node.name, 'water') > 0
         then
             local player_name = placer and placer:get_player_name() or ''
 
-            if not minetest.is_protected(pos, player_name) then
-                minetest.set_node(pos, {name = 'everness:lotus_leaf_2', param2 = math.random(0, 3)})
+            if not core.is_protected(pos, player_name) then
+                core.set_node(pos, {name = 'everness:lotus_leaf_2', param2 = math.random(0, 3)})
 
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         else
-            itemstack = minetest.item_place(itemstack, placer, pointed_thing)
+            itemstack = core.item_place(itemstack, placer, pointed_thing)
         end
 
         return itemstack
     end,
 
     on_flood = function(pos, oldnode, newnode)
-        minetest.add_item(pos, ItemStack('everness:lotus_leaf_2 1'))
+        core.add_item(pos, ItemStack('everness:lotus_leaf_2 1'))
         -- Remove the node
         return false
     end
@@ -4124,8 +4124,8 @@ Everness:register_node('everness:lotus_leaf_3', {
 
     on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        local node = minetest.get_node(pointed_thing.under)
-        local def = minetest.registered_nodes[node.name]
+        local node = core.get_node(pointed_thing.under)
+        local def = core.registered_nodes[node.name]
 
         if def and def.on_rightclick then
             return def.on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
@@ -4133,29 +4133,29 @@ Everness:register_node('everness:lotus_leaf_3', {
 
         if def
             and def.liquidtype == 'source'
-            and minetest.get_item_group(node.name, 'water') > 0
+            and core.get_item_group(node.name, 'water') > 0
         then
             local player_name = placer and placer:get_player_name() or ''
 
-            if not minetest.is_protected(pos, player_name) then
-                minetest.set_node(pos, {name = 'everness:lotus_leaf_3', param2 = math.random(0, 3)})
+            if not core.is_protected(pos, player_name) then
+                core.set_node(pos, {name = 'everness:lotus_leaf_3', param2 = math.random(0, 3)})
 
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         else
-            itemstack = minetest.item_place(itemstack, placer, pointed_thing)
+            itemstack = core.item_place(itemstack, placer, pointed_thing)
         end
 
         return itemstack
     end,
 
     on_flood = function(pos, oldnode, newnode)
-        minetest.add_item(pos, ItemStack('everness:lotus_leaf_3 1'))
+        core.add_item(pos, ItemStack('everness:lotus_leaf_3 1'))
         -- Remove the node
         return false
     end
@@ -4233,7 +4233,7 @@ Everness:register_node('everness:coral_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:coral_wood', {
@@ -4338,7 +4338,7 @@ Everness:register_node('everness:dry_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:baobab_tree', {
@@ -4365,7 +4365,7 @@ Everness:register_node('everness:baobab_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:sequoia_tree', {
@@ -4392,7 +4392,7 @@ Everness:register_node('everness:sequoia_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:willow_tree', {
@@ -4419,7 +4419,7 @@ Everness:register_node('everness:willow_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:willow_wood', {
@@ -4521,7 +4521,7 @@ Everness:register_node('everness:hollow_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:crystal_tree', {
@@ -4558,7 +4558,7 @@ Everness:register_node('everness:crystal_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_glass_defaults(),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:crystal_wood', {
@@ -4611,7 +4611,7 @@ Everness:register_node('everness:mese_tree', {
     is_ground_content = false,
     groups = { tree = 1, choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:palm_tree', {
@@ -4639,7 +4639,7 @@ Everness:register_node('everness:palm_tree', {
     _mcl_blast_resistance = 2,
     _mcl_hardness = 2,
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node
+    on_place = core.rotate_node
 })
 
 Everness:register_node('everness:palm_leaves', {
@@ -4947,8 +4947,8 @@ Everness:register_node('everness:baobab_fruit_renewable', {
     place_param2 = 0,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
         if oldnode.param2 == 0 then
-            minetest.set_node(pos, { name = 'everness:baobab_fruit_mark' })
-            minetest.get_node_timer(pos):start(math.random(300, 1500))
+            core.set_node(pos, { name = 'everness:baobab_fruit_mark' })
+            core.get_node_timer(pos):start(math.random(300, 1500))
         end
     end,
 })
@@ -4968,18 +4968,18 @@ Everness:register_node('everness:baobab_fruit_mark', {
     drop = '',
     groups = { not_in_creative_inventory = 1 },
     on_timer = function(pos, elapsed)
-        if not minetest.find_node_near(pos, 1, 'everness:baobab_leaves') then
-            minetest.remove_node(pos)
-        elseif minetest.get_node_light(pos) < 11 then
-            minetest.get_node_timer(pos):start(200)
+        if not core.find_node_near(pos, 1, 'everness:baobab_leaves') then
+            core.remove_node(pos)
+        elseif core.get_node_light(pos) < 11 then
+            core.get_node_timer(pos):start(200)
         else
-            minetest.set_node(pos, { name = 'everness:baobab_fruit_renewable' })
+            core.set_node(pos, { name = 'everness:baobab_fruit_renewable' })
         end
     end
 })
 
 Everness:register_node('everness:baobab_fruit', {
-    description = S('Baobab Fruit') .. '\n'.. minetest.colorize(Everness.colors.brown, S('Hunger') .. ': 2'),
+    description = S('Baobab Fruit') .. '\n'.. core.colorize(Everness.colors.brown, S('Hunger') .. ': 2'),
     short_description = S('Baobab Fruit'),
     drawtype = 'plantlike',
     paramtype2 = 'wallmounted',
@@ -4991,7 +4991,7 @@ Everness:register_node('everness:baobab_fruit', {
     walkable = false,
     is_ground_content = false,
     waving = 1,
-    on_use = minetest.item_eat(2),
+    on_use = core.item_eat(2),
     selection_box = {
         type = 'fixed',
         fixed = { -0.25, -0.5, -0.25, 0.25, 1, 0.25 }
@@ -5060,7 +5060,7 @@ Everness:register_node('everness:baobab_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5337,7 +5337,7 @@ Everness:register_node('everness:coral_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5391,7 +5391,7 @@ Everness:register_node('everness:coral_tree_bioluminescent_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5445,7 +5445,7 @@ Everness:register_node('everness:dry_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5499,7 +5499,7 @@ Everness:register_node('everness:cursed_dream_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5553,7 +5553,7 @@ Everness:register_node('everness:willow_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5609,7 +5609,7 @@ Everness:register_node('everness:sequoia_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5663,7 +5663,7 @@ Everness:register_node('everness:crystal_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5717,7 +5717,7 @@ Everness:register_node('everness:crystal_tree_large_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -5848,7 +5848,7 @@ Everness:register_node('everness:crystal_bush_sapling', {
     sounds = Everness.node_sound_leaves_defaults(),
 
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
 
     on_place = function(itemstack, placer, pointed_thing)
@@ -5980,7 +5980,7 @@ Everness:register_node('everness:cursed_bush_sapling', {
     sounds = Everness.node_sound_leaves_defaults(),
 
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
 
     on_place = function(itemstack, placer, pointed_thing)
@@ -6061,7 +6061,7 @@ Everness:register_node('everness:flowers_1', {
     },
     on_place = function(itemstack, placer, pointed_thing)
         local stack = ItemStack('everness:flowers_' .. math.random(1, 4))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:flowers_1 ' .. itemstack:get_count() - (1 - ret:get_count()))
     end,
 })
@@ -6343,7 +6343,7 @@ Everness:register_node('everness:flowers_magenta_1', {
     },
     on_place = function(itemstack, placer, pointed_thing)
         local stack = ItemStack('everness:flowers_magenta_' .. math.random(1, 4))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:flowers_magenta_1 ' .. itemstack:get_count() - (1 - ret:get_count()))
     end,
 })
@@ -6608,7 +6608,7 @@ Everness:register_node('everness:coral_burdock_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random burdock node
         local stack = ItemStack('everness:coral_burdock_' .. math.random(1, 2))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:coral_burdock_1 ' .. itemstack:get_count() - (1 - ret:get_count()))
     end,
 })
@@ -7242,7 +7242,7 @@ Everness:register_node('everness:coral_grass_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random grass node
         local stack = ItemStack('everness:coral_grass_' .. math.random(1, 5))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:coral_grass_1 ' ..
             itemstack:get_count() - (1 - ret:get_count()))
     end,
@@ -7339,7 +7339,7 @@ Everness:register_node('everness:dry_grass_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random dry grass node
         local stack = ItemStack('everness:dry_grass_' .. math.random(1, 4))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:dry_grass_1 ' ..
             itemstack:get_count() - (1 - ret:get_count()))
     end,
@@ -7438,7 +7438,7 @@ Everness:register_node('everness:red_castor_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random grass node
         local stack = ItemStack('everness:red_castor_' .. math.random(1, 4))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:red_castor_1 ' ..
             itemstack:get_count() - (1 - ret:get_count()))
     end,
@@ -7495,7 +7495,7 @@ for i = 2, 4 do
 end
 
 Everness:register_node('everness:crystal_mushrooms', {
-    description = S('Crystal Mushrooms') .. '\n'.. minetest.colorize(Everness.colors.brown, S('Hunger') .. ': 1'),
+    description = S('Crystal Mushrooms') .. '\n'.. core.colorize(Everness.colors.brown, S('Hunger') .. ': 1'),
     tiles = { 'everness_crystal_mushrooms.png' },
     inventory_image = 'everness_crystal_mushrooms.png',
     wield_image = 'everness_crystal_mushrooms.png',
@@ -7534,7 +7534,7 @@ Everness:register_node('everness:crystal_mushrooms', {
     _mcl_blast_resistance = 0,
     _mcl_hardness = 0,
     sounds = Everness.node_sound_leaves_defaults(),
-    on_use = minetest.item_eat(1),
+    on_use = core.item_eat(1),
     selection_box = {
         type = 'fixed',
         fixed = { -6 / 16, -0.5, -6 / 16, 6 / 16, -3 / 16, 6 / 16 },
@@ -7635,7 +7635,7 @@ Everness:register_node('everness:crystal_grass_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random grass node
         local stack = ItemStack('everness:crystal_grass_' .. math.random(1, 3))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:crystal_grass_1 ' ..
             itemstack:get_count() - (1 - ret:get_count()))
     end,
@@ -7917,7 +7917,7 @@ Everness:register_node('everness:cactus_blue', {
         },
     },
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:cave_barrel_cactus', {
@@ -8081,27 +8081,27 @@ Everness:register_node('everness:crystal_waterlily', {
 
     on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        local node = minetest.get_node(pointed_thing.under)
-        local def = minetest.registered_nodes[node.name]
+        local node = core.get_node(pointed_thing.under)
+        local def = core.registered_nodes[node.name]
 
         if def and def.on_rightclick then
             return def.on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
         end
 
         if def and def.liquidtype == 'source' and
-            minetest.get_item_group(node.name, 'water') > 0
+            core.get_item_group(node.name, 'water') > 0
         then
             local player_name = placer and placer:get_player_name() or ''
 
-            if not minetest.is_protected(pos, player_name) then
-                minetest.set_node(pos, { name = 'everness:crystal_waterlily' })
+            if not core.is_protected(pos, player_name) then
+                core.set_node(pos, { name = 'everness:crystal_waterlily' })
 
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         end
 
@@ -8161,7 +8161,7 @@ Everness:register_node('everness:cactus_orange', {
         },
     },
     sounds = Everness.node_sound_wood_defaults(),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:agave_leaf_1', {
@@ -8211,7 +8211,7 @@ Everness:register_node('everness:agave_leaf_1', {
     on_place = function(itemstack, placer, pointed_thing)
         -- place a random grass node
         local stack = ItemStack('everness:agave_leaf_' .. math.random(1, 3))
-        local ret = minetest.item_place(stack, placer, pointed_thing)
+        local ret = core.item_place(stack, placer, pointed_thing)
         return ItemStack('everness:agave_leaf_1 ' ..
             itemstack:get_count() - (1 - ret:get_count()))
     end,
@@ -8326,7 +8326,7 @@ Everness:register_node('everness:mese_tree_fruit', {
     },
     light_source = 14,
     after_place_node = function(pos, placer, itemstack, pointed_thing)
-        minetest.get_meta(pos):set_int('everness_prevent_leafdecay', 1)
+        core.get_meta(pos):set_int('everness_prevent_leafdecay', 1)
     end
 })
 
@@ -8370,7 +8370,7 @@ Everness:register_node('everness:mese_tree_sapling', {
         Everness.grow_sapling(pos)
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -8424,7 +8424,7 @@ Everness:register_node('everness:palm_tree_sapling', {
         Everness.grow_sapling(pos, { 'sand', 'everness_sand' })
     end,
     on_construct = function(pos)
-        minetest.get_node_timer(pos):start(math.random(300, 1500))
+        core.get_node_timer(pos):start(math.random(300, 1500))
     end,
     on_place = function(itemstack, placer, pointed_thing)
         local on_place_props = {
@@ -9279,7 +9279,7 @@ Everness:register_node('everness:bamboo_block', {
     sounds = Everness.node_sound_bamboo_defaults({
         dug = { name = 'everness_bamboo_hit', gain = 1.25 }
     }),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:bamboo_dry_block', {
@@ -9306,7 +9306,7 @@ Everness:register_node('everness:bamboo_dry_block', {
     sounds = Everness.node_sound_bamboo_defaults({
         dug = { name = 'everness_bamboo_hit', gain = 1.25 }
     }),
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:bamboo_wood', {
@@ -9461,8 +9461,8 @@ local function coral_on_place(itemstack, placer, pointed_thing, params)
     local player_name = placer:get_player_name()
     local pos_under = pointed_thing.under
     local pos_above = pointed_thing.above
-    local node_under = minetest.get_node(pos_under)
-    local def_under = minetest.registered_nodes[node_under.name]
+    local node_under = core.get_node(pos_under)
+    local def_under = core.registered_nodes[node_under.name]
 
     if def_under and def_under.on_rightclick and not placer:get_player_control().sneak then
         return def_under.on_rightclick(pos_under, node_under,
@@ -9470,27 +9470,27 @@ local function coral_on_place(itemstack, placer, pointed_thing, params)
     end
 
     if node_under.name ~= node_under_name
-        or (minetest.get_item_group(minetest.get_node(pos_above).name, 'water') == 0 and not ignore_water)
+        or (core.get_item_group(core.get_node(pos_above).name, 'water') == 0 and not ignore_water)
     then
         return itemstack
     end
 
-    if minetest.is_protected(pos_under, player_name) or
-        minetest.is_protected(pos_above, player_name) then
+    if core.is_protected(pos_under, player_name) or
+        core.is_protected(pos_above, player_name) then
 
-        if minetest.get_modpath('default') or minetest.global_exists('default') then
+        if core.get_modpath('default') or core.global_exists('default') then
             Everness.log_player_action(placer,
                 'tried to place', itemstack:get_name(),
                 'at protected position', pos_under)
         end
 
-        minetest.record_protection_violation(pos_under, player_name)
+        core.record_protection_violation(pos_under, player_name)
         return itemstack
     end
 
     node_under.name = itemstack:get_name()
-    minetest.set_node(pos_under, { name = node_under.name, param2 = _params.param2 or node_under.param2})
-    if not minetest.is_creative_enabled(player_name) then
+    core.set_node(pos_under, { name = node_under.name, param2 = _params.param2 or node_under.param2})
+    if not core.is_creative_enabled(player_name) then
         itemstack:take_item()
     end
 
@@ -9532,7 +9532,7 @@ Everness:register_node('everness:coral_corals', {
     }),
     on_place = coral_on_place,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_skeleton' })
+        core.set_node(pos, { name = 'everness:coral_skeleton' })
     end,
 })
 
@@ -9571,7 +9571,7 @@ Everness:register_node('everness:coral_jellyfish', {
     }),
     on_place = coral_on_place,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_skeleton' })
+        core.set_node(pos, { name = 'everness:coral_skeleton' })
     end,
 })
 
@@ -9610,7 +9610,7 @@ Everness:register_node('everness:coral_frosted', {
     }),
     on_place = coral_on_place,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_skeleton' })
+        core.set_node(pos, { name = 'everness:coral_skeleton' })
     end,
 })
 
@@ -9649,7 +9649,7 @@ Everness:register_node('everness:coral_starfish', {
     }),
     on_place = coral_on_place,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_skeleton' })
+        core.set_node(pos, { name = 'everness:coral_skeleton' })
     end,
 })
 
@@ -9692,8 +9692,8 @@ Everness:register_node('everness:sand_with_spine_kelp', {
         -- Call on_rightclick if the pointed node defines it
         if pointed_thing.type == 'node' and placer and
             not placer:get_player_control().sneak then
-            local node_ptu = minetest.get_node(pointed_thing.under)
-            local def_ptu = minetest.registered_nodes[node_ptu.name]
+            local node_ptu = core.get_node(pointed_thing.under)
+            local def_ptu = core.registered_nodes[node_ptu.name]
             if def_ptu and def_ptu.on_rightclick then
                 return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
                     itemstack, pointed_thing)
@@ -9701,28 +9701,28 @@ Everness:register_node('everness:sand_with_spine_kelp', {
         end
 
         local pos = pointed_thing.under
-        if minetest.get_node(pos).name ~= 'everness:cursed_stone' then
+        if core.get_node(pos).name ~= 'everness:cursed_stone' then
             return itemstack
         end
 
         local height = math.random(4, 6)
         local pos_top = { x = pos.x, y = pos.y + height, z = pos.z }
-        local node_top = minetest.get_node(pos_top)
-        local def_top = minetest.registered_nodes[node_top.name]
+        local node_top = core.get_node(pos_top)
+        local def_top = core.registered_nodes[node_top.name]
         local player_name = placer:get_player_name()
 
         if def_top and def_top.liquidtype == 'source' and
-            minetest.get_item_group(node_top.name, 'water') > 0 then
-            if not minetest.is_protected(pos, player_name) and
-                not minetest.is_protected(pos_top, player_name) then
-                minetest.set_node(pos, { name = 'everness:sand_with_spine_kelp',
+            core.get_item_group(node_top.name, 'water') > 0 then
+            if not core.is_protected(pos, player_name) and
+                not core.is_protected(pos_top, player_name) then
+                core.set_node(pos, { name = 'everness:sand_with_spine_kelp',
                     param2 = height * 16 })
-                if not minetest.is_creative_enabled(player_name) then
+                if not core.is_creative_enabled(player_name) then
                     itemstack:take_item()
                 end
             else
-                minetest.chat_send_player(player_name, 'Node is protected')
-                minetest.record_protection_violation(pos, player_name)
+                core.chat_send_player(player_name, 'Node is protected')
+                core.record_protection_violation(pos, player_name)
             end
         end
 
@@ -9730,7 +9730,7 @@ Everness:register_node('everness:sand_with_spine_kelp', {
     end,
 
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:cursed_stone' })
+        core.set_node(pos, { name = 'everness:cursed_stone' })
     end
 })
 
@@ -9780,7 +9780,7 @@ Everness:register_node('everness:coral_forest_deep_ocean_coral_plant_1', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
     end,
 })
 
@@ -9830,7 +9830,7 @@ Everness:register_node('everness:coral_forest_deep_ocean_coral_plant_2', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
     end,
 })
 
@@ -9880,7 +9880,7 @@ Everness:register_node('everness:coral_forest_deep_ocean_coral_plant_3', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:coral_forest_deep_ocean_sand' })
     end,
 })
 
@@ -9930,7 +9930,7 @@ Everness:register_node('everness:cursed_lands_deep_ocean_coral_plant_anemone', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
     end,
 })
 
@@ -9980,7 +9980,7 @@ Everness:register_node('everness:cursed_lands_deep_ocean_coral_plant_darkilluma'
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
     end,
 })
 
@@ -10030,7 +10030,7 @@ Everness:register_node('everness:cursed_lands_deep_ocean_coral_plant_demon', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:cursed_lands_deep_ocean_sand' })
     end,
 })
 
@@ -10080,7 +10080,7 @@ Everness:register_node('everness:crystal_forest_deep_ocean_coral_plant_1', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
     end,
 })
 
@@ -10130,7 +10130,7 @@ Everness:register_node('everness:crystal_forest_deep_ocean_coral_plant_2', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
     end,
 })
 
@@ -10180,7 +10180,7 @@ Everness:register_node('everness:crystal_forest_deep_ocean_coral_plant_3', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
+        core.set_node(pos, { name = 'everness:crystal_forest_deep_ocean_sand' })
     end,
 })
 
@@ -10459,7 +10459,7 @@ Everness:register_node('everness:mineral_water_weed_1', {
         dug = { name = 'everness_grass_footstep', gain = 0.25 },
     }),
     on_place = function(itemstack, placer, pointed_thing)
-        local fdir = placer and minetest.dir_to_wallmounted(placer:get_look_dir()) or 0
+        local fdir = placer and core.dir_to_wallmounted(placer:get_look_dir()) or 0
 
         return coral_on_place(
             itemstack,
@@ -10473,7 +10473,7 @@ Everness:register_node('everness:mineral_water_weed_1', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:mineral_stone' })
+        core.set_node(pos, { name = 'everness:mineral_stone' })
     end,
 })
 
@@ -10511,7 +10511,7 @@ Everness:register_node('everness:mineral_water_weed_2', {
         dug = { name = 'everness_grass_footstep', gain = 0.25 },
     }),
     on_place = function(itemstack, placer, pointed_thing)
-        local fdir = placer and minetest.dir_to_wallmounted(placer:get_look_dir()) or 0
+        local fdir = placer and core.dir_to_wallmounted(placer:get_look_dir()) or 0
 
         return coral_on_place(
             itemstack,
@@ -10525,7 +10525,7 @@ Everness:register_node('everness:mineral_water_weed_2', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:mineral_stone' })
+        core.set_node(pos, { name = 'everness:mineral_stone' })
     end,
 })
 
@@ -10564,7 +10564,7 @@ Everness:register_node('everness:mineral_water_weed_3', {
         dug = { name = 'everness_grass_footstep', gain = 0.25 },
     }),
     on_place = function(itemstack, placer, pointed_thing)
-        local fdir = placer and minetest.dir_to_wallmounted(placer:get_look_dir()) or 0
+        local fdir = placer and core.dir_to_wallmounted(placer:get_look_dir()) or 0
 
         return coral_on_place(
             itemstack,
@@ -10578,7 +10578,7 @@ Everness:register_node('everness:mineral_water_weed_3', {
         )
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, digger)
-        minetest.set_node(pos, { name = 'everness:mineral_stone' })
+        core.set_node(pos, { name = 'everness:mineral_stone' })
     end,
 })
 
@@ -11121,7 +11121,7 @@ Everness:register_node('everness:eye_vine_lantern', {
     sounds = Everness.node_sound_leaves_defaults(),
     light_source = 7,
     paramtype2 = 'facedir',
-    on_place = minetest.rotate_node,
+    on_place = core.rotate_node,
 })
 
 Everness:register_node('everness:cursed_pumpkin_lantern', {
@@ -11197,10 +11197,10 @@ Everness:register_node('everness:floating_crystal', {
     end,
     light_source = 12,
     on_timer = function(pos, elapsed)
-        minetest.remove_node(pos)
+        core.remove_node(pos)
     end,
     on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-        local meta = minetest.get_meta(pos)
+        local meta = core.get_meta(pos)
 
         if meta:get_int('activated') == 1 then
             return itemstack
@@ -11208,7 +11208,7 @@ Everness:register_node('everness:floating_crystal', {
 
         meta:set_int('activated', 1)
 
-        minetest.sound_play(
+        core.sound_play(
             'everness_thin_glass_footstep',
             {
                 gain = 0.7,
@@ -11225,7 +11225,7 @@ Everness:register_node('everness:floating_crystal', {
         -- For 'number' of crystals do..
         for i = 1, math.random(2, 6), 1 do
             -- Only air positions
-            local positions = minetest.find_nodes_in_area(
+            local positions = core.find_nodes_in_area(
                 { x = position.x - 3, y = position.y - 1, z = position.z - 3 },
                 { x = position.x + 3, y = position.y + 1, z = position.z + 3 },
                 { 'air' }
@@ -11242,7 +11242,7 @@ Everness:register_node('everness:floating_crystal', {
             for k, v in ipairs(positions) do
                 table.insert(positions_with_light, {
                     pos = v,
-                    light = minetest.get_node_light(v)
+                    light = core.get_node_light(v)
                 })
             end
 
@@ -11259,12 +11259,12 @@ Everness:register_node('everness:floating_crystal', {
             for j, v in ipairs(positions_with_light) do
                 temp_pos = v.pos
                 local blocking_sight = false
-                local ray = minetest.raycast(position_prev, temp_pos, false, false)
+                local ray = core.raycast(position_prev, temp_pos, false, false)
 
                 for pt in ray do
                     if pt.type == 'node' then
-                        local node_under = minetest.get_node(pt.under)
-                        local node_def = minetest.registered_nodes[node_under.name]
+                        local node_under = core.get_node(pt.under)
+                        local node_def = core.registered_nodes[node_under.name]
 
                         if node_def then
                             if node_def.walkable then
@@ -11293,9 +11293,9 @@ Everness:register_node('everness:floating_crystal', {
             position_prev = position
             position = temp_pos
 
-            minetest.after(i - 1, function(v_position, v_position_prev)
-                if minetest.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
-                    minetest.add_particlespawner({
+            core.after(i - 1, function(v_position, v_position_prev)
+                if core.has_feature({ dynamic_add_media_table = true, particlespawner_tweenable = true }) then
+                    core.add_particlespawner({
                         amount = 50,
                         time = 1,
                         size = {
@@ -11327,9 +11327,9 @@ Everness:register_node('everness:floating_crystal', {
                     })
                 end
 
-                minetest.after(1, function(v_position2, v_position_prev2)
-                    minetest.set_node(v_position2, { name = 'everness:floating_crystal' })
-                    minetest.get_node_timer(v_position2):start(math.random(85, 95))
+                core.after(1, function(v_position2, v_position_prev2)
+                    core.set_node(v_position2, { name = 'everness:floating_crystal' })
+                    core.get_node_timer(v_position2):start(math.random(85, 95))
                 end, v_position, v_position_prev)
             end, position, position_prev)
         end
@@ -11478,7 +11478,7 @@ Everness:register_node('everness:mineral_water_flowing', {
     sounds = Everness.node_sound_water_defaults(),
 })
 
-minetest.register_node('everness:lava_source', {
+core.register_node('everness:lava_source', {
     description = S('Lava Source'),
     drawtype = 'liquid',
     tiles = {
@@ -11531,7 +11531,7 @@ minetest.register_node('everness:lava_source', {
     liquid_range = 2,
 })
 
-minetest.register_node('everness:lava_flowing', {
+core.register_node('everness:lava_flowing', {
     description = S('Flowing Lava'),
     drawtype = 'flowingliquid',
     tiles = {
@@ -11647,20 +11647,20 @@ Everness:register_node('everness:water_geyser_active', {
     damage_per_second = 1,
     sounds = Everness.node_sound_stone_defaults(),
     on_timer = function(pos, elapsed)
-        local n = minetest.get_node(pos)
+        local n = core.get_node(pos)
 
         if n and n.name == 'everness:water_geyser_active' then
-            minetest.swap_node(pos, { name = 'everness:water_geyser' })
+            core.swap_node(pos, { name = 'everness:water_geyser' })
         end
 
         return false
     end,
     on_destruct = function(pos)
-        local meta = minetest.get_meta(pos)
+        local meta = core.get_meta(pos)
         local particle_id = meta:get_int('particle_id')
 
         if particle_id > 0 then
-            minetest.delete_particlespawner(particle_id)
+            core.delete_particlespawner(particle_id)
             meta:set_int('particle_id', 0)
         end
     end
@@ -11712,25 +11712,25 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
             }
         },
         on_construct = function(pos)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             local inv = meta:get_inventory()
             meta:set_string('infotext', S('Ceramic') .. ' ' .. S('Pot') .. ' ' .. S(v))
             meta:set_string('owner', '')
             inv:set_size('main', 1)
         end,
         after_place_node = function(pos, placer, itemstack, pointed_thing)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
 
             meta:set_string('owner', placer:get_player_name() or '')
         end,
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             local p_name = clicker:get_player_name()
 
-            if minetest.is_protected(pos, p_name) then
+            if core.is_protected(pos, p_name) then
                 return itemstack
             end
 
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             local inv = meta:get_inventory()
             local inv_stack = inv:get_stack('main', 1)
             local label_copy = {
@@ -11745,17 +11745,17 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
 
             label_copy = table.concat(label_copy, '')
 
-            minetest.show_formspec(p_name, 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
+            core.show_formspec(p_name, 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
 
-            minetest.sound_play('everness_ceramic_hit', { gain = 1.0, pos = pos, max_hear_distance = 10 }, true)
+            core.sound_play('everness_ceramic_hit', { gain = 1.0, pos = pos, max_hear_distance = 10 }, true)
         end,
         on_blast = function(pos, intensity)
-            if minetest.is_protected(pos, '') then
+            if core.is_protected(pos, '') then
                 return
             end
 
             local drops = {}
-            local inv = minetest.get_meta(pos):get_inventory()
+            local inv = core.get_meta(pos):get_inventory()
             local n = #drops
 
             for j = 1, inv:get_size('main') do
@@ -11767,17 +11767,17 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
             end
 
             drops[#drops + 1] = 'everness:ceramic_pot_' .. v
-            minetest.remove_node(pos)
+            core.remove_node(pos)
             return drops
         end,
         on_destruct = function(pos)
-            local inv = minetest.get_meta(pos):get_inventory()
+            local inv = core.get_meta(pos):get_inventory()
 
             for j = 1, inv:get_size('main') do
                 local stack = inv:get_stack('main', j)
 
                 if stack:get_count() > 0 then
-                    local obj = minetest.add_item(pos, stack)
+                    local obj = core.add_item(pos, stack)
 
                     if obj then
                         obj:get_luaentity().collect = true
@@ -11793,7 +11793,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
         end,
 
         allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-            if minetest.is_protected(pos, player:get_player_name()) then
+            if core.is_protected(pos, player:get_player_name()) then
                 return 0
             end
 
@@ -11801,7 +11801,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
         end,
 
         allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-            if minetest.is_protected(pos, player:get_player_name()) then
+            if core.is_protected(pos, player:get_player_name()) then
                 return 0
             end
 
@@ -11809,7 +11809,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
         end,
 
         on_metadata_inventory_put = function(pos, listname, index, stack, player)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             local inv = meta:get_inventory()
             local inv_stack = inv:get_stack('main', 1)
             local label_copy = {
@@ -11824,11 +11824,11 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
 
             label_copy = table.concat(label_copy, '')
 
-            minetest.show_formspec(player:get_player_name(), 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
+            core.show_formspec(player:get_player_name(), 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
         end,
 
         on_metadata_inventory_take = function(pos, listname, index, stack, player)
-            local meta = minetest.get_meta(pos)
+            local meta = core.get_meta(pos)
             local inv = meta:get_inventory()
             local inv_stack = inv:get_stack('main', 1)
             local label_copy = {
@@ -11843,7 +11843,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
 
             label_copy = table.concat(label_copy, '')
 
-            minetest.show_formspec(player:get_player_name(), 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
+            core.show_formspec(player:get_player_name(), 'everness:ceramic_pot_' .. v, Everness.get_pot_formspec(pos, label_copy, 'everness_ceramic_pot_' .. v .. '_mesh.png'))
         end
     })
 
@@ -11854,7 +11854,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
 
     if v ~= 'blank' then
         -- recipes for 'blank' are in `crafting.lua`
-        minetest.register_craft({
+        core.register_craft({
             output = 'everness:ceramic_pot_' .. v,
             recipe = {
                 { '', 'everness:ceramic_pot_sherd_blank', ''},
@@ -11863,7 +11863,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
             }
         })
 
-        minetest.register_craft({
+        core.register_craft({
             output = 'everness:ceramic_pot_' .. v,
             type = 'shapeless',
             recipe = { 'everness:ceramic_pot_blank', 'everness:ceramic_pot_sherd_' .. v }
@@ -11871,7 +11871,7 @@ for i, v in ipairs({ 'blank', 'flowers', 'lines', 'tribal' }) do
     end
 end
 
-local fence_collision_extra = minetest.settings:get_bool('enable_fence_tall') and 3/8 or 0
+local fence_collision_extra = core.settings:get_bool('enable_fence_tall') and 3/8 or 0
 
 Everness:register_node('everness:sand_castle_wall', {
     description = S('Sand') .. ' ' .. S('Castle') .. ' ' .. S('Wall'),

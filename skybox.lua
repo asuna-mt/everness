@@ -782,7 +782,7 @@ local function should_flip(player)
     -- 0 not defined (for player meta)
     -- 1 morning
     -- 2 afternoon
-    local current_time = minetest.get_timeofday() < 0.5 and 1 or 2
+    local current_time = core.get_timeofday() < 0.5 and 1 or 2
     local flip = current_time ~= player_time
 
     player_meta:set_int('everness_timeofday', current_time)
@@ -795,12 +795,12 @@ end
 
 local timer = 0
 
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
     timer = timer + dtime
 
     if timer > 5 then
-        local players = minetest.get_connected_players()
-        local tod = minetest.get_timeofday()
+        local players = core.get_connected_players()
+        local tod = core.get_timeofday()
         local is_day = false
 
         if tod > 0.2 and tod < 0.805 then
@@ -814,7 +814,7 @@ minetest.register_globalstep(function(dtime)
 
             local player_meta = player:get_meta()
             local player_pos = player:get_pos()
-            local biome_data = minetest.get_biome_data(player_pos)
+            local biome_data = core.get_biome_data(player_pos)
             local player_biome_name = player_meta:get_string('everness_biome_name')
             local is_underground = player_meta:get_int('everness_is_underground')
             local player_is_day = player_meta:get_int('everness_is_day') == 1
@@ -823,7 +823,7 @@ minetest.register_globalstep(function(dtime)
                 return
             end
 
-            local biome_name = minetest.get_biome_name(biome_data.biome)
+            local biome_name = core.get_biome_name(biome_data.biome)
 
             if not biome_name then
                 return
@@ -901,13 +901,13 @@ minetest.register_globalstep(function(dtime)
                         pdef.attached = player
                         pdef.playername = player:get_player_name()
 
-                        local pid = minetest.add_particlespawner(pdef)
+                        local pid = core.add_particlespawner(pdef)
                         player_meta:set_int('everness_biome_particlespawner_id', pid)
                     else
                         local pid = player_meta:get_int('everness_biome_particlespawner_id')
 
                         if pid ~= 0 then
-                            minetest.delete_particlespawner(pid)
+                            core.delete_particlespawner(pid)
                             player_meta:set_int('everness_biome_particlespawner_id', 0)
                         end
                     end
@@ -921,7 +921,7 @@ minetest.register_globalstep(function(dtime)
                     local pid = player_meta:get_int('everness_biome_particlespawner_id')
 
                     if pid ~= 0 then
-                        minetest.delete_particlespawner(pid)
+                        core.delete_particlespawner(pid)
                         player_meta:set_int('everness_biome_particlespawner_id', 0)
                     end
                 end
@@ -992,7 +992,7 @@ minetest.register_globalstep(function(dtime)
     end
 end)
 
-minetest.register_on_joinplayer(function(player, last_login)
+core.register_on_joinplayer(function(player, last_login)
     local player_meta = player:get_meta()
 
     player_meta:set_string('everness_biome_name', '')
@@ -1001,7 +1001,7 @@ minetest.register_on_joinplayer(function(player, last_login)
     player_meta:set_int('everness_is_day', 1)
 end)
 
-minetest.register_on_leaveplayer(function(player, timed_out)
+core.register_on_leaveplayer(function(player, timed_out)
     local player_meta = player:get_meta()
 
     player_meta:set_int('everness_biome_particlespawner_id', 0)

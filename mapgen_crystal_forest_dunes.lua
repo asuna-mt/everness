@@ -113,7 +113,7 @@ Everness:register_decoration({
     biomes = { 'everness:crystal_forest_dunes' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_ruins_1.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_crystal_forest_ruins_1.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -135,7 +135,7 @@ Everness:register_decoration({
     biomes = { 'everness:crystal_forest_dunes' },
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_ruins_2.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_crystal_forest_ruins_2.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -147,24 +147,24 @@ Everness:register_decoration({
 local chance = 20
 local chance_water = 10
 local disp = 16
-local water_level = tonumber(minetest.settings:get('water_level')) or 1
+local water_level = tonumber(core.settings:get('water_level')) or 1
 
-local schem = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_quartz_fountain.mts', {})
+local schem = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_quartz_fountain.mts', {})
 local size = { x = 11, y = 10, z = 11 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 local y_dis = 1
 
-local schem_shrine = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_crystal_forest_ocean_shrine.mts', {})
+local schem_shrine = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_crystal_forest_ocean_shrine.mts', {})
 local size_shrine = { x = 13, y = 16, z = 13 }
 local size_x_shrine = math.round(size.x / 2)
 local size_z_shrine = math.round(size.z / 2)
 local y_dis_shrine = 8
 
-local c_everness_crystal_sand = minetest.get_content_id('everness:crystal_sand')
-local c_water_source = minetest.get_content_id('mapgen_water_source')
+local c_everness_crystal_sand = core.get_content_id('everness:crystal_sand')
+local c_water_source = core.get_content_id('mapgen_water_source')
 
-local biome_id_everness_crystal_forest_dunes = minetest.get_biome_id('everness:crystal_forest_dunes')
+local biome_id_everness_crystal_forest_dunes = core.get_biome_id('everness:crystal_forest_dunes')
 
 Everness:add_to_queue_on_generated({
     name = 'everness:crystal_forest_dunes',
@@ -180,7 +180,7 @@ Everness:add_to_queue_on_generated({
         for y = minp.y, maxp.y do
             local vi = area:index(minp.x + sidelength / 2 + x_disp, y, minp.z + sidelength / 2 + z_disp)
 
-            if data[vi + area.ystride] == minetest.CONTENT_AIR then
+            if data[vi + area.ystride] == core.CONTENT_AIR then
                 local s_pos = area:position(vi)
 
                 if
@@ -195,7 +195,7 @@ Everness:add_to_queue_on_generated({
                     local schem_pos = vector.new(s_pos.x, s_pos.y - y_dis, s_pos.z)
 
                     -- find floor big enough
-                    local positions = minetest.find_nodes_in_area_under_air(
+                    local positions = core.find_nodes_in_area_under_air(
                         vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                         vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                         {
@@ -209,7 +209,7 @@ Everness:add_to_queue_on_generated({
                     end
 
                     -- enough air to place structure ?
-                    local air_positions = minetest.find_nodes_in_area(
+                    local air_positions = core.find_nodes_in_area(
                         vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                         vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                         {
@@ -226,7 +226,7 @@ Everness:add_to_queue_on_generated({
                     end
 
                     if #air_positions > (size.x * size.y * size.z) / 2 then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             schem_pos,
                             schem,
@@ -244,7 +244,7 @@ Everness:add_to_queue_on_generated({
                             maxp = vector.new(s_pos.x + size_x, s_pos.y - y_dis + size.y, s_pos.z + size_z)
                         })
 
-                        minetest.log('action', '[Everness] Quartz Fountain was placed at ' .. schem_pos:to_string())
+                        core.log('action', '[Everness] Quartz Fountain was placed at ' .. schem_pos:to_string())
                     end
                 end
 
@@ -267,7 +267,7 @@ Everness:add_to_queue_on_generated({
                         vector.new(s_pos.x + size_x_shrine, s_pos.y + 1, s_pos.z + size_z_shrine),
                         {
                             c_water_source,
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
@@ -284,14 +284,14 @@ Everness:add_to_queue_on_generated({
                         vector.new(s_pos.x + size_x_shrine, s_pos.y + size_shrine.y, s_pos.z + size_z_shrine),
                         {
                             c_water_source,
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
                     )
 
                     if #space_indexes > (size_shrine.x * size_shrine.y * size_shrine.z) / 2 then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             schem_pos,
                             schem_shrine,
@@ -309,7 +309,7 @@ Everness:add_to_queue_on_generated({
                             maxp = vector.new(s_pos.x + size_x_shrine, s_pos.y - y_dis_shrine + size_shrine.y, s_pos.z + size_z_shrine)
                         })
 
-                        minetest.log('action', '[Everness] Crystal Forest Ocean Shrine was placed at ' .. schem_pos:to_string())
+                        core.log('action', '[Everness] Crystal Forest Ocean Shrine was placed at ' .. schem_pos:to_string())
                     end
                 end
             end
@@ -321,7 +321,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

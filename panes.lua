@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 xpanes.register_pane('pyrite_pane', {
     description = S('Pyrite Glass Pane'),
@@ -46,7 +46,7 @@ xpanes.register_pane('cursed_bar', {
 
 -- Register steel bar doors and trapdoors
 
-if minetest.get_modpath('doors') then
+if core.get_modpath('doors') then
 
     doors.register('everness:door_cursed_steel_bar', {
         tiles = {
@@ -95,7 +95,7 @@ if minetest.get_modpath('doors') then
         gain_close = 0.13,
     })
 
-    minetest.register_craft({
+    core.register_craft({
         output = 'everness:trapdoor_cursed_steel_bar',
         recipe = {
             {'xpanes:cursed_bar_flat', 'xpanes:cursed_bar_flat'},

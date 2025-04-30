@@ -19,16 +19,16 @@
 local data = {}
 local p2data = {}
 
-minetest.register_on_generated(function(minp, maxp, blockseed)
+core.register_on_generated(function(minp, maxp, blockseed)
     -- Start time of mapchunk generation.
     -- local t0 = os.clock()
     local rand = PcgRandom(blockseed)
     -- Array containing the biome IDs of nodes in the most recently generated chunk by the current mapgen
-    local biomemap = minetest.get_mapgen_object('biomemap') or {}
+    local biomemap = core.get_mapgen_object('biomemap') or {}
     -- Table mapping requested generation notification types to arrays of positions at which the corresponding generated structures are located within the current chunk
-    local gennotify = minetest.get_mapgen_object('gennotify')
+    local gennotify = core.get_mapgen_object('gennotify')
     -- Load the voxelmanip with the result of engine mapgen
-    local vm, emin, emax = minetest.get_mapgen_object('voxelmanip')
+    local vm, emin, emax = core.get_mapgen_object('voxelmanip')
     -- 'area' is used later to get the voxelmanip indexes for positions
     local area = VoxelArea:new({ MinEdge = emin, MaxEdge = emax })
     -- Get the content ID data from the voxelmanip in the form of a flat array.
@@ -83,7 +83,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
     -- Cannot read/write voxelmanip or its data
     -- Used for direct manipulation of the world chunk nodes where the
     -- definitions of nodes are available and node callback can be executed
-    -- or e.g. for `minetest.fix_light`
+    -- or e.g. for `core.fix_light`
     for _, def in ipairs(Everness.on_generated_queue) do
         if def.can_run(biomemap) and def.after_write_to_map then
             shared_args[def.name] = shared_args[def.name] or {}

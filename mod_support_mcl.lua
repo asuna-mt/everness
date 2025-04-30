@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 ---
 -- Fence / Gates
@@ -1135,7 +1135,7 @@ mcl_doors:register_door('everness:door_bamboo', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:door_bamboo 3',
     recipe = {
         { 'everness:bamboo_wood', 'everness:bamboo_wood' },
@@ -1159,7 +1159,7 @@ mcl_doors:register_trapdoor('everness:trapdoor_bamboo', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:trapdoor_bamboo',
     recipe = {
         { 'everness:bamboo_wood', 'everness:bamboo_wood' },
@@ -1178,7 +1178,7 @@ mcl_doors:register_door('everness:door_bone_pyrite', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:door_bone_pyrite 3',
     recipe = {
         { 'everness:pyrite_ingot', 'everness:bone' },
@@ -1198,7 +1198,7 @@ mcl_doors:register_door('everness:door_willow', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:door_willow 3',
     recipe = {
         { 'everness:willow_wood', 'everness:willow_wood' },
@@ -1220,7 +1220,7 @@ mcl_doors:register_door('everness:door_crystal_wood', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:door_crystal_wood 3',
     recipe = {
         { 'everness:crystal_wood', 'everness:crystal_wood' },
@@ -1242,7 +1242,7 @@ mcl_doors:register_trapdoor('everness:trapdoor_crystal_wood', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:trapdoor_crystal_wood',
     recipe = {
         { 'everness:crystal_wood', 'everness:crystal_wood' },
@@ -1263,7 +1263,7 @@ mcl_doors:register_door('everness:door_cursed_wood', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:door_cursed_wood 3',
     recipe = {
         { 'everness:dry_wood', 'everness:dry_wood' },
@@ -1285,7 +1285,7 @@ mcl_doors:register_trapdoor('everness:trapdoor_cursed_wood', {
     _mcl_blast_resistance = 3,
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:trapdoor_cursed_wood',
     recipe = {
         { 'everness:dry_wood', 'everness:dry_wood' },
@@ -1306,7 +1306,7 @@ minetest.register_craft({
 --     _mcl_blast_resistance = 3,
 -- })
 
--- minetest.register_craft({
+-- core.register_craft({
 --     output = 'everness:door_palm_wood 3',
 --     recipe = {
 --         { 'everness:palm_tree_wood', 'everness:palm_tree_wood' },
@@ -1326,7 +1326,7 @@ minetest.register_craft({
 --     _mcl_blast_resistance = 3,
 -- })
 
--- minetest.register_craft({
+-- core.register_craft({
 --     output = 'everness:trapdoor_palm_wood',
 --     recipe = {
 --         { 'everness:palm_tree_wood', 'everness:palm_tree_wood' },
