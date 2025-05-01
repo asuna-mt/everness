@@ -133,6 +133,8 @@ function Everness.chest.register_chest(prefixed_name, d)
     def.paramtype2 = 'facedir'
     def.legacy_facedir_simple = true
     def.is_ground_content = false
+    def.use_texture_alpha = 'clip'
+    def.backface_culling = false
 
     if def.protected then
         -- Locked chest
@@ -294,14 +296,36 @@ function Everness.chest.register_chest(prefixed_name, d)
     local def_opened = table.copy(def)
     local def_closed = table.copy(def)
 
-    def_opened.mesh = 'everness_chest_open.obj'
+    if def.protected then
+        def_opened.mesh = 'everness_chest_protected_opened.obj'
+        def_opened.tiles = {
+            'everness_chest_front.png',
+            'everness_chest_top.png',
+            'everness_chest_side.png',
+            'everness_chest_front.png'
+        }
 
-    for i = 1, #def_opened.tiles do
-        if type(def_opened.tiles[i]) == 'string' then
-            def_opened.tiles[i] = { name = def_opened.tiles[i], backface_culling = true }
-        elseif def_opened.tiles[i].backface_culling == nil then
-            def_opened.tiles[i].backface_culling = true
-        end
+        def_closed.mesh = 'everness_chest_protected_closed.obj'
+        def_closed.tiles = {
+            'everness_chest_front.png',
+            'everness_chest_top.png',
+            'everness_chest_side.png',
+            'everness_chest_front.png'
+        }
+    else
+        def_opened.mesh = 'everness_chest_opened.obj'
+        def_opened.tiles = {
+            'everness_chest_front.png',
+            'everness_chest_top.png',
+            'everness_chest_side.png'
+        }
+
+        def_closed.mesh = 'everness_chest_closed.obj'
+        def_closed.tiles = {
+            'everness_chest_front.png',
+            'everness_chest_top.png',
+            'everness_chest_side.png'
+        }
     end
 
     def_opened.drop = name
@@ -314,12 +338,6 @@ function Everness.chest.register_chest(prefixed_name, d)
         return false
     end
     def_opened.on_blast = function() end
-
-    def_closed.mesh = nil
-    def_closed.drawtype = nil
-    def_closed.tiles[6] = def.tiles[5] -- swap textures around for 'normal'
-    def_closed.tiles[5] = def.tiles[3] -- drawtype to make them match the mesh
-    def_closed.tiles[3] = def.tiles[3] .. '^[transformFX'
 
     Everness:register_node(prefixed_name, def_closed)
     Everness:register_node(prefixed_name .. '_open', def_opened)
@@ -339,14 +357,6 @@ end
 
 Everness.chest.register_chest('everness:chest', {
     description = S('Chest'),
-    tiles = {
-        'everness_chest_top.png',
-        'everness_chest_top.png',
-        'everness_chest_side.png',
-        'everness_chest_side.png',
-        'everness_chest_front.png',
-        'everness_chest_inside.png'
-    },
     sounds = Everness.node_sound_wood_defaults(),
     sound_open = 'everness_chest_open',
     sound_close = 'everness_chest_close',
@@ -366,6 +376,28 @@ Everness.chest.register_chest('everness:chest', {
     _mcl_hardness = 2.5,
 })
 
+Everness.chest.register_chest('everness:chest_locked', {
+    description = S('Locked Chest'),
+    sounds = Everness.node_sound_wood_defaults(),
+    sound_open = 'everness_chest_open',
+    sound_close = 'everness_chest_close',
+    groups = {
+        -- MTG
+        choppy = 2,
+        oddly_breakable_by_hand = 2,
+        -- MCL
+        handy = 1,
+        axey = 1,
+        container = 2,
+        deco_block = 1,
+        material_wood = 1,
+        flammable = -1,
+    },
+    _mcl_blast_resistance = 2.5,
+    _mcl_hardness = 2.5,
+    protected = true
+})
+
 core.register_craft({
     output = 'everness:chest',
     recipe = {
@@ -375,8 +407,29 @@ core.register_craft({
     }
 })
 
+minetest.register_craft({
+    output = 'everness:chest_locked',
+    recipe = {
+        { 'group:everness_wood', 'group:everness_wood', 'group:everness_wood' },
+        { 'group:everness_wood', 'everness:pyrite_ingot', 'group:everness_wood' },
+        { 'group:everness_wood', 'group:everness_wood', 'group:everness_wood' },
+    }
+})
+
+minetest.register_craft( {
+    type = 'shapeless',
+    output = 'everness:chest_locked',
+    recipe = { 'everness:chest', 'everness:pyrite_ingot' },
+})
+
 core.register_craft({
     type = 'fuel',
     recipe = 'everness:chest',
+    burntime = 30,
+})
+
+core.register_craft({
+    type = 'fuel',
+    recipe = 'everness:chest_locked',
     burntime = 30,
 })
