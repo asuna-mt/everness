@@ -24,7 +24,7 @@ local function pick_dropped_items(player)
         return
     end
 
-    local objects = core.get_objects_inside_radius(pos, 3)
+    local objects = core.get_objects_inside_radius(pos, 4)
     local objects_to_collect = {}
 
     -- filter - leave only builtin items
