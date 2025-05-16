@@ -262,14 +262,10 @@ local c_everness_mineral_lava_stone_spike_6 = core.get_content_id('everness:mine
 local c_everness_mineral_lava_stone_spike_7 = core.get_content_id('everness:mineral_lava_stone_spike_7')
 local c_everness_mineral_lava_stone_with_moss = core.get_content_id('everness:mineral_lava_stone_with_moss')
 -- Biome IDs
-<<<<<<< HEAD
 local biome_id_everness_mineral_waters_under = {}
 for _,biome in ipairs(asuna.features.cave.mineral_waters) do
-    table.insert(biome_id_everness_mineral_waters_under,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_mineral_waters_under,core.get_biome_id(biome))
 end
-=======
-local biome_id_everness_mineral_waters_under = core.get_biome_id('everness:mineral_waters_under')
->>>>>>> master
 -- Decoration IDs
 local d_everness_mineral_waters_under_volcanic_spike = core.get_decoration_id('everness:mineral_waters_under_volcanic_spike')
 local d_everness_mineral_waters_under_volcanic_spike_ceiling = core.get_decoration_id('everness:mineral_waters_under_volcanic_spike_ceiling')

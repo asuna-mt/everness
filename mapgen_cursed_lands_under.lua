@@ -219,14 +219,10 @@ Everness:register_decoration({
 -- On Generated
 --
 
-<<<<<<< HEAD
 local biome_id_everness_cursed_lands_under = {}
 for _,biome in ipairs(asuna.features.cave.cursed_lands) do
-    table.insert(biome_id_everness_cursed_lands_under,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_cursed_lands_under,core.get_biome_id(biome))
 end
-=======
-local biome_id_everness_cursed_lands_under = core.get_biome_id('everness:cursed_lands_under')
->>>>>>> master
 
 local deco_id_cursed_lands_under_cursed_dream_tree = core.get_decoration_id('everness:cursed_lands_under_cursed_dream_tree')
 
