@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -279,21 +279,21 @@ register_agave_leaf_decoration(0, 0.06, 1)
 
 local biome_id_everness_forsaken_tundra_under = {}
 for _,biome in ipairs(asuna.features.cave.forsaken_tundra) do
-    table.insert(biome_id_everness_forsaken_tundra_under,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_forsaken_tundra_under,core.get_biome_id(biome))
 end
 
-local deco_id_everness_forsaken_tundra_under_willow_tree = minetest.get_decoration_id('everness:forsaken_tundra_under_willow_tree')
+local deco_id_everness_forsaken_tundra_under_willow_tree = core.get_decoration_id('everness:forsaken_tundra_under_willow_tree')
 
-local willow_tree_schem = minetest.get_modpath('everness') .. '/schematics/everness_willow_tree.mts'
+local willow_tree_schem = core.get_modpath('everness') .. '/schematics/everness_willow_tree.mts'
 local size = { x = 39, y = 28, z = 39 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 local safe_volume = (size.x * size.y * size.z) / 1.5
 local y_dis = 1
-local willow_tree_place_on = minetest.registered_decorations['everness:forsaken_tundra_under_willow_tree'].place_on
+local willow_tree_place_on = core.registered_decorations['everness:forsaken_tundra_under_willow_tree'].place_on
 willow_tree_place_on = type(willow_tree_place_on) == 'string' and { willow_tree_place_on } or willow_tree_place_on
 
-minetest.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
+core.set_gen_notify({ decoration = true }, { deco_id_everness_forsaken_tundra_under_willow_tree })
 
 Everness:add_to_queue_on_generated({
     name = 'everness:forsaken_tundra_under',
@@ -313,16 +313,16 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (deco_id_everness_forsaken_tundra_under_willow_tree or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if table.indexof(willow_tree_place_on, place_on_node.name) ~= -1 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - size_x,
                             pos.y - y_dis,
@@ -344,7 +344,7 @@ Everness:add_to_queue_on_generated({
                     local tree = positions['everness:willow_tree'] or {}
 
                     if #air > safe_volume and #tree == 0 then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             vector.new(marker_pos.x, marker_pos.y - y_dis, marker_pos.z),
                             willow_tree_schem,
@@ -354,7 +354,7 @@ Everness:add_to_queue_on_generated({
                             'place_center_x, place_center_z'
                         )
 
-                        -- minetest.log('action', '[Everness] Willow Tree was placed at ' .. pos:to_string())
+                        -- core.log('action', '[Everness] Willow Tree was placed at ' .. pos:to_string())
                     end
                 end
             end

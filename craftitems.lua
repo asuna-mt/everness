@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -14,8 +14,8 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
-local tms = minetest.get_modpath("too_many_stones")
+local S = core.get_translator(core.get_current_modname())
+local tms = core.get_modpath("too_many_stones")
 
 --
 -- Craftitem registry
@@ -23,7 +23,7 @@ local tms = minetest.get_modpath("too_many_stones")
 
 --  Quartz Crystal
 if tms then
-    minetest.register_alias("everness:quartz_crystal","too_many_stones:quartz")
+    core.register_alias("everness:quartz_crystal","too_many_stones:quartz")
 else
     Everness:register_craftitem('everness:quartz_crystal', {
         description = S('Quartz Crystal'),
@@ -37,9 +37,9 @@ Everness:register_craftitem('everness:bamboo_item', {
 })
 
 Everness:register_craftitem('everness:baobab_fruit_roasted', {
-    description = S('Baobab Roasted Fruit') .. '\n'.. minetest.colorize(Everness.colors.brown, S('Hunger') .. ': 4'),
+    description = S('Baobab Roasted Fruit') .. '\n'.. core.colorize(Everness.colors.brown, S('Hunger') .. ': 4'),
     inventory_image = 'everness_baobab_tree_fruit_roasted.png',
-    on_use = minetest.item_eat(4),
+    on_use = core.item_eat(4),
 })
 
 Everness:register_craftitem('everness:pyrite_ingot', {
@@ -48,7 +48,7 @@ Everness:register_craftitem('everness:pyrite_ingot', {
 })
 
 if tms then
-    minetest.register_alias("everness:pyrite_lump","too_many_stones:pyrite")
+    core.register_alias("everness:pyrite_lump","too_many_stones:pyrite")
 else
     Everness:register_craftitem('everness:pyrite_lump', {
         description = S('Pyrite Lump'),
@@ -57,17 +57,17 @@ else
 end
 
 Everness:register_craftitem('everness:coconut_fruit', {
-    description = S('Coconut') .. '\n'.. minetest.colorize(Everness.colors.brown, S('Hunger') .. ': 4'),
+    description = S('Coconut') .. '\n'.. core.colorize(Everness.colors.brown, S('Hunger') .. ': 4'),
     inventory_image = 'everness_coconut_item.png',
     wield_scale = { x = 2, y = 2, z = 1 },
-    on_use = minetest.item_eat(4),
+    on_use = core.item_eat(4),
 })
 
 --
 -- Crafting recipes
 --
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:pyrite_ingot 9',
     recipe = {
         { 'everness:pyriteblock' },
@@ -78,7 +78,7 @@ minetest.register_craft({
 -- Cooking recipes
 --
 
-minetest.register_craft({
+core.register_craft({
     type = 'cooking',
     output = 'everness:pyrite_ingot',
     recipe = 'everness:pyrite_lump',

@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -1092,13 +1092,13 @@ local PLAYER_SOUNDS = {}
 local function update_sound(player)
     local player_name = player:get_player_name()
     local player_pos = player:get_pos()
-    local biome_data = minetest.get_biome_data(player_pos)
+    local biome_data = core.get_biome_data(player_pos)
 
     if not biome_data then
         return
     end
 
-    local biome_name = minetest.get_biome_name(biome_data.biome)
+    local biome_name = core.get_biome_name(biome_data.biome)
 
     if not biome_name then
         return
@@ -1120,7 +1120,7 @@ local function update_sound(player)
 
         -- night between 19:19:12 - 04:48:00
         if sound_def_biome.night then
-            local tod = minetest.get_timeofday()
+            local tod = core.get_timeofday()
 
             if tod > 0.805 or tod < 0.2 then
                 sound_def = sound_def_biome.night[1]
@@ -1131,32 +1131,32 @@ local function update_sound(player)
             end
         end
 
-        PLAYER_SOUNDS[player_name] = minetest.sound_play(sound_def.name, {
+        PLAYER_SOUNDS[player_name] = core.sound_play(sound_def.name, {
             to_player = player_name,
             gain = 0,
         }, false)
 
         -- fade in
-        minetest.sound_fade(PLAYER_SOUNDS[player_name], (sound_def.gain / sound_def.length) / 2, sound_def.gain)
+        core.sound_fade(PLAYER_SOUNDS[player_name], (sound_def.gain / sound_def.length) / 2, sound_def.gain)
 
-        minetest.after(sound_def.length / 2, function(v_player_sounds, v_player_name)
+        core.after(sound_def.length / 2, function(v_player_sounds, v_player_name)
             -- fade out
             if not PLAYER_SOUNDS[player_name] then
                 return
             end
 
-            minetest.sound_fade(v_player_sounds[v_player_name], ((sound_def.gain / sound_def.length) / 2) * -1, 0)
+            core.sound_fade(v_player_sounds[v_player_name], ((sound_def.gain / sound_def.length) / 2) * -1, 0)
         end, PLAYER_SOUNDS, player_name)
 
         -- remove handle
-        minetest.after(sound_def.length, function(v_player_sounds, v_player_name)
+        core.after(sound_def.length, function(v_player_sounds, v_player_name)
             v_player_sounds[v_player_name] = nil
         end, PLAYER_SOUNDS, player_name)
     end
 end
 
 -- Update sound when player joins
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
     local player_name = player:get_player_name()
     PLAYER_SOUNDS[player_name] = nil
     update_sound(player)
@@ -1164,11 +1164,11 @@ end)
 
 -- Cyclic sound update
 local function cyclic_update()
-    for _, player in pairs(minetest.get_connected_players()) do
+    for _, player in pairs(core.get_connected_players()) do
         update_sound(player)
     end
 
-    minetest.after(math.random(30, 180), cyclic_update)
+    core.after(math.random(30, 180), cyclic_update)
 end
 
-minetest.after(0, cyclic_update)
+core.after(0, cyclic_update)

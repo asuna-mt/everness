@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -152,7 +152,7 @@ Everness:register_decoration({
     biomes = { 'everness:cursed_lands_swamp' },
     y_max = y_min,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })
@@ -175,7 +175,7 @@ Everness:register_decoration({
     biomes = { 'everness:cursed_lands_swamp' },
     y_max = y_max,
     y_min = y_max,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_marsh_grass.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_marsh_grass.mts',
 })
 
 --
@@ -184,16 +184,16 @@ Everness:register_decoration({
 
 local chance = 30
 local disp = 16
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_cursed_cabin.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_cursed_cabin.mts'
 local size = { x = 7, y = 7, z = 12 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 local y_dis = -1
 
-local c_cursed_stone = minetest.get_content_id('everness:cursed_stone')
-local c_water_source = minetest.get_content_id('mapgen_water_source')
+local c_cursed_stone = core.get_content_id('everness:cursed_stone')
+local c_water_source = core.get_content_id('mapgen_water_source')
 
-local biome_id_everness_cursed_lands_swamp = minetest.get_biome_id('everness:cursed_lands_swamp')
+local biome_id_everness_cursed_lands_swamp = core.get_biome_id('everness:cursed_lands_swamp')
 
 Everness:add_to_queue_on_generated({
     name = 'everness:cursed_lands_swamp',
@@ -223,7 +223,7 @@ Everness:add_to_queue_on_generated({
                 local schem_pos = vector.new(s_pos.x, s_pos.y - y_dis, s_pos.z)
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -238,7 +238,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -248,7 +248,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         schem_pos,
                         schem,
@@ -266,7 +266,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y - y_dis + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Cursed Cabin was placed at ' .. schem_pos:to_string())
+                    core.log('action', '[Everness] Cursed Cabin was placed at ' .. schem_pos:to_string())
                 end
             end
         end
@@ -277,7 +277,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -16,18 +16,18 @@
     Authors of source code
     ----------------------
     Originally by celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
-    Various Minetest developers and contributors (LGPLv2.1+)
+    Various Luanti developers and contributors (LGPLv2.1+)
 
     The torch code was derived by sofar from the 'torches' mod by
     BlockMen (LGPLv2.1+)
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 local function on_flood(pos, oldnode, newnode)
-    minetest.add_item(pos, ItemStack('everness:mineral_torch 1'))
+    core.add_item(pos, ItemStack('everness:mineral_torch 1'))
     -- Play flame-extinguish sound if liquid is not an 'igniter'
-    local nodedef = minetest.registered_items[newnode.name]
+    local nodedef = core.registered_items[newnode.name]
 
     if not (
         nodedef
@@ -35,7 +35,7 @@ local function on_flood(pos, oldnode, newnode)
         and nodedef.groups.igniter
         and nodedef.groups.igniter > 0
     ) then
-        minetest.sound_play('default_cool_lava',
+        core.sound_play('default_cool_lava',
             {
                 pos = pos,
                 max_hear_distance = 16,
@@ -90,8 +90,8 @@ Everness:register_node('everness:mineral_torch', {
     sounds = Everness.node_sound_wood_defaults(),
     on_place = function(itemstack, placer, pointed_thing)
         local under = pointed_thing.under
-        local node = minetest.get_node(under)
-        local def = minetest.registered_nodes[node.name]
+        local node = core.get_node(under)
+        local def = core.registered_nodes[node.name]
 
         if def
             and def.on_rightclick
@@ -106,7 +106,7 @@ Everness:register_node('everness:mineral_torch', {
         end
 
         local above = pointed_thing.above
-        local wdir = minetest.dir_to_wallmounted(vector.subtract(under, above))
+        local wdir = core.dir_to_wallmounted(vector.subtract(under, above))
 
         local fakestack = itemstack
 
@@ -118,7 +118,7 @@ Everness:register_node('everness:mineral_torch', {
             fakestack:set_name('everness:mineral_torch_wall')
         end
 
-        itemstack = minetest.item_place(fakestack, placer, pointed_thing, wdir)
+        itemstack = core.item_place(fakestack, placer, pointed_thing, wdir)
 
         itemstack:set_name('everness:mineral_torch')
 
@@ -211,7 +211,7 @@ Everness:register_node('everness:mineral_torch_ceiling', {
     on_rotate = false
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:mineral_torch 16',
     recipe = {
         { 'everness:lotus_flower_pink' },
@@ -219,7 +219,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:mineral_torch 16',
     recipe = {
         { 'everness:lotus_flower_purple' },
@@ -227,7 +227,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:mineral_torch 16',
     recipe = {
         { 'everness:lotus_flower_white' },
@@ -235,7 +235,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     type = 'fuel',
     recipe = 'everness:mineral_torch',
     burntime = 4,

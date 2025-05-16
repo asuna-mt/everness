@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -200,19 +200,19 @@ Everness:register_decoration({
 
 local disp = 16
 local chance = 20
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_forsaken_desert_temple_2.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_forsaken_desert_temple_2.mts'
 local size = { x = 16, y = 17, z = 15 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 
-local c_forsaken_desert_sand = minetest.get_content_id('everness:forsaken_desert_sand')
-local c_forsaken_desert_chiseled_stone = minetest.get_content_id('everness:forsaken_desert_chiseled_stone')
-local c_forsaken_desert_brick = minetest.get_content_id('everness:forsaken_desert_brick')
-local c_forsaken_desert_engraved_stone = minetest.get_content_id('everness:forsaken_desert_engraved_stone')
+local c_forsaken_desert_sand = core.get_content_id('everness:forsaken_desert_sand')
+local c_forsaken_desert_chiseled_stone = core.get_content_id('everness:forsaken_desert_chiseled_stone')
+local c_forsaken_desert_brick = core.get_content_id('everness:forsaken_desert_brick')
+local c_forsaken_desert_engraved_stone = core.get_content_id('everness:forsaken_desert_engraved_stone')
 
 local biome_id_everness_forsaken_desert_under = {}
 for _,biome in ipairs(asuna.features.cave.forsaken_desert) do
-    table.insert(biome_id_everness_forsaken_desert_under,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_forsaken_desert_under,core.get_biome_id(biome))
 end
 
 Everness:add_to_queue_on_generated({
@@ -252,7 +252,7 @@ Everness:add_to_queue_on_generated({
                 local schem_pos = vector.new(s_pos.x, s_pos.y, s_pos.z)
 
                 -- find floor big enough
-                local positions = minetest.find_nodes_in_area_under_air(
+                local positions = core.find_nodes_in_area_under_air(
                     vector.new(s_pos.x - size_x, s_pos.y - 1, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                     {
@@ -284,7 +284,7 @@ Everness:add_to_queue_on_generated({
                 end
 
                 -- enough air to place structure ?
-                local air_positions = minetest.find_nodes_in_area(
+                local air_positions = core.find_nodes_in_area(
                     vector.new(s_pos.x - size_x, s_pos.y, s_pos.z - size_z),
                     vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                     {
@@ -293,7 +293,7 @@ Everness:add_to_queue_on_generated({
                 )
 
                 if #air_positions > (size.x * size.y * size.z) / 2 then
-                    minetest.place_schematic_on_vmanip(
+                    core.place_schematic_on_vmanip(
                         vm,
                         schem_pos,
                         schem,
@@ -311,7 +311,7 @@ Everness:add_to_queue_on_generated({
                         maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                     })
 
-                    minetest.log('action', '[Everness] Forsaken Desert Temple 2 was placed at ' .. schem_pos:to_string())
+                    core.log('action', '[Everness] Forsaken Desert Temple 2 was placed at ' .. schem_pos:to_string())
                 end
             end
         end
@@ -322,7 +322,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

@@ -3,12 +3,12 @@
     ----------------------
     Kahrl <kahrl@gmx.net> (LGPLv2.1+)
     celeron55, Perttu Ahola <celeron55@gmail.com> (LGPLv2.1+)
-    Various Minetest developers and contributors (LGPLv2.1+)
+    Various Luanti developers and contributors (LGPLv2.1+)
     Everness. Never ending discovery in Everness mapgen.
 
     Modified by:
 
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -22,9 +22,9 @@
 --]]
 
 -- Load support for MT game translation.
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
-minetest.register_craft({
+core.register_craft({
     output = 'everness:bucket_empty 1',
     recipe = {
         { 'everness:pyrite_ingot', '', 'everness:pyrite_ingot' },
@@ -37,13 +37,13 @@ local bucket = {
 }
 
 local function check_protection(pos, name, text)
-    if minetest.is_protected(pos, name) then
-        minetest.log('action', (name ~= '' and name or 'A mod')
+    if core.is_protected(pos, name) then
+        core.log('action', (name ~= '' and name or 'A mod')
             .. ' tried to ' .. text
             .. ' at protected position '
-            .. minetest.pos_to_string(pos)
+            .. core.pos_to_string(pos)
             .. ' with a bucket')
-        minetest.record_protection_violation(pos, name)
+        core.record_protection_violation(pos, name)
         return true
     end
     return false
@@ -85,8 +85,8 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
                     return
                 end
 
-                local node = minetest.get_node_or_nil(pointed_thing.under)
-                local ndef = node and minetest.registered_nodes[node.name]
+                local node = core.get_node_or_nil(pointed_thing.under)
+                local ndef = node and core.registered_nodes[node.name]
 
                 -- Call on_rightclick if the pointed node defines it
                 if ndef and ndef.on_rightclick and
@@ -109,8 +109,8 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
                     -- check if the node above can be replaced
 
                     lpos = pointed_thing.above
-                    node = minetest.get_node_or_nil(lpos)
-                    local above_ndef = node and minetest.registered_nodes[node.name]
+                    node = core.get_node_or_nil(lpos)
+                    local above_ndef = node and core.registered_nodes[node.name]
 
                     if not above_ndef or not above_ndef.buildable_to then
                         -- do not remove the bucket with the liquid
@@ -124,7 +124,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
                     return
                 end
 
-                minetest.set_node(lpos, {name = source})
+                core.set_node(lpos, {name = source})
                 return ItemStack('everness:bucket_empty')
             end
         })
@@ -147,7 +147,7 @@ Everness:register_craftitem('everness:bucket_empty', {
             return
         end
         -- Check if pointing to a liquid source
-        local node = minetest.get_node(pointed_thing.under)
+        local node = core.get_node(pointed_thing.under)
         local liquiddef = bucket.liquids[node.name]
         local item_count = user:get_wielded_item():get_count()
 
@@ -174,7 +174,7 @@ Everness:register_craftitem('everness:bucket_empty', {
                 else
                     local pos = user:get_pos()
                     pos.y = math.floor(pos.y + 0.5)
-                    minetest.add_item(pos, liquiddef.itemname)
+                    core.add_item(pos, liquiddef.itemname)
                 end
 
                 -- set to return empty buckets minus 1
@@ -185,17 +185,17 @@ Everness:register_craftitem('everness:bucket_empty', {
             local source_neighbor = false
 
             if liquiddef.force_renew then
-                source_neighbor = minetest.find_node_near(pointed_thing.under, 1, liquiddef.source)
+                source_neighbor = core.find_node_near(pointed_thing.under, 1, liquiddef.source)
             end
 
             if not (source_neighbor and liquiddef.force_renew) then
-                minetest.add_node(pointed_thing.under, { name = 'air' })
+                core.add_node(pointed_thing.under, { name = 'air' })
             end
 
             return ItemStack(giving_back)
         else
             -- non-liquid nodes will have their on_punch triggered
-            local node_def = minetest.registered_nodes[node.name]
+            local node_def = core.registered_nodes[node.name]
 
             if node_def then
                 node_def.on_punch(pointed_thing.under, node, user, pointed_thing)
@@ -230,7 +230,7 @@ bucket.register_liquid(
     { tool = 1 }
 )
 
-minetest.register_craft({
+core.register_craft({
     type = 'fuel',
     recipe = 'everness:bucket_lava',
     burntime = 370,

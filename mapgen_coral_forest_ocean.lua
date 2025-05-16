@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -166,16 +166,16 @@ Everness:register_decoration({
 
 local disp = 16
 local chance = 5
-local water_level = tonumber(minetest.settings:get('water_level')) or 1
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_ocean_fishing_dock.mts'
+local water_level = tonumber(core.settings:get('water_level')) or 1
+local schem = core.get_modpath('everness') .. '/schematics/everness_coral_forest_ocean_fishing_dock.mts'
 local size = { x = 26, y = 10, z = 23 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
 local y_dis = 1
 
-local c_water_source = minetest.get_content_id('mapgen_water_source')
+local c_water_source = core.get_content_id('mapgen_water_source')
 
-local biome_id_everness_coral_forest_ocean = minetest.get_biome_id('everness:coral_forest_ocean')
+local biome_id_everness_coral_forest_ocean = core.get_biome_id('everness:coral_forest_ocean')
 
 Everness:add_to_queue_on_generated({
     name = 'everness:coral_forest_ocean',
@@ -192,7 +192,7 @@ Everness:add_to_queue_on_generated({
             for y = minp.y, maxp.y do
                 local vi = area:index(minp.x + sidelength / 2 + x_disp, y, minp.z + sidelength / 2 + z_disp)
 
-                if data[vi + area.ystride] == minetest.CONTENT_AIR
+                if data[vi + area.ystride] == core.CONTENT_AIR
                     and data[vi] == c_water_source
                     -- Water Level
                     and water_level >= minp.y
@@ -212,7 +212,7 @@ Everness:add_to_queue_on_generated({
                         vector.new(s_pos.x + size_x, s_pos.y + 1, s_pos.z + size_z),
                         {
                             c_water_source,
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
@@ -229,14 +229,14 @@ Everness:add_to_queue_on_generated({
                         vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z),
                         {
                             c_water_source,
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
                     )
 
                     if #space_indexes > (size.x * size.y * size.z) / 2 then
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             schem_pos,
                             schem,
@@ -254,7 +254,7 @@ Everness:add_to_queue_on_generated({
                             maxp = vector.new(s_pos.x + size_x, s_pos.y - y_dis + size.y, s_pos.z + size_z)
                         })
 
-                        minetest.log('action', '[Everness] Coral Forest Ocean Fishing Dock was placed at ' .. schem_pos:to_string())
+                        core.log('action', '[Everness] Coral Forest Ocean Fishing Dock was placed at ' .. schem_pos:to_string())
 
                         break
                     end
@@ -268,7 +268,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

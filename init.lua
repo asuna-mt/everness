@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -14,17 +14,15 @@
 
 --]]
 
-minetest = minetest.global_exists('minetest') and minetest --[[@as Minetest]]
-
-local path = minetest.get_modpath('everness')
-local mod_start_time = minetest.get_us_time()
+local path = core.get_modpath('everness')
+local mod_start_time = core.get_us_time()
 
 -- Legacy backwards compatibility
-minetest.register_alias('everness:dirt_with_grass_2', 'everness:dirt_with_grass_1')
-minetest.register_alias('everness:path_dirt_with_grass_2', 'everness:path_dirt_with_grass_1')
+core.register_alias('everness:dirt_with_grass_2', 'everness:dirt_with_grass_1')
+core.register_alias('everness:path_dirt_with_grass_2', 'everness:path_dirt_with_grass_1')
 
 -- MineClone2 support
-if minetest.get_modpath('mcl_core') and minetest.global_exists('mcl_core') then
+if core.get_modpath('mcl_core') and core.global_exists('mcl_core') then
     dofile(path .. '/mod_support_mcl_aliases.lua')
 end
 
@@ -174,19 +172,19 @@ end
 
 dofile(path .. '/mapgen_after.lua')
 
-if minetest.get_modpath('xpanes') and minetest.global_exists('xpanes') then
+if core.get_modpath('xpanes') and core.global_exists('xpanes') then
     dofile(path .. '/panes.lua')
 end
 
-if minetest.get_modpath('stairs') and minetest.global_exists('stairs') then
+if core.get_modpath('stairs') and core.global_exists('stairs') then
     dofile(path .. '/stairs.lua')
 end
 
-if minetest.get_modpath('walls') and minetest.global_exists('walls') then
+if core.get_modpath('walls') and core.global_exists('walls') then
     dofile(path .. '/walls.lua')
 end
 
-if minetest.get_modpath('default') or minetest.global_exists('default') then
+if core.get_modpath('default') or core.global_exists('default') then
     if default.register_fence
         and default.register_fence_rail
         and default.register_mesepost
@@ -195,11 +193,11 @@ if minetest.get_modpath('default') or minetest.global_exists('default') then
     end
 end
 
-if minetest.get_modpath('doors') and minetest.global_exists('doors') then
+if core.get_modpath('doors') and core.global_exists('doors') then
     dofile(path .. '/doors.lua')
 end
 
-if not minetest.get_modpath('bucket') and not minetest.get_modpath('mcl_buckets') then
+if not core.get_modpath('bucket') and not core.get_modpath('mcl_buckets') then
     dofile(path .. '/buckets.lua')
 end
 
@@ -222,7 +220,7 @@ dofile(path .. '/chat_commands.lua')
 
 Everness:encyclopedia_init()
 
-minetest.register_on_mods_loaded(function()
+core.register_on_mods_loaded(function()
     Everness.set_loot_chest_items()
 end)
 
@@ -230,16 +228,16 @@ end)
 -- Mod Support
 --
 
-if minetest.get_modpath('x_farming') and minetest.global_exists('x_farming') then
+if core.get_modpath('x_farming') and core.global_exists('x_farming') then
     dofile(path .. '/mod_support_x_farming.lua')
 end
 
-if minetest.get_modpath('x_tumbleweed') and minetest.global_exists('XTumbleweed') then
+if core.get_modpath('x_tumbleweed') and core.global_exists('XTumbleweed') then
     dofile(path .. '/mod_support_x_tumbleweed.lua')
 end
 
-if minetest.get_modpath('x_obsidianmese')
-    and minetest.global_exists('x_obsidianmese')
+if core.get_modpath('x_obsidianmese')
+    and core.global_exists('x_obsidianmese')
     -- backwards compatibility check
     and x_obsidianmese.register_path_node
 then
@@ -247,13 +245,13 @@ then
 end
 
 -- MineClone2
-if minetest.get_modpath('mcl_core') and minetest.global_exists('mcl_core') then
+if core.get_modpath('mcl_core') and core.global_exists('mcl_core') then
     dofile(path .. '/mod_support_mcl.lua')
 end
 
 -- Minetest Game
 dofile(path .. '/mod_support_mtg.lua')
 
-local mod_end_time = (minetest.get_us_time() - mod_start_time) / 1000000
+local mod_end_time = (core.get_us_time() - mod_start_time) / 1000000
 
 print('[Mod] everness loaded.. [' .. mod_end_time .. 's]')

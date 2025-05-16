@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -249,7 +249,7 @@ x_farming.x_bonemeal:register_tree_defs({
 -- Recipes
 --
 
-minetest.register_craft({
+core.register_craft({
     output = 'x_farming:bonemeal 4',
     recipe = {
         { 'everness:bone' }

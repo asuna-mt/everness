@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -101,7 +101,7 @@ local all_biomes_mese_tree_place_on = {
     'everness:volcanic_sulfur'
 }
 
-if minetest.get_modpath('default') then
+if core.get_modpath('default') then
     table.insert_all(all_biomes_mese_tree_place_on, {
         'default:desert_sand',
         'default:dirt',
@@ -120,7 +120,7 @@ if minetest.get_modpath('default') then
     })
 end
 
-if minetest.get_modpath('asuna_core') then
+if core.get_modpath('asuna_core') then
     for name,def in pairs(asuna.biomes) do
         if def.nodes[1] ~= 'default:stone' then
             table.insert(all_biomes_mese_tree_place_on,def.nodes[1])
@@ -128,7 +128,7 @@ if minetest.get_modpath('asuna_core') then
     end
 end
 
-minetest.register_decoration({
+Everness:register_decoration({
     name = 'everness:all_biomes_mese_tree_2',
     deco_type = 'schematic',
     place_on = all_biomes_mese_tree_place_on,
@@ -144,7 +144,7 @@ minetest.register_decoration({
     },
     y_max = 31000,
     y_min = 80,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random'
 })

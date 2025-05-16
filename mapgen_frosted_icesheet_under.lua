@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -220,7 +220,7 @@ Everness:register_decoration({
     biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max - 64,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_ceiling.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_ceiling.mts',
     flags = 'place_center_x, place_center_z, all_ceilings',
     rotation = 'random',
 })
@@ -247,7 +247,7 @@ Everness:register_decoration({
     biomes = asuna.features.cave.frosted_icesheet,
     y_max = y_max - 64,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_floor.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_frosted_icicle_large_floor.mts',
     flags = 'place_center_x, place_center_z, all_floors',
     rotation = 'random',
 })
@@ -320,15 +320,15 @@ local size_floor = { x = 2, y = 20, z = 2 }
 local size_floor_x = math.round(size_floor.x / 2)
 local size_floor_z = math.round(size_floor.z / 2)
 
-local deco_id_frosted_icicle_large_ceiling = minetest.get_decoration_id('everness:frosted_icicle_large_ceiling')
-local deco_id_frosted_icicle_large_floor = minetest.get_decoration_id('everness:frosted_icicle_large_floor')
+local deco_id_frosted_icicle_large_ceiling = core.get_decoration_id('everness:frosted_icicle_large_ceiling')
+local deco_id_frosted_icicle_large_floor = core.get_decoration_id('everness:frosted_icicle_large_floor')
 
 local biome_id_everness_frosted_icesheet_under = {}
 for _,biome in ipairs(asuna.features.cave.frosted_icesheet) do
-    table.insert(biome_id_everness_frosted_icesheet_under,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_frosted_icesheet_under,core.get_biome_id(biome))
 end
 
-minetest.set_gen_notify(
+core.set_gen_notify(
     { decoration = true },
     {
         deco_id_frosted_icicle_large_ceiling,
@@ -351,7 +351,7 @@ Everness:add_to_queue_on_generated({
         -- Frosted Large Icicle Ceiling
         --
         for _, pos in ipairs(gennotify['decoration#' ..  deco_id_frosted_icicle_large_ceiling] or {}) do
-            local markers = minetest.find_nodes_in_area(
+            local markers = core.find_nodes_in_area(
                 vector.new(pos.x - size_ceiling_x, pos.y - size_ceiling.y + 2, pos.z - size_ceiling_z),
                 vector.new(pos.x + size_ceiling_x, pos.y - size_ceiling.y, pos.z + size_ceiling_z),
                 { 'everness:marker' }
@@ -359,19 +359,19 @@ Everness:add_to_queue_on_generated({
 
             if #markers > 0 then
                 local pos_marker = markers[1]
-                local air_below = minetest.find_nodes_in_area(
+                local air_below = core.find_nodes_in_area(
                     vector.new(pos_marker.x, pos_marker.y, pos_marker.z),
                     vector.new(pos_marker.x, pos_marker.y - 7, pos_marker.z),
                     {'air'}
                 )
 
                 -- Replace marker
-                minetest.set_node(pos_marker, { name = 'everness:frosted_cave_ice_illuminating' })
+                core.set_node(pos_marker, { name = 'everness:frosted_cave_ice_illuminating' })
 
                 if #air_below == 7 then
                     local incrementer = 1
                     local pos_below = vector.new(pos_marker.x, pos_marker.y - incrementer, pos_marker.z)
-                    local node_below = minetest.get_node(pos_below)
+                    local node_below = core.get_node(pos_below)
 
                     Everness.stack_icicle_recursive(node_below, pos_below, incrementer, pos_marker, 'down')
                 end
@@ -382,7 +382,7 @@ Everness:add_to_queue_on_generated({
         -- Frosted Large Icicle Floor
         --
         for _, pos in ipairs(gennotify['decoration#' .. deco_id_frosted_icicle_large_floor] or {}) do
-            local markers = minetest.find_nodes_in_area(
+            local markers = core.find_nodes_in_area(
                 vector.new(pos.x - size_floor_x, pos.y + size_floor.y - 2, pos.z - size_floor_z),
                 vector.new(pos.x + size_floor_x, pos.y + size_floor.y, pos.z + size_floor_z),
                 { 'everness:marker' }
@@ -390,20 +390,20 @@ Everness:add_to_queue_on_generated({
 
             if #markers > 0 then
                 local pos_marker = markers[1]
-                local air_above = minetest.find_nodes_in_area(
+                local air_above = core.find_nodes_in_area(
                     vector.new(pos_marker.x, pos_marker.y, pos_marker.z),
                     vector.new(pos_marker.x, pos_marker.y + 7, pos_marker.z),
                     {'air'}
                 )
 
                 -- Replace marker
-                minetest.set_node(pos_marker, { name = 'everness:frosted_cave_ice_illuminating' })
+                core.set_node(pos_marker, { name = 'everness:frosted_cave_ice_illuminating' })
 
                 -- Make sure we have some space
                 if #air_above == 7 then
                     local incrementer = 1
                     local pos_above = vector.new(pos_marker.x, pos_marker.y + incrementer, pos_marker.z)
-                    local node_above = minetest.get_node(pos_above)
+                    local node_above = core.get_node(pos_above)
 
                     Everness.stack_icicle_recursive(node_above, pos_above, incrementer, pos_marker, 'up')
                 end

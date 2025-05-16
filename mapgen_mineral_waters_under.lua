@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -43,11 +43,11 @@ Everness:register_biome({
 -- Ores
 --
 
-minetest.register_on_mods_loaded(function()
-    local c_mapgen_stone = minetest.get_content_id('mapgen_stone')
-    local mapgen_stone_itemstring = minetest.get_name_from_content_id(c_mapgen_stone)
+core.register_on_mods_loaded(function()
+    local c_mapgen_stone = core.get_content_id('mapgen_stone')
+    local mapgen_stone_itemstring = core.get_name_from_content_id(c_mapgen_stone)
 
-    for name, def in pairs(minetest.registered_ores) do
+    for name, def in pairs(core.registered_ores) do
         local wherein = def.wherein
         local biomes = def.biomes
 
@@ -230,62 +230,66 @@ Everness:register_decoration({
 --
 
 -- Get the content IDs for the nodes used
-local c_everness_wall_vine_cave_cyan = minetest.get_content_id('everness:wall_vine_cave_cyan')
-local c_everness_wall_vine_cave_violet = minetest.get_content_id('everness:wall_vine_cave_violet')
-local c_everness_wall_vine_cave_blue = minetest.get_content_id('everness:wall_vine_cave_blue')
-local c_everness_mineral_lava_stone = minetest.get_content_id('everness:mineral_lava_stone')
-local c_everness_mineral_cave_stone = minetest.get_content_id('everness:mineral_cave_stone')
-local c_everness_mineral_cave_cobblestone = minetest.get_content_id('everness:mineral_cave_cobblestone')
-local c_everness_lava_source = minetest.get_content_id('everness:lava_source')
-local c_everness_marker = minetest.get_content_id('everness:marker')
-local c_everness_volcanic_rock = minetest.get_content_id('everness:volcanic_rock')
-local c_everness_volcanic_spike_1 = minetest.get_content_id('everness:volcanic_spike_1')
-local c_everness_volcanic_spike_2 = minetest.get_content_id('everness:volcanic_spike_2')
-local c_everness_volcanic_spike_3 = minetest.get_content_id('everness:volcanic_spike_3')
-local c_everness_volcanic_spike_4 = minetest.get_content_id('everness:volcanic_spike_4')
-local c_everness_volcanic_spike_5 = minetest.get_content_id('everness:volcanic_spike_5')
-local c_everness_volcanic_spike_6 = minetest.get_content_id('everness:volcanic_spike_6')
-local c_everness_volcanic_spike_7 = minetest.get_content_id('everness:volcanic_spike_7')
-local c_everness_mineral_cave_stone_spike_1 = minetest.get_content_id('everness:mineral_cave_stone_spike_1')
-local c_everness_mineral_cave_stone_spike_2 = minetest.get_content_id('everness:mineral_cave_stone_spike_2')
-local c_everness_mineral_cave_stone_spike_3 = minetest.get_content_id('everness:mineral_cave_stone_spike_3')
-local c_everness_mineral_cave_stone_spike_4 = minetest.get_content_id('everness:mineral_cave_stone_spike_4')
-local c_everness_mineral_cave_stone_spike_5 = minetest.get_content_id('everness:mineral_cave_stone_spike_5')
-local c_everness_mineral_cave_stone_spike_6 = minetest.get_content_id('everness:mineral_cave_stone_spike_6')
-local c_everness_mineral_cave_stone_spike_7 = minetest.get_content_id('everness:mineral_cave_stone_spike_7')
-local c_everness_mineral_lava_stone_spike_1 = minetest.get_content_id('everness:mineral_lava_stone_spike_1')
-local c_everness_mineral_lava_stone_spike_2 = minetest.get_content_id('everness:mineral_lava_stone_spike_2')
-local c_everness_mineral_lava_stone_spike_3 = minetest.get_content_id('everness:mineral_lava_stone_spike_3')
-local c_everness_mineral_lava_stone_spike_4 = minetest.get_content_id('everness:mineral_lava_stone_spike_4')
-local c_everness_mineral_lava_stone_spike_5 = minetest.get_content_id('everness:mineral_lava_stone_spike_5')
-local c_everness_mineral_lava_stone_spike_6 = minetest.get_content_id('everness:mineral_lava_stone_spike_6')
-local c_everness_mineral_lava_stone_spike_7 = minetest.get_content_id('everness:mineral_lava_stone_spike_7')
-local c_everness_mineral_lava_stone_with_moss = minetest.get_content_id('everness:mineral_lava_stone_with_moss')
+local c_everness_wall_vine_cave_cyan = core.get_content_id('everness:wall_vine_cave_cyan')
+local c_everness_wall_vine_cave_violet = core.get_content_id('everness:wall_vine_cave_violet')
+local c_everness_wall_vine_cave_blue = core.get_content_id('everness:wall_vine_cave_blue')
+local c_everness_mineral_lava_stone = core.get_content_id('everness:mineral_lava_stone')
+local c_everness_mineral_cave_stone = core.get_content_id('everness:mineral_cave_stone')
+local c_everness_mineral_cave_cobblestone = core.get_content_id('everness:mineral_cave_cobblestone')
+local c_everness_lava_source = core.get_content_id('everness:lava_source')
+local c_everness_marker = core.get_content_id('everness:marker')
+local c_everness_volcanic_rock = core.get_content_id('everness:volcanic_rock')
+local c_everness_volcanic_spike_1 = core.get_content_id('everness:volcanic_spike_1')
+local c_everness_volcanic_spike_2 = core.get_content_id('everness:volcanic_spike_2')
+local c_everness_volcanic_spike_3 = core.get_content_id('everness:volcanic_spike_3')
+local c_everness_volcanic_spike_4 = core.get_content_id('everness:volcanic_spike_4')
+local c_everness_volcanic_spike_5 = core.get_content_id('everness:volcanic_spike_5')
+local c_everness_volcanic_spike_6 = core.get_content_id('everness:volcanic_spike_6')
+local c_everness_volcanic_spike_7 = core.get_content_id('everness:volcanic_spike_7')
+local c_everness_mineral_cave_stone_spike_1 = core.get_content_id('everness:mineral_cave_stone_spike_1')
+local c_everness_mineral_cave_stone_spike_2 = core.get_content_id('everness:mineral_cave_stone_spike_2')
+local c_everness_mineral_cave_stone_spike_3 = core.get_content_id('everness:mineral_cave_stone_spike_3')
+local c_everness_mineral_cave_stone_spike_4 = core.get_content_id('everness:mineral_cave_stone_spike_4')
+local c_everness_mineral_cave_stone_spike_5 = core.get_content_id('everness:mineral_cave_stone_spike_5')
+local c_everness_mineral_cave_stone_spike_6 = core.get_content_id('everness:mineral_cave_stone_spike_6')
+local c_everness_mineral_cave_stone_spike_7 = core.get_content_id('everness:mineral_cave_stone_spike_7')
+local c_everness_mineral_lava_stone_spike_1 = core.get_content_id('everness:mineral_lava_stone_spike_1')
+local c_everness_mineral_lava_stone_spike_2 = core.get_content_id('everness:mineral_lava_stone_spike_2')
+local c_everness_mineral_lava_stone_spike_3 = core.get_content_id('everness:mineral_lava_stone_spike_3')
+local c_everness_mineral_lava_stone_spike_4 = core.get_content_id('everness:mineral_lava_stone_spike_4')
+local c_everness_mineral_lava_stone_spike_5 = core.get_content_id('everness:mineral_lava_stone_spike_5')
+local c_everness_mineral_lava_stone_spike_6 = core.get_content_id('everness:mineral_lava_stone_spike_6')
+local c_everness_mineral_lava_stone_spike_7 = core.get_content_id('everness:mineral_lava_stone_spike_7')
+local c_everness_mineral_lava_stone_with_moss = core.get_content_id('everness:mineral_lava_stone_with_moss')
 -- Biome IDs
+<<<<<<< HEAD
 local biome_id_everness_mineral_waters_under = {}
 for _,biome in ipairs(asuna.features.cave.mineral_waters) do
     table.insert(biome_id_everness_mineral_waters_under,minetest.get_biome_id(biome))
 end
+=======
+local biome_id_everness_mineral_waters_under = core.get_biome_id('everness:mineral_waters_under')
+>>>>>>> master
 -- Decoration IDs
-local d_everness_mineral_waters_under_volcanic_spike = minetest.get_decoration_id('everness:mineral_waters_under_volcanic_spike')
-local d_everness_mineral_waters_under_volcanic_spike_ceiling = minetest.get_decoration_id('everness:mineral_waters_under_volcanic_spike_ceiling')
-local d_everness_mineral_waters_under_lava_stone_spike = minetest.get_decoration_id('everness:mineral_waters_under_lava_stone_spike')
-local d_everness_mineral_waters_under_lava_tree = minetest.get_decoration_id('everness:mineral_waters_under_lava_tree')
+local d_everness_mineral_waters_under_volcanic_spike = core.get_decoration_id('everness:mineral_waters_under_volcanic_spike')
+local d_everness_mineral_waters_under_volcanic_spike_ceiling = core.get_decoration_id('everness:mineral_waters_under_volcanic_spike_ceiling')
+local d_everness_mineral_waters_under_lava_stone_spike = core.get_decoration_id('everness:mineral_waters_under_lava_stone_spike')
+local d_everness_mineral_waters_under_lava_tree = core.get_decoration_id('everness:mineral_waters_under_lava_tree')
 
-local volcanic_spike_place_on = minetest.registered_decorations['everness:mineral_waters_under_volcanic_spike'].place_on
+local volcanic_spike_place_on = core.registered_decorations['everness:mineral_waters_under_volcanic_spike'].place_on
 volcanic_spike_place_on = type(volcanic_spike_place_on) == 'string' and { volcanic_spike_place_on } or volcanic_spike_place_on
 
-local volcanic_spike_ceiling_place_on = minetest.registered_decorations['everness:mineral_waters_under_volcanic_spike_ceiling'].place_on
+local volcanic_spike_ceiling_place_on = core.registered_decorations['everness:mineral_waters_under_volcanic_spike_ceiling'].place_on
 volcanic_spike_ceiling_place_on = type(volcanic_spike_ceiling_place_on) == 'string' and { volcanic_spike_ceiling_place_on } or volcanic_spike_ceiling_place_on
 
-local lava_stone_spike_place_on = minetest.registered_decorations['everness:mineral_waters_under_lava_stone_spike'].place_on
+local lava_stone_spike_place_on = core.registered_decorations['everness:mineral_waters_under_lava_stone_spike'].place_on
 lava_stone_spike_place_on = type(lava_stone_spike_place_on) == 'string' and { lava_stone_spike_place_on } or lava_stone_spike_place_on
 
-local lava_tree_place_on = minetest.registered_decorations['everness:mineral_waters_under_lava_tree'].place_on
+local lava_tree_place_on = core.registered_decorations['everness:mineral_waters_under_lava_tree'].place_on
 lava_tree_place_on = type(lava_tree_place_on) == 'string' and { lava_tree_place_on } or lava_tree_place_on
 
--- `minetest.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
-local schem_everness_lava_tree = minetest.read_schematic(minetest.get_modpath('everness') .. '/schematics/everness_lava_tree.mts', {})
+-- `core.read_schematic` here so we don't cache the schem file, otherwise `replacements` will not work
+local schem_everness_lava_tree = core.read_schematic(core.get_modpath('everness') .. '/schematics/everness_lava_tree.mts', {})
 local lava_tree_size = { x = 7, y = 13, z = 7 }
 local lava_tree_size_x = math.round(lava_tree_size.x / 2)
 local lava_tree_size_z = math.round(lava_tree_size.z / 2)
@@ -330,7 +334,7 @@ local lava_stone_spike_map = {
     c_everness_mineral_lava_stone_spike_7
 }
 
-minetest.set_gen_notify({ decoration = true }, {
+core.set_gen_notify({ decoration = true }, {
     d_everness_mineral_waters_under_volcanic_spike,
     d_everness_mineral_waters_under_lava_stone_spike,
     d_everness_mineral_waters_under_volcanic_spike_ceiling,
@@ -454,7 +458,7 @@ Everness:add_to_queue_on_generated({
 
                         if
                             data[ai] == c_everness_mineral_lava_stone
-                            and data[ai + area.ystride] == minetest.CONTENT_AIR
+                            and data[ai + area.ystride] == core.CONTENT_AIR
                             and rand:next(0, 100) <= 10
                         then
                             local radius = 7
@@ -495,7 +499,7 @@ Everness:add_to_queue_on_generated({
                     local vi = area:index(x, y, z)
 
                     if
-                        data[vi] == minetest.CONTENT_AIR
+                        data[vi] == core.CONTENT_AIR
                         and (
                             data[vi + 1] == c_everness_mineral_cave_stone
                             or data[vi - 1] == c_everness_mineral_cave_stone
@@ -525,7 +529,7 @@ Everness:add_to_queue_on_generated({
 
                         local rand_wall_vine = wall_vines[rand:next(1, #wall_vines)]
                         data[vi] = rand_wall_vine
-                        p2data[vi] = minetest.dir_to_wallmounted(dir)
+                        p2data[vi] = core.dir_to_wallmounted(dir)
                     end
                 end
             end
@@ -537,11 +541,11 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_mineral_waters_under_volcanic_spike or '')] or {}) do
             local idx = area:indexp(pos)
             local idx_marker = idx + area.ystride
-            local place_on_node_name = minetest.get_name_from_content_id(data[idx])
+            local place_on_node_name = core.get_name_from_content_id(data[idx])
 
             if data[idx_marker] == c_everness_marker then
                 -- remove marker
-                data[idx_marker] = minetest.CONTENT_AIR
+                data[idx_marker] = core.CONTENT_AIR
 
                 if table.indexof(volcanic_spike_place_on, place_on_node_name) ~= -1 then
                     local min_height = 3
@@ -550,7 +554,7 @@ Everness:add_to_queue_on_generated({
                         vector.new(pos.x, pos.y + 1, pos.z),
                         vector.new(pos.x, pos.y + max_height, pos.z),
                         {
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
@@ -574,11 +578,11 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_mineral_waters_under_lava_stone_spike or '')] or {}) do
             local idx = area:indexp(pos)
             local idx_marker = idx + area.ystride
-            local place_on_node_name = minetest.get_name_from_content_id(data[idx])
+            local place_on_node_name = core.get_name_from_content_id(data[idx])
 
             if data[idx_marker] == c_everness_marker then
                 -- remove marker
-                data[idx_marker] = minetest.CONTENT_AIR
+                data[idx_marker] = core.CONTENT_AIR
 
                 if table.indexof(lava_stone_spike_place_on, place_on_node_name) ~= -1 then
                     local min_height = 3
@@ -587,7 +591,7 @@ Everness:add_to_queue_on_generated({
                         vector.new(pos.x, pos.y + 1, pos.z),
                         vector.new(pos.x, pos.y + max_height, pos.z),
                         {
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
@@ -614,12 +618,12 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_mineral_waters_under_volcanic_spike_ceiling or '')] or {}) do
             local idx = area:indexp(pos)
             local idx_marker = idx - area.ystride
-            local place_on_node_name = minetest.get_name_from_content_id(data[idx])
+            local place_on_node_name = core.get_name_from_content_id(data[idx])
 
             if data[idx_marker] == c_everness_marker then
                 -- remove marker
-                data[idx_marker] = minetest.CONTENT_AIR
-                -- data[idx_marker] = minetest.get_content_id('everness:pyrite_lantern')
+                data[idx_marker] = core.CONTENT_AIR
+                -- data[idx_marker] = core.get_content_id('everness:pyrite_lantern')
 
                 if table.indexof(volcanic_spike_ceiling_place_on, place_on_node_name) ~= -1 then
                     local min_height = 3
@@ -628,7 +632,7 @@ Everness:add_to_queue_on_generated({
                         vector.new(pos.x, pos.y - max_height, pos.z),
                         vector.new(pos.x, pos.y - 1, pos.z),
                         {
-                            minetest.CONTENT_AIR
+                            core.CONTENT_AIR
                         },
                         data,
                         area
@@ -673,18 +677,18 @@ Everness:add_to_queue_on_generated({
         for _, pos in ipairs(gennotify['decoration#' .. (d_everness_mineral_waters_under_lava_tree or '')] or {}) do
             -- `pos` is position of the 'place_on' node
             local marker_pos = vector.new(pos.x, pos.y + 1, pos.z)
-            local marker_node = minetest.get_node(marker_pos)
-            local place_on_node = minetest.get_node(pos)
+            local marker_node = core.get_node(marker_pos)
+            local place_on_node = core.get_node(pos)
 
             if marker_node and marker_node.name == 'everness:marker' then
                 -- remove marker
-                minetest.remove_node(marker_pos)
+                core.remove_node(marker_pos)
 
                 if shared_args.rand_version > 2
                     and table.indexof(lava_tree_place_on, place_on_node.name) ~= -1
                 then
                     -- enough air to place structure ?
-                    local positions = minetest.find_nodes_in_area(
+                    local positions = core.find_nodes_in_area(
                         vector.new(
                             pos.x - lava_tree_size_x,
                             pos.y,
@@ -724,7 +728,7 @@ Everness:add_to_queue_on_generated({
                         shared_args.lava_tree_positions = shared_args.lava_tree_positions or {}
                         table.insert(shared_args.lava_tree_positions, marker_pos)
 
-                        minetest.place_schematic_on_vmanip(
+                        core.place_schematic_on_vmanip(
                             vm,
                             marker_pos,
                             schem_everness_lava_tree,
@@ -741,12 +745,12 @@ Everness:add_to_queue_on_generated({
     -- Cannot read/write voxelmanip or its data
     -- Used for direct manipulation of the world chunk nodes where the
     -- definitions of nodes are available and node callback can be executed
-    -- or e.g. for `minetest.fix_light`
+    -- or e.g. for `core.fix_light`
     after_write_to_map = function(shared_args, gennotify, rand)
         local lava_tree_positions = shared_args.lava_tree_positions or {}
 
         for _, p in ipairs(lava_tree_positions) do
-            local grass_positions = minetest.find_nodes_in_area_under_air(
+            local grass_positions = core.find_nodes_in_area_under_air(
                 vector.subtract(p, { x = 3, y = 1, z = 3 }),
                 vector.add(p, { x = 3, y = 1, z = 3 }),
                 'everness:mineral_lava_stone_with_moss'
@@ -757,7 +761,7 @@ Everness:add_to_queue_on_generated({
                     local rand_p = grass_positions[rand:next(1, #grass_positions)]
 
                     if not vector.equals(p, rand_p) then
-                        minetest.set_node(vector.new(rand_p.x, rand_p.y + 1, rand_p.z), { name = 'everness:mineral_cave_moss_grass' })
+                        core.set_node(vector.new(rand_p.x, rand_p.y + 1, rand_p.z), { name = 'everness:mineral_cave_moss_grass' })
                     end
                 end
             end

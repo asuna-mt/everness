@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -179,7 +179,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max,
     y_min = y_max - (y_max + 1),
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_dry_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random',
 })

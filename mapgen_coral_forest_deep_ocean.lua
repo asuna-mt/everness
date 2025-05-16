@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -90,7 +90,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_pink.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_pink.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -112,7 +112,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_cyan.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_cyan.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -134,7 +134,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_green.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_green.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -156,7 +156,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_red.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_reef_red.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -171,7 +171,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_pink.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_pink.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -186,7 +186,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_cyan.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_cyan.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -201,7 +201,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_green.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_green.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -216,7 +216,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.coral_forest,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_red.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_coral_red.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -309,23 +309,23 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local c_water_source = minetest.get_content_id('mapgen_water_source')
-local c_everness_coral_forest_deep_ocean_sand = minetest.get_content_id('everness:coral_forest_deep_ocean_sand')
-local c_everness_coral_forest_deep_ocean_coral_plant_1 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_plant_1')
-local c_everness_coral_forest_deep_ocean_coral_plant_2 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_plant_2')
-local c_everness_coral_forest_deep_ocean_coral_plant_3 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_plant_3')
-local c_everness_coral_forest_deep_ocean_coral_1 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_1')
-local c_everness_coral_forest_deep_ocean_coral_2 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_2')
-local c_everness_coral_forest_deep_ocean_coral_3 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_3')
-local c_everness_coral_forest_deep_ocean_coral_4 = minetest.get_content_id('everness:coral_forest_deep_ocean_coral_4')
+local c_water_source = core.get_content_id('mapgen_water_source')
+local c_everness_coral_forest_deep_ocean_sand = core.get_content_id('everness:coral_forest_deep_ocean_sand')
+local c_everness_coral_forest_deep_ocean_coral_plant_1 = core.get_content_id('everness:coral_forest_deep_ocean_coral_plant_1')
+local c_everness_coral_forest_deep_ocean_coral_plant_2 = core.get_content_id('everness:coral_forest_deep_ocean_coral_plant_2')
+local c_everness_coral_forest_deep_ocean_coral_plant_3 = core.get_content_id('everness:coral_forest_deep_ocean_coral_plant_3')
+local c_everness_coral_forest_deep_ocean_coral_1 = core.get_content_id('everness:coral_forest_deep_ocean_coral_1')
+local c_everness_coral_forest_deep_ocean_coral_2 = core.get_content_id('everness:coral_forest_deep_ocean_coral_2')
+local c_everness_coral_forest_deep_ocean_coral_3 = core.get_content_id('everness:coral_forest_deep_ocean_coral_3')
+local c_everness_coral_forest_deep_ocean_coral_4 = core.get_content_id('everness:coral_forest_deep_ocean_coral_4')
 -- Biome IDs
 local biome_id_everness_coral_forest_deep_ocean = {}
 for _,biome in ipairs(asuna.features.ocean.coral_forest) do
-    table.insert(biome_id_everness_coral_forest_deep_ocean,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_coral_forest_deep_ocean,core.get_biome_id(biome))
 end
 
 local chance = 30
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_house.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_coral_forest_deep_ocean_house.mts'
 local size = { x = 11, y = 17, z = 12 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
@@ -405,7 +405,7 @@ Everness:add_to_queue_on_generated({
                             )
 
                             if #water_indexes > (size.x * size.y * size.z) / 2 then
-                                minetest.place_schematic_on_vmanip(
+                                core.place_schematic_on_vmanip(
                                     vm,
                                     schem_pos,
                                     schem,
@@ -425,7 +425,7 @@ Everness:add_to_queue_on_generated({
                                     maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                                 })
 
-                                minetest.log('action', '[Everness] Coral Forest Deep Ocean House was placed at ' .. schem_pos:to_string())
+                                core.log('action', '[Everness] Coral Forest Deep Ocean House was placed at ' .. schem_pos:to_string())
 
                                 break
                             end
@@ -441,7 +441,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

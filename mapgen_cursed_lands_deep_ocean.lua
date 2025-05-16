@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -56,7 +56,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_alcyonacea.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_alcyonacea.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -71,7 +71,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_ostracod.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_ostracod.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -86,7 +86,7 @@ Everness:register_decoration({
     biomes = asuna.features.ocean.cursed_lands,
     y_max = y_max,
     y_min = y_min,
-    schematic = minetest.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_octocurse.mts',
+    schematic = core.get_modpath('everness') .. '/schematics/everness_forsaken_lands_deep_ocean_coral_octocurse.mts',
     flags = 'place_center_x, place_center_z, force_placement',
 })
 
@@ -179,22 +179,22 @@ Everness:register_decoration({
 -- On Generated
 --
 
-local c_water_source = minetest.get_content_id('mapgen_water_source')
-local c_everness_cursed_lands_deep_ocean_sand = minetest.get_content_id('everness:cursed_lands_deep_ocean_sand')
-local c_everness_cursed_lands_deep_ocean_coral_plant_anemone = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_anemone')
-local c_everness_cursed_lands_deep_ocean_coral_plant_darkilluma = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_darkilluma')
-local c_everness_cursed_lands_deep_ocean_coral_plant_demon = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_demon')
-local c_everness_cursed_lands_deep_ocean_coral_alcyonacea = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_alcyonacea')
-local c_everness_cursed_lands_deep_ocean_coral_ostracod = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_ostracod')
-local c_everness_cursed_lands_deep_ocean_coral_octocurse = minetest.get_content_id('everness:cursed_lands_deep_ocean_coral_octocurse')
+local c_water_source = core.get_content_id('mapgen_water_source')
+local c_everness_cursed_lands_deep_ocean_sand = core.get_content_id('everness:cursed_lands_deep_ocean_sand')
+local c_everness_cursed_lands_deep_ocean_coral_plant_anemone = core.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_anemone')
+local c_everness_cursed_lands_deep_ocean_coral_plant_darkilluma = core.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_darkilluma')
+local c_everness_cursed_lands_deep_ocean_coral_plant_demon = core.get_content_id('everness:cursed_lands_deep_ocean_coral_plant_demon')
+local c_everness_cursed_lands_deep_ocean_coral_alcyonacea = core.get_content_id('everness:cursed_lands_deep_ocean_coral_alcyonacea')
+local c_everness_cursed_lands_deep_ocean_coral_ostracod = core.get_content_id('everness:cursed_lands_deep_ocean_coral_ostracod')
+local c_everness_cursed_lands_deep_ocean_coral_octocurse = core.get_content_id('everness:cursed_lands_deep_ocean_coral_octocurse')
 -- Biome IDs
 local biome_id_everness_cursed_lands_deep_ocean = {}
 for _,biome in ipairs(asuna.features.ocean.cursed_lands) do
-    table.insert(biome_id_everness_cursed_lands_deep_ocean,minetest.get_biome_id(biome))
+    table.insert(biome_id_everness_cursed_lands_deep_ocean,core.get_biome_id(biome))
 end
 
 local chance = 30
-local schem = minetest.get_modpath('everness') .. '/schematics/everness_cursed_lands_deep_ocean_skull.mts'
+local schem = core.get_modpath('everness') .. '/schematics/everness_cursed_lands_deep_ocean_skull.mts'
 local size = { x = 10, y = 11, z = 11 }
 local size_x = math.round(size.x / 2)
 local size_z = math.round(size.z / 2)
@@ -273,7 +273,7 @@ Everness:add_to_queue_on_generated({
                             )
 
                             if #water_indexes > (size.x * size.y * size.z) / 2 then
-                                minetest.place_schematic_on_vmanip(
+                                core.place_schematic_on_vmanip(
                                     vm,
                                     schem_pos,
                                     schem,
@@ -293,7 +293,7 @@ Everness:add_to_queue_on_generated({
                                     maxp = vector.new(s_pos.x + size_x, s_pos.y + size.y, s_pos.z + size_z)
                                 })
 
-                                minetest.log('action', '[Everness] Cursed Lands Deep Ocean Skull was placed at ' .. schem_pos:to_string())
+                                core.log('action', '[Everness] Cursed Lands Deep Ocean Skull was placed at ' .. schem_pos:to_string())
 
                                 break
                             end
@@ -309,7 +309,7 @@ Everness:add_to_queue_on_generated({
         for name, tbl in pairs(schem_positions) do
             if next(tbl) then
                 for i, v in ipairs(tbl) do
-                    local chest_positions = minetest.find_nodes_in_area(
+                    local chest_positions = core.find_nodes_in_area(
                         v.minp,
                         v.maxp,
                         { 'everness:chest' }

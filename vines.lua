@@ -1,6 +1,6 @@
 --[[
     Everness. Never ending discovery in Everness mapgen.
-    Copyright (C) 2024 SaKeL
+    Copyright (C) 2025 SaKeL
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -14,7 +14,7 @@
 
 --]]
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = core.get_translator(core.get_current_modname())
 
 local function register_vine(name, def, overrides)
     local _overrides = overrides and table.copy(overrides) or {}
@@ -74,10 +74,10 @@ local function register_vine(name, def, overrides)
     _def.waving = 1
     _def.on_destruct = function(pos)
         local pos_below = vector.new(pos.x, pos.y - 1, pos.z)
-        local node_below = minetest.get_node(pos_below)
+        local node_below = core.get_node(pos_below)
 
-        if minetest.get_item_group(node_below.name, 'vine') > 0 then
-            minetest.remove_node(pos_below)
+        if core.get_item_group(node_below.name, 'vine') > 0 then
+            core.remove_node(pos_below)
         end
     end
     _def.after_dig_node = function(pos, oldnode, oldmetadata, digger)
@@ -169,8 +169,8 @@ register_vine('vine_cave', {
     description = S('Cave Vine')
 })
 
-minetest.register_alias('everness:vine_cave', 'everness:vine_cave_1')
-minetest.register_alias('everness:vine_cave_with_mese_leaves', 'everness:vine_cave_2')
+core.register_alias('everness:vine_cave', 'everness:vine_cave_1')
+core.register_alias('everness:vine_cave_with_mese_leaves', 'everness:vine_cave_2')
 
 -- Whispering Gourd Vine
 
