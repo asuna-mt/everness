@@ -142,8 +142,21 @@ Everness:register_decoration({
         persist = 0.675,
         lacunarity = 1.36,
     },
-    y_max = 31000,
+    y_max = asuna.content.stratosphere.floatlands and 249 or 900,
     y_min = 80,
+    schematic = core.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
+    flags = 'place_center_x, place_center_z',
+    rotation = 'random'
+})
+
+Everness:register_decoration({
+    name = 'everness:all_biomes_mese_tree_floatlands',
+    deco_type = 'schematic',
+    place_on = all_biomes_mese_tree_place_on,
+    sidelen = 80,
+    fill_ratio = 0.0000125,
+    y_max = 31000,
+    y_min = asuna.content.stratosphere.floatlands and 250 or 901,
     schematic = core.get_modpath('everness') .. '/schematics/everness_mese_tree.mts',
     flags = 'place_center_x, place_center_z',
     rotation = 'random'
